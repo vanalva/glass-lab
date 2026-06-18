@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="es" style="background-color:#0B0B0B">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vidrio | The Glass Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/project.css">
+
+</head>
+<body class="u-theme-dark">
+
+  <!-- ============================================================ -->
+  <!-- NAVBAR                                                        -->
+  <!-- ============================================================ -->
+  <nav class="gl-home_nav-edge">
+    <div class="gl-home_nav">
+      <a href="gl-index.html" class="gl-home_nav_logo">
+        <img src="../assets/logos/gl-logotipo-h-white.svg" alt="The Glass Lab" class="gl-home_nav_logo-img">
+      </a>
+      <div class="gl-home_nav_links">
+        <a href="gl-index.html" class="gl-home_nav_link">Inicio</a>
+        <a href="gl-catalogo.html" class="gl-home_nav_link">Catálogo</a>
+        <a href="gl-visor.html" class="gl-home_nav_link">Visor</a>
+        <a href="gl-proyectos.html" class="gl-home_nav_link">Proyectos</a>
+        <a href="gl-laboratorio.html" class="gl-home_nav_link">Laboratorio</a>
+        <a href="gl-blog.html" class="gl-home_nav_link">Bitácora</a>
+        <a href="gl-contacto.html" class="gl-home_nav_link">Contacto</a>
+      </div>
+      <div class="gl-home_nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="gl-home_nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- 01 // GLASS HERO — IMAGE LEFT, SYMBOL + SPECS RIGHT           -->
+    <!-- ============================================================ -->
+    <section class="gl-hero-cap gl-vidrio_hero u-h-hero gl-section-border">
+      <div class="gl-vidrio_hero_visual">
+        <div class="gl-vidrio_hero_slider" data-bind="heroSlider" tabindex="0" aria-roledescription="carousel" aria-label="Vistas del vidrio">
+          <!-- slides injected by page-vidrio.js -->
+        </div>
+        <div class="gl-vidrio_hero_controls" data-hero-controls hidden>
+          <button class="gl-vidrio_hero_arrow gl-vidrio_hero_arrow--prev" data-hero-arrow="prev" type="button" aria-label="Vista anterior">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="gl-vidrio_hero_dots" data-bind="heroDots" role="tablist" aria-label="Selector de vistas"></div>
+          <button class="gl-vidrio_hero_arrow gl-vidrio_hero_arrow--next" data-hero-arrow="next" type="button" aria-label="Vista siguiente">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="gl-mono gl-mono_muted gl-vidrio_hero_counter" data-bind="heroCounter">01 / 01</span>
+        </div>
+      </div>
+      <div class="gl-vidrio_hero_info">
+        <a href="gl-catalogo.html" class="gl-vidrio_back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Catálogo
+        </a>
+        <div>
+          <span class="gl-mono gl-mono_muted" data-bind="slotCategory">...</span>
+          <div class="gl-hero-symbol" data-bind="symbol">—</div>
+          <h1 class="gl-vidrio_hero_name" data-bind="name">Cargando…</h1>
+        </div>
+        <div class="gl-vidrio_hero_tags" data-bind="tags"></div>
+        <div class="gl-vidrio_hero_specs">
+          <div class="gl-spec-row" data-spec="categoria">
+            <span class="gl-mono gl-mono_muted">Categoría</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="gl-spec-row" data-spec="subcategoria">
+            <span class="gl-mono gl-mono_muted">Subcategoría</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="gl-spec-row" data-spec="espesor">
+            <span class="gl-mono gl-mono_muted">Espesor</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="gl-spec-row" data-spec="dimensiones">
+            <span class="gl-mono gl-mono_muted">Dimensiones max</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="gl-spec-row" data-spec="transparencia">
+            <span class="gl-mono gl-mono_muted">Transparencia</span>
+            <span class="gl-mono">—</span>
+          </div>
+        </div>
+        <div class="gl-vidrio_hero_actions">
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="gl-contacto.html" class="gl-btn_skew_element">
+              <span class="gl-btn_skew_text">Solicitar muestra &gt;&gt;&gt;</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element">
+              <span class="gl-btn_skew_text">Ficha técnica</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 02 // PROPERTIES GRID                                         -->
+    <!-- ============================================================ -->
+    <section class="gl-vidrio_props gl-section-border">
+      <span class="gl-section-number">02 // Propiedades</span>
+      <div class="gl-vidrio_props_grid u-gap-collapse u-radius-inner-3">
+        <div class="gl-vidrio_prop-card" data-prop="color">
+          <span class="gl-mono gl-mono_label">Color</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+        <div class="gl-vidrio_prop-card" data-prop="textura">
+          <span class="gl-mono gl-mono_label">Textura</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+        <div class="gl-vidrio_prop-card" data-prop="espesor">
+          <span class="gl-mono gl-mono_label">Espesor disponible</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+        <div class="gl-vidrio_prop-card" data-prop="transparencia">
+          <span class="gl-mono gl-mono_label">Transparencia</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+        <div class="gl-vidrio_prop-card" data-prop="dimensiones">
+          <span class="gl-mono gl-mono_label">Dimensiones</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+        <div class="gl-vidrio_prop-card" data-prop="aplicaciones">
+          <span class="gl-mono gl-mono_label">Aplicaciones</span>
+          <span class="gl-vidrio_prop-card_value">—</span>
+          <span class="gl-mono gl-mono_muted">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 03 // GALLERY                                                 -->
+    <!-- ============================================================ -->
+    <section class="gl-vidrio_gallery gl-section-border">
+      <span class="gl-section-number">03 // Galería</span>
+      <div class="gl-vidrio_gallery_row" data-bind="gallery">
+        <div class="gl-img-placeholder gl-vidrio_gallery_img">
+          <span class="gl-mono">DETALLE MACRO</span>
+        </div>
+        <div class="gl-img-placeholder gl-vidrio_gallery_img">
+          <span class="gl-mono">INSTALACIÓN EN CONTEXTO</span>
+        </div>
+        <div class="gl-img-placeholder gl-vidrio_gallery_img">
+          <span class="gl-mono">MUESTRA ANGULAR — LUZ LATERAL</span>
+        </div>
+        <div class="gl-img-placeholder gl-vidrio_gallery_img">
+          <span class="gl-mono">APLICACIÓN — INTERIOR</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 04 // RELATED TYPES                                           -->
+    <!-- ============================================================ -->
+    <section class="gl-vidrio_related gl-section-border">
+      <span class="gl-section-number">04 // Vidrios relacionados</span>
+      <div class="gl-vidrio_related_row u-gap-collapse u-radius-inner-5" data-bind="related"></div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 05 // PERNIA GLASS — SISTEMAS COMPATIBLES                     -->
+    <!-- ============================================================ -->
+    <section class="gl-vidrio_pernia gl-section-border">
+      <div class="gl-vidrio_pernia_inner">
+        <div class="gl-vidrio_pernia_header">
+          <span class="gl-section-number">05 // Sistemas Pernia Glass</span>
+          <a href="pg-index.html" class="gl-mono gl-mono_muted gl-vidrio_pernia_link">Explorar Pernia Glass &rarr;</a>
+        </div>
+        <p class="gl-mono gl-mono_muted gl-vidrio_pernia_desc">Este vidrio es compatible con toda la línea Pernia Glass — sistemas de puerta corrediza de 8mm laminado slim-profile.</p>
+        <div class="gl-vidrio_pernia_grid" data-bind="perniaSystemsRow"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 06 // SAMPLE REQUEST CTA BAR                                  -->
+    <!-- ============================================================ -->
+    <section class="gl-vidrio_cta gl-section-border">
+      <div>
+        <h2 class="gl-vidrio_cta_heading" data-bind="ctaHeading">¿Quieres ver este vidrio en persona?</h2>
+        <p class="gl-mono gl-mono_muted">Solicita una muestra física o descarga la ficha técnica completa.</p>
+      </div>
+      <div class="gl-vidrio_cta_actions">
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="gl-contacto.html" class="gl-btn_skew_element">
+            <span class="gl-btn_skew_text">Solicitar muestra &gt;&gt;&gt;</span>
+          </a>
+        </div>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="#" class="gl-btn_skew_element">
+            <span class="gl-btn_skew_text">Descargar ficha técnica</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================ -->
+  <footer class="gl-home_footer">
+    <div class="gl-home_footer_inner">
+      <div class="gl-home_footer_grid">
+        <div class="gl-home_footer_col">
+          <div class="gl-home_footer_brand">
+            <img src="../assets/logos/gl-imagotipo-v-white.svg" alt="The Glass Lab" class="gl-home_footer_brand-logo">
+            <img src="../assets/logos/gl-isologo-white.svg" alt="The Glass Lab" class="gl-home_footer_brand-icon">
+          </div>
+          <p class="gl-mono gl-mono_muted gl-home_footer_brand-desc">Laboratorio experimental de vidrio</p>
+          <p class="gl-mono gl-mono_muted">Panamá</p>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Navegación</span>
+          <a href="gl-catalogo.html" class="gl-home_footer_link">Catálogo</a>
+          <a href="gl-proyectos.html" class="gl-home_footer_link">Proyectos</a>
+          <a href="gl-laboratorio.html" class="gl-home_footer_link">Laboratorio</a>
+          <a href="gl-contacto.html" class="gl-home_footer_link">Contacto</a>
+          <a href="pg-index.html" class="gl-home_footer_link">Pernia Glass</a>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Contacto</span>
+          <a href="mailto:contacto@theglasslab.com" class="gl-home_footer_link">contacto@theglasslab.com</a>
+          <a href="#" class="gl-home_footer_link">+507 XXX XXXX</a>
+          <a href="#" class="gl-home_footer_link">WhatsApp</a>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Social</span>
+          <a href="#" class="gl-home_footer_link">Instagram</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title gl-home_footer_col-title_spaced">Legal</span>
+          <a href="legal-privacidad.html" class="gl-home_footer_link">Privacidad</a>
+          <a href="legal-terminos.html" class="gl-home_footer_link">Términos</a>
+          <a href="legal-cookies.html" class="gl-home_footer_link">Cookies</a>
+        </div>
+      </div>
+      <div class="gl-home_footer_newsletter">
+        <div>
+          <span class="gl-mono gl-mono_muted">NEWSLETTER</span>
+          <p class="gl-home_footer_newsletter-desc">Vidrio, luz y material. Sin spam.</p>
+        </div>
+        <div class="gl-home_footer_newsletter-form">
+          <div class="gl-filter-input gl-home_footer_newsletter-input">tu@email.com</div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Suscribir &gt;&gt;&gt;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="gl-home_footer_bottom">
+        <span class="gl-mono gl-mono_muted">2026 The Glass Lab. Todos los derechos reservados.</span>
+        <span class="gl-mono gl-mono_muted">Diseñado por Van Alva</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/data-loader.js"></script>
+  <script src="../js/page-vidrio.js"></script>
+
+  <!-- GSAP -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
+  <script src='../js/gl-nav-scroll.js'></script>
+  <script src='../js/gl-vidrio-animations.js'></script>
+  <script src='../js/gl-wavy-bend.js'></script>
+
+  <!-- FULLSCREEN MENU -->
+  <div class="gl-menu u-theme-dark" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menu de navegacion">
+    <div class="gl-menu_header">
+      <img src="../assets/logos/gl-logotipo-h-white.svg" alt="The Glass Lab" class="gl-menu_header-logo" style="height:1.5rem">
+      <button class="gl-menu_close" aria-label="Cerrar menu">
+        <span>Cerrar</span>
+        <span class="gl-menu_close-icon"></span>
+      </button>
+    </div>
+    <nav class="gl-menu_nav">
+      <ul class="gl-menu_items">
+        <li class="gl-menu_item"><a href="gl-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-catalogo.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text">Catalogo</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-visor.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text">Visor</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-proyectos.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text">Proyectos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text">Laboratorio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-blog.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text">Bitacora</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
+      </ul>
+    </nav>
+    <div class="gl-menu_footer">
+      <div class="gl-menu_footer-brand">
+        <a href="pg-index.html" class="gl-menu_footer-link">Pernia Glass →</a>
+        <span class="gl-mono gl-mono_muted">Panama City, Panama</span>
+      </div>
+      <span class="gl-menu_footer-lang">ES / EN</span>
+    </div>
+  </div>
+  <script src='../js/gl-menu.js'></script>
+  <script src="../js/gl-interactions.js"></script>
+  <script src="../js/gl-page-transition.js"></script>
+</body>
+</html>

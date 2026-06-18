@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="es" style="background-color:#ede7dd">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema | Pernia Glass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/project.css">
+
+</head>
+<body class="u-theme-light">
+
+  <!-- NAVBAR -->
+  <nav class="pg-nav-edge">
+    <div class="pg-nav">
+      <a href="pg-index.html" class="pg-nav_logo">
+        <img src="../assets/logos/pg-logo-black.svg" alt="Pernia Glass" class="pg-nav_logo-img">
+      </a>
+      <div class="pg-nav_links">
+        <a href="pg-index.html" class="pg-nav_link">Inicio</a>
+        <a href="pg-sistemas.html" class="pg-nav_link">Sistemas</a>
+        <a href="pg-laboratorio.html" class="pg-nav_link">Laboratorio</a>
+        <a href="pg-proyectos.html" class="pg-nav_link">Proyectos</a>
+        <a href="pg-recursos.html" class="pg-nav_link">Recursos</a>
+        <a href="pg-nosotros.html" class="pg-nav_link">Nosotros</a>
+        <a href="pg-contacto.html" class="pg-nav_link">Contacto</a>
+      </div>
+      <div class="pg-nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="pg-nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- 01 // SYSTEM HERO -->
+    <section class="gl-hero-cap pg-sistema_hero u-h-large">
+      <img data-bind-src="hero" src="" alt="" class="pg-sistema_hero_media" loading="eager">
+      <div class="pg-sistema_hero_overlay">
+        <div>
+          <span class="gl-mono gl-mono_muted pg-sistema_hero_breadcrumb" data-bind="breadcrumb"><a href="pg-sistemas.html" class="pg-sistema_hero_breadcrumb-link">Sistemas</a> &gt; …</span>
+          <span class="gl-tag pg-sistema_hero_tag" data-bind="configTag">—</span>
+          <h1 class="pg-sistema_hero_title" data-bind="code">—</h1>
+          <p class="pg-sistema_hero_subtitle u-text-style-large" data-bind="title">Cargando…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 // OVERVIEW SPLIT -->
+    <section class="pg-sistema_overview gl-section-border">
+      <div class="pg-sistema_overview_text">
+        <div>
+          <span class="gl-section-number">02 // Visión general</span>
+          <h2 class="pg-sistema_overview_heading" data-bind="overviewHeading">—</h2>
+          <p class="u-text-style-main gl-mono_muted pg-sistema_overview_desc" data-bind="overviewDesc">…</p>
+        </div>
+        <div class="pg-sistema_features" data-bind="features"></div>
+      </div>
+      <div class="pg-sistema_overview_visual">
+        <img data-bind-src="overview" src="" alt="" class="pg-sistema_overview_img" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 03 // TECHNICAL SPECS TABLE -->
+    <section class="pg-sistema_specs gl-section-border">
+      <div class="pg-sistema_specs_inner">
+        <span class="gl-section-number pg-sistema_specs_label">03 // Especificaciones técnicas</span>
+        <h2 class="pg-sistema_specs_heading">Ficha técnica</h2>
+        <div class="pg-sistema_specs_table">
+          <div class="pg-sistema_specs_row" data-spec="configuracion">
+            <span class="gl-mono gl-mono_muted">Configuración</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="dimensiones">
+            <span class="gl-mono gl-mono_muted">Dimensiones (opciones)</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="espesorVidrio">
+            <span class="gl-mono gl-mono_muted">Espesor de vidrio</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="perfil">
+            <span class="gl-mono gl-mono_muted">Material del perfil</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="mecanismo">
+            <span class="gl-mono gl-mono_muted">Mecanismo</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="headerCarga">
+            <span class="gl-mono gl-mono_muted">Header de carga</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="cieloRaso">
+            <span class="gl-mono gl-mono_muted">Cielo raso</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="pocket">
+            <span class="gl-mono gl-mono_muted">Pocket</span>
+            <span class="gl-mono">—</span>
+          </div>
+          <div class="pg-sistema_specs_row" data-spec="apertura">
+            <span class="gl-mono gl-mono_muted">Tipo de apertura</span>
+            <span class="gl-mono">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 // PROFILE COLORS -->
+    <section class="pg-sistema_colors gl-section-border">
+      <div class="pg-sistema_colors_inner">
+        <span class="gl-section-number pg-sistema_colors_label">04 // Colores de perfil</span>
+        <h2 class="pg-sistema_colors_heading">10 Acabados Anodizados</h2>
+        <div class="pg-sistema_swatches" data-bind="profileColors"></div>
+      </div>
+    </section>
+
+    <!-- 04b // VIDEO DEL SISTEMA -->
+    <section class="pg-sistema_video gl-section-border">
+      <div class="pg-sistema_video_inner">
+        <span class="gl-mono gl-mono_muted">VIDEO DEL SISTEMA</span>
+        <video data-bind-src="video" class="pg-sistema_video_placeholder" autoplay loop muted playsinline>
+          <source src="" type="video/mp4">
+        </video>
+        <p class="pg-sistema_video_caption">Animación del sistema en funcionamiento.</p>
+      </div>
+    </section>
+
+    <!-- 05 // DOWNLOADS -->
+    <section class="pg-sistema_downloads gl-section-border">
+      <div class="pg-sistema_downloads_inner">
+        <span class="gl-section-number">05 // Descargas</span>
+        <h2 class="pg-sistema_downloads_heading">Documentación técnica</h2>
+        <div class="pg-sistema_downloads_grid">
+          <div class="pg-sistema_download-card">
+            <span class="gl-tag">PDF</span>
+            <h3 class="pg-sistema_download-card_title">Ficha técnica</h3>
+            <p class="u-text-style-small gl-mono_muted">Especificaciones completas, dimensiones, materiales y certificaciones.</p>
+            <span class="gl-mono gl-mono_label">Próximamente</span>
+            <div class="gl-btn_skew_wrap pg-sistema_download-btn">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+              <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar &gt;&gt;&gt;</span></a>
+            </div>
+          </div>
+          <div class="pg-sistema_download-card">
+            <span class="gl-tag">PDF</span>
+            <h3 class="pg-sistema_download-card_title">Guía de instalación</h3>
+            <p class="u-text-style-small gl-mono_muted">Instrucciones paso a paso, herramientas requeridas y tolerancias.</p>
+            <span class="gl-mono gl-mono_label">Próximamente</span>
+            <div class="gl-btn_skew_wrap pg-sistema_download-btn">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+              <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar &gt;&gt;&gt;</span></a>
+            </div>
+          </div>
+          <div class="pg-sistema_download-card">
+            <span class="gl-tag">DWG</span>
+            <h3 class="pg-sistema_download-card_title">Archivo CAD</h3>
+            <p class="u-text-style-small gl-mono_muted">Planos técnicos en formato DWG para integración en proyecto.</p>
+            <span class="gl-mono gl-mono_label">Próximamente</span>
+            <div class="gl-btn_skew_wrap pg-sistema_download-btn">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+              <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar &gt;&gt;&gt;</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05b // GLASS LAB — VIDRIOS COMPATIBLES -->
+    <section class="pg-sistema_glasslab gl-section-border">
+      <div class="pg-sistema_glasslab_inner">
+        <div class="pg-sistema_glasslab_header">
+          <span class="gl-section-number">05b // Vidrios Glass Lab</span>
+          <a href="gl-catalogo.html" class="gl-mono gl-mono_muted pg-sistema_glasslab_link">Ver catálogo completo &rarr;</a>
+        </div>
+        <p class="u-text-style-main gl-mono_muted pg-sistema_glasslab_desc">Este sistema acepta cualquier vidrio laminado 8mm del catálogo Glass Lab — desde vidrios base hasta inserciones decorativas y espejos.</p>
+        <div class="pg-sistema_glasslab_grid u-gap-collapse u-radius-inner-6" data-bind="glasslabCells"></div>
+      </div>
+    </section>
+
+    <!-- 06 // RELATED SYSTEMS -->
+    <section class="pg-sistema_related gl-section-border">
+      <div class="pg-sistema_related_inner">
+        <span class="gl-section-number">06 // Sistemas relacionados</span>
+        <div class="pg-sistema_related_grid" data-bind="relatedSystems"></div>
+      </div>
+    </section>
+
+    <!-- 07 // CTA QUOTE BAR -->
+    <section class="pg-sistema_cta gl-section-border">
+      <div class="pg-sistema_cta_inner">
+        <div>
+          <span class="gl-section-number">07 // Cotización</span>
+          <h2 class="pg-sistema_cta_heading" data-bind="ctaHeading">Solicitar cotización</h2>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element"><span class="gl-btn_skew_text">Contactar &gt;&gt;&gt;</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="pg-footer">
+    <div class="pg-footer_inner">
+      <div class="pg-footer_grid">
+        <div class="pg-footer_col">
+          <div class="pg-footer_brand">
+            <img src="../assets/logos/pg-imagotipo-black.svg" alt="Pernia Glass" class="pg-footer_brand-logo">
+            <img src="../assets/logos/pg-isologo-black.svg" alt="Pernia Glass" class="pg-footer_brand-icon">
+          </div>
+          <p class="gl-mono gl-mono_muted pg-footer_brand-desc">Sistemas de vidrio arquitectónico</p>
+          <p class="gl-mono gl-mono_muted">Panamá</p>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Navegación</span>
+          <a href="pg-sistemas.html" class="pg-footer_link">Sistemas</a>
+          <a href="pg-laboratorio.html" class="pg-footer_link">Laboratorio</a>
+          <a href="pg-proyectos.html" class="pg-footer_link">Proyectos</a>
+          <a href="pg-recursos.html" class="pg-footer_link">Recursos</a>
+          <a href="pg-nosotros.html" class="pg-footer_link">Nosotros</a>
+          <a href="pg-contacto.html" class="pg-footer_link">Contacto</a>
+          <a href="gl-index.html" class="pg-footer_link">The Glass Lab</a>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Contacto</span>
+          <a href="mailto:info@perniaglass.com" class="pg-footer_link">info@perniaglass.com</a>
+          <a href="#" class="pg-footer_link">+507 XXX XXXX</a>
+          <a href="#" class="pg-footer_link">WhatsApp</a>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Social</span>
+          <a href="#" class="pg-footer_link">Instagram</a>
+          <span class="gl-mono gl-mono_label pg-footer_col-title pg-footer_col-title_spaced">Legal</span>
+          <a href="legal-privacidad.html" class="pg-footer_link">Privacidad</a>
+          <a href="legal-terminos.html" class="pg-footer_link">Términos</a>
+          <a href="legal-cookies.html" class="pg-footer_link">Cookies</a>
+        </div>
+      </div>
+      <div class="pg-footer_newsletter">
+        <div>
+          <span class="gl-mono gl-mono_muted">NEWSLETTER</span>
+          <p class="pg-footer_newsletter-desc">Sistemas, proyectos y novedades. Sin spam.</p>
+        </div>
+        <div class="pg-footer_newsletter-form">
+          <div class="gl-filter-input pg-footer_newsletter-input">tu@email.com</div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Suscribir &gt;&gt;&gt;</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="pg-footer_bottom">
+        <span class="gl-mono gl-mono_muted">2026 Pernia Glass. Todos los derechos reservados.</span>
+        <span class="gl-mono gl-mono_muted">Diseñado por Van Alva</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/data-loader.js"></script>
+  <script src="../js/page-sistema.js"></script>
+
+  <!-- GSAP -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
+  <script src='../js/pg-sistema-animations.js'></script>
+  <script src='../js/gl-wavy-bend.js'></script>
+  <script src='../js/gl-nav-scroll.js'></script>
+
+  <!-- FULLSCREEN MENU -->
+  <div class="gl-menu u-theme-light is-light" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menu de navegacion">
+    <div class="gl-menu_header">
+      <img src="../assets/logos/pg-logotipo-black.svg" alt="Pernia Glass" class="gl-menu_header-logo" style="height:1.5rem">
+      <button class="gl-menu_close" aria-label="Cerrar menu">
+        <span>Cerrar</span>
+        <span class="gl-menu_close-icon"></span>
+      </button>
+    </div>
+    <nav class="gl-menu_nav">
+      <ul class="gl-menu_items">
+        <li class="gl-menu_item"><a href="pg-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-sistemas.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text">Sistemas</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text">Laboratorio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-proyectos.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text">Proyectos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-recursos.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text">Recursos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-nosotros.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text">Nosotros</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
+      </ul>
+    </nav>
+    <div class="gl-menu_footer">
+      <div class="gl-menu_footer-brand">
+        <a href="gl-index.html" class="gl-menu_footer-link">The Glass Lab →</a>
+        <span class="gl-mono gl-mono_muted">Panama City, Panama</span>
+      </div>
+      <span class="gl-menu_footer-lang">ES / EN</span>
+    </div>
+  </div>
+  <script src='../js/gl-menu.js'></script>
+  <script src="../js/gl-interactions.js"></script>
+  <script src="../js/gl-page-transition.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lens Skin Test — SA-Tejida Gold</title>
+
+  <!-- Same stack the real site loads -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/project.css">
+
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      font-family: "JetBrains Mono", monospace;
+      color: #fff;
+      overflow-x: hidden;
+      /* Vivid, busy backdrop so the glass blur + transparent weave openings
+         are clearly visible. Bold color blobs + big type behind the lens. */
+      background-color: #0c0e12;
+      background-image:
+        radial-gradient(40% 50% at 18% 24%, #ff5d2e55 0%, transparent 60%),
+        radial-gradient(45% 55% at 82% 30%, #2e8bff55 0%, transparent 60%),
+        radial-gradient(50% 60% at 50% 88%, #c64bff55 0%, transparent 60%),
+        radial-gradient(35% 45% at 70% 70%, #18d39a55 0%, transparent 60%),
+        repeating-linear-gradient(45deg, #ffffff08 0 2px, transparent 2px 26px);
+      background-attachment: fixed;
+    }
+
+    /* Big ghost type behind the lenses — gives the blur fine detail to chew on */
+    .bg-type {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: center; gap: 1.2rem; text-align: center;
+      opacity: 0.5; user-select: none;
+    }
+    .bg-type h1 { font-size: clamp(3rem, 14vw, 13rem); margin: 0; letter-spacing: -0.04em;
+      color: transparent; -webkit-text-stroke: 1.5px #ffffffaa; font-weight: 700; }
+    .bg-type p  { font-size: clamp(0.8rem, 2.4vw, 1.6rem); margin: 0; letter-spacing: 0.4em;
+      text-transform: uppercase; color: #ffffffcc; }
+
+    /* Control bar */
+    .ctl {
+      position: fixed; top: 16px; left: 16px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 8px;
+      background: rgba(10,12,16,0.72); backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 14px;
+      padding: 14px; max-width: 260px;
+    }
+    .ctl h2 { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+      margin: 0 0 4px; color: #ffd877; }
+    .ctl button {
+      font-family: inherit; font-size: 0.68rem; letter-spacing: 0.04em;
+      text-align: left; cursor: pointer; color: #fff;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 9px; padding: 9px 11px; transition: background 0.15s ease;
+    }
+    .ctl button:hover { background: rgba(255,255,255,0.16); }
+    .ctl button.gold { border-color: #d4b63a66; background: linear-gradient(135deg, #5f4b0533, #d4b63a22); }
+    .ctl .hint { font-size: 0.6rem; line-height: 1.5; color: #ffffff99; margin-top: 4px; }
+
+    /* SKINTEST: the realistic SVG mesh overlay element (not in project.css).
+       Oversized to -21% so it still covers the lens when rotated; the layer's
+       overflow:hidden + radius clips the overhang. Scales with --lente-scale,
+       rotates with --lente-pattern-rotation (same vars the CSS wires use). */
+    .gl-lente-skin {
+      position: absolute; top: -21%; right: -21%; bottom: -21%; left: -21%;
+      pointer-events: none; z-index: 4; opacity: 0;
+      background-repeat: repeat; background-position: center center;
+      transform: rotate(var(--lente-pattern-rotation, 0deg));
+      transform-origin: center center;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Minimal styling for the injected "Realista" toggle row in the editor */
+    .gl-le-skin-row { padding: 8px 2px 2px; }
+    .gl-le-skin-label { display: flex; align-items: center; gap: 8px;
+      font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #ffd877; cursor: pointer; user-select: none; }
+    .gl-le-skin-label input { width: 14px; height: 14px; accent-color: #d4b63a; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="bg-type">
+    <h1>VIDRIO</h1>
+    <p>The Glass Lab · skin test</p>
+  </div>
+
+  <div class="ctl">
+    <h2>Mesh skins</h2>
+    <button class="gold" data-mesh="ac">+ SA-Cuadros (Ac)</button>
+    <button class="gold" data-mesh="at">+ SA-Tejida (At)</button>
+    <button class="gold" data-mesh="sz">+ SA-Zigzag (Az)</button>
+    <button class="gold" data-mesh="bq">+ SB-Qubo (Aq)</button>
+    <button class="gold" data-mesh="ae">+ Holandesa (Ae)</button>
+    <button class="gold" data-mesh="al">+ Plana Fina (Al)</button>
+    <button class="gold" data-mesh="ap">+ Sarga (Ap)</button>
+    <button id="btn-blank">+ Lente vacía</button>
+    <button id="btn-clear">Limpiar todas</button>
+    <div class="hint">
+      Each button spawns that mesh with <b style="color:#ffd877">Realista</b> ON.
+      Click a lens to open its editor — <b>pick any color</b> (metal recolors),
+      drag <b>Grosor</b>, <b>Escala</b>, <b>Profundidad</b>, <b>Brillo</b>,
+      <b>Rotación</b>. Toggle Realista off to compare the flat CSS mesh.
+    </div>
+  </div>
+
+  <!-- Same stack the real site loads, but with the SKINTEST engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="../js/gl-lente-skintest.js"></script>
+  <script>
+    (function () {
+      function ready(fn){ if (window.glLente) fn(); else setTimeout(function(){ready(fn);}, 30); }
+
+      // Per-mesh sensible starting tint (steel/gold), Realista on.
+      var MESH_OPTS = {
+        ac: { tint: 'rgba(205,212,222,1)' }, // bright steel
+        at: { tint: 'rgba(218,178,92,1)'  }, // gold
+        sz: { tint: 'rgba(200,206,216,1)' }, // steel
+        bq: { tint: 'rgba(196,150,90,1)'  }, // bronze
+        ae: { tint: 'rgba(202,208,218,1)' }, // steel
+        al: { tint: 'rgba(208,214,224,1)' }, // bright steel
+        ap: { tint: 'rgba(198,204,214,1)' }  // steel
+      };
+      function meshOpts(type) {
+        var o = MESH_OPTS[type] || {};
+        return { type: type, skin: true, blur: 8, patternScale: 50, patternThickness: 50,
+                 patternDepth: 35, patternShine: 60, tint: o.tint || 'rgba(210,210,210,1)', tintIntensity: 0 };
+      }
+      function spawnAndEdit(opts) {
+        ready(function () {
+          window.glLente.spawn(opts);
+          if (window.glLente.openEditor) window.glLente.openEditor();
+        });
+      }
+
+      document.querySelectorAll('[data-mesh]').forEach(function (btn) {
+        btn.addEventListener('click', function () { spawnAndEdit(meshOpts(btn.dataset.mesh)); });
+      });
+      document.getElementById('btn-blank').addEventListener('click', function(){ spawnAndEdit({}); });
+      document.getElementById('btn-clear').addEventListener('click', function(){
+        ready(function(){ window.glLente.closeAll(); });
+      });
+
+      /* Spawn one mesh on load so there's something to see. */
+      spawnAndEdit(meshOpts('at'));
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modales y Pop-ups | The Glass Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/project.css">
+</head>
+<body class="u-theme-dark">
+
+  <!-- ============================================================ -->
+  <!-- PAGE HEADER                                                   -->
+  <!-- ============================================================ -->
+  <header class="gl-modal_page-header">
+    <span class="gl-mono gl-mono_muted">Referencia de componentes</span>
+    <h1 class="gl-modal_page-title">Modales y Pop-ups</h1>
+    <p class="gl-modal_page-desc">Referencia de todos los modales y pop-ups del sitio. Dark mode (GL style). Cada modal se muestra dentro de un backdrop placeholder que simula el overlay.</p>
+  </header>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 1: COOKIE CONSENT BANNER                               -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label">01 // Modal</span>
+        <h2 class="gl-modal_ref_heading">Cookie Consent Banner</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc">Fixed bottom bar — aparece al primer ingreso — RGPD + CCPA compliance</span>
+      </div>
+
+      <div class="gl-modal_backdrop gl-modal_backdrop-bottom">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label">CONTENIDO DE PAGINA (FONDO OSCURECIDO)</span>
+
+        <!-- Cookie banner -->
+        <div class="gl-modal_banner">
+          <div class="gl-modal_banner_text">
+            <span class="gl-mono">Este sitio utiliza cookies para mejorar su experiencia. Al continuar navegando, acepta nuestra politica de cookies.</span>
+            <a href="legal-cookies.html" class="gl-mono gl-mono_muted">Ver politica de cookies</a>
+          </div>
+          <div class="gl-modal_banner_actions">
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Aceptar</span>
+              </a>
+            </div>
+            <div class="gl-btn_skew_wrap">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Configurar</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 2: CATALOG DOWNLOAD                                    -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label">02 // Modal</span>
+        <h2 class="gl-modal_ref_heading">Descarga de Catalogo</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc">Overlay centrado — triggered from CTA buttons — delivers PDF via email — adds to newsletter list</span>
+      </div>
+
+      <div class="gl-modal_backdrop">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label">CONTENIDO DE PAGINA (FONDO OSCURECIDO)</span>
+
+        <!-- Catalog download modal -->
+        <div class="gl-modal_card">
+          <div class="gl-modal_close">X</div>
+
+          <h3 class="gl-modal_card_title">Descargar catalogo completo</h3>
+          <p class="gl-mono gl-mono_muted gl-modal_card_desc">Ingrese sus datos para recibir el catalogo en PDF.</p>
+
+          <div class="gl-modal_form">
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Nombre *</span>
+              <div class="gl-modal_form-input">Juan Perez</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Email *</span>
+              <div class="gl-modal_form-input">juan@email.com</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Empresa (opcional)</span>
+              <div class="gl-modal_form-input">Studio Arquitectura</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Rol</span>
+              <div class="gl-modal_form-select">
+                <span>Arquitecto / Disenador / Desarrollador / Otro</span>
+                <span class="gl-mono gl-mono_muted">v</span>
+              </div>
+            </div>
+            <div class="gl-modal_form-submit">
+              <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                  <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <a href="#" class="gl-btn_skew_element">
+                  <span class="gl-btn_skew_text">Descargar PDF &gt;&gt;&gt;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 3: QUICK CONTACT / SAMPLE REQUEST                      -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label">03 // Modal</span>
+        <h2 class="gl-modal_ref_heading">Solicitar Muestra / Consulta Rapida</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc">Overlay centrado — triggered from glass detail pages + visor — routes to contacto@theglasslab.com</span>
+      </div>
+
+      <div class="gl-modal_backdrop">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label">CONTENIDO DE PAGINA (FONDO OSCURECIDO)</span>
+
+        <!-- Quick contact / sample request modal -->
+        <div class="gl-modal_card gl-modal_card-wide">
+          <div class="gl-modal_close">X</div>
+
+          <h3 class="gl-modal_card_title">Solicitar muestra</h3>
+          <p class="gl-mono gl-mono_muted gl-modal_card_desc">Complete el formulario y nos pondremos en contacto.</p>
+
+          <div class="gl-modal_form">
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Nombre *</span>
+              <div class="gl-modal_form-input">Nombre completo</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Email *</span>
+              <div class="gl-modal_form-input">email@ejemplo.com</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Telefono</span>
+              <div class="gl-modal_form-input">+507 XXX XXXX</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Tipo de vidrio</span>
+              <div class="gl-modal_form-input">Af — Afrodita</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label">Mensaje</span>
+              <div class="gl-modal_form-textarea">Describa su proyecto o consulta...</div>
+            </div>
+            <div class="gl-modal_form-submit">
+              <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                  <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <a href="#" class="gl-btn_skew_element">
+                  <span class="gl-btn_skew_text">Enviar solicitud &gt;&gt;&gt;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
