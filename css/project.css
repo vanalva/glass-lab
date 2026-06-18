@@ -2211,11 +2211,18 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
 
 @media (max-width: 767px) {
   .pg-nav_links { display: none; }
+  /* The burger carries nav on mobile — drop the ES/EN toggle and the
+     standalone Contacto button so the right cluster stops overflowing. */
+  .pg-nav_right > .gl-mono { display: none; }
+  .pg-nav_right > .gl-btn_skew_wrap { display: none; }
   .pg-nav_burger { display: block; }
   .pg-index_hero { grid-template-columns: 1fr; }
   .pg-index_hero_media-wrap { min-height: 60svh; }
   .pg-index_hero_center { width: 86%; }
-  .pg-index_hero_nav { position: static; flex-direction: row; flex-wrap: wrap; column-gap: var(--_spacing---space--3); row-gap: var(--_spacing---space--1); padding-top: var(--_spacing---space--4); padding-left: var(--site--margin); }
+  /* The hero's shortcut links collapse onto the fixed navbar (the text
+     panel has no height once stacked). They duplicate the burger menu —
+     hide them on mobile. */
+  .pg-index_hero_nav { display: none; }
   .pg-index_find_card { width: 15rem; }
   .pg-index_find_card.is-down { margin-top: var(--_spacing---space--5); }
   .gl-menu_thumbs { display: none; }
@@ -2252,6 +2259,9 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
   .pg-footer_grid { grid-template-columns: 1fr; }
   .pg-footer_bottom { flex-direction: column; row-gap: var(--_spacing---space--2); text-align: center; }
   .pg-footer_newsletter { flex-direction: column; row-gap: var(--_spacing---space--4); align-items: flex-start; }
+  /* Stop the 16rem input + Suscribir button overflowing side by side. */
+  .pg-footer_newsletter-form { width: 100%; }
+  .pg-footer_newsletter-input { width: auto; flex-grow: 1; flex-shrink: 1; min-width: 0px; }
 }
 
 @media (max-width: 478px) {
