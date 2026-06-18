@@ -83,7 +83,12 @@
     gsap.set('.pg-index_featured_visual', { autoAlpha: 0, x: -30 });
     gsap.set('.pg-index_featured_info',   { autoAlpha: 0, x: 30 });
 
-    /* ── PARALLAX (scrub) — same layering as gl-index ─────────────── */
+    /* ── PARALLAX (scrub) — desktop only (skipped on mobile for perf) ──
+       Per-frame scrub stutters mobile GPUs and is barely visible on a phone. */
+    var GL_HEAVY_OK = !window.matchMedia('(max-width: 991px)').matches
+      && !window.matchMedia('(hover: none)').matches
+      && !window.matchMedia('(pointer: coarse)').matches;
+    if (GL_HEAVY_OK) {
 
     gsap.to('.pg-index_hero_media', {
       y: -80, ease: 'none',
@@ -94,6 +99,8 @@
       y: -40, ease: 'none',
       scrollTrigger: { trigger: '.pg-index_featured', start: 'top bottom', end: 'bottom top', scrub: 2 }
     });
+
+    } /* end GL_HEAVY_OK parallax */
 
     /* ── SCROLL REVEALS ───────────────────────────────────────────── */
 

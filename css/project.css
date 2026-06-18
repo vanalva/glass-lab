@@ -1,10 +1,20 @@
+/* Global border-box reset. The project ships without framework.css, so
+   there was no box-sizing reset and every padded full-bleed / grid-stretch
+   element (nav-edge, section info columns, footer forms) added its padding
+   OUTSIDE its width → horizontal overflow on narrow viewports. border-box
+   makes padding count inside the declared width (the modern default, and
+   what the hand-patched .gl-home_manifesto_inner / .gl-catalogo_header
+   already opted into). Desktop layouts use grid/flex/%/clamp so this is
+   visually neutral there while eliminating the mobile overflow class-wide. */
+*, *::before, *::after { box-sizing: border-box; }
+
 main { overflow: visible; }
 
 body { font-family: var(--_typography---font--primary-family); margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; }
 
 p { font-family: var(--_typography---font--primary-family); }
 
-html { scrollbar-width: thin; scrollbar-color: var(--swatch--brand-500) transparent; background-color: var(--swatch--dark-900); }
+html { scrollbar-width: thin; scrollbar-color: var(--swatch--brand-500) transparent; background-color: var(--swatch--dark-900); overflow-x: clip; }
 
 html:has(body.u-theme-light), html.u-theme-light-page { background-color: var(--swatch--light-100); }
 
@@ -1458,6 +1468,10 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
 
 @media (max-width: 767px) {
   .gl-lab_hero { min-height: 60vh; }
+  /* The 5-image float collage is sized/positioned for a wide canvas; on a
+     phone the images cluster over the centred heading + intro and muddy
+     them. Hide the decorative collage so the hero copy stays legible. */
+  .gl-lab_hero_float { display: none; }
   .gl-lab_editorial_block { grid-template-columns: 1fr; }
   .gl-lab_process_steps { grid-template-columns: 1fr; }
   .gl-lab_stats_grid { grid-template-columns: repeat(2, 1fr); }
@@ -2216,6 +2230,10 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
   .pg-nav_right > .gl-mono { display: none; }
   .pg-nav_right > .gl-btn_skew_wrap { display: none; }
   .pg-nav_burger { display: block; }
+  /* Cap the fixed nav to the visual viewport so the burger never sits past
+     the right edge. Mobile-only (no scrollbar here) — on desktop 100vw
+     would include the scrollbar width and create a phantom overflow. */
+  .pg-nav-edge { max-width: 100vw; }
   .pg-index_hero { grid-template-columns: 1fr; }
   .pg-index_hero_media-wrap { min-height: 60svh; }
   .pg-index_hero_center { width: 86%; }
@@ -2262,6 +2280,11 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
   /* Stop the 16rem input + Suscribir button overflowing side by side. */
   .pg-footer_newsletter-form { width: 100%; }
   .pg-footer_newsletter-input { width: auto; flex-grow: 1; flex-shrink: 1; min-width: 0px; }
+  /* The display-size CTA heading has a long unbreakable word
+     ("arquitectonico") whose intrinsic width blows past a phone viewport
+     — the seed of the page's horizontal overflow. Clamp it to fit (gl-index
+     does the same for its CTA). */
+  .pg-index_cta_heading { font-size: clamp(1.75rem, 7vw, 2.75rem); }
 }
 
 @media (max-width: 478px) {
@@ -4624,4 +4647,28 @@ body.u-theme-light ::selection { background-color: var(--swatch--dark-900); colo
   .pg-mob_hero_sub {
     font-size: var(--_typography---font-size--text-main);
   }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Mobile performance — cheaper paths for heavy GPU effects (≤991px).
+   Keeps the look, drops the per-frame GPU cost.
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width: 991px) {
+  /* Bottom progressive-blur: 10 stacked backdrop-filter layers recomposite
+     the whole viewport every scroll frame. Keep the 3 strongest (still reads
+     as a blur-to-edge fade) and drop the other 7. */
+  .gl-blur-bottom_layer.is-4,
+  .gl-blur-bottom_layer.is-5,
+  .gl-blur-bottom_layer.is-6,
+  .gl-blur-bottom_layer.is-7,
+  .gl-blur-bottom_layer.is-8,
+  .gl-blur-bottom_layer.is-9,
+  .gl-blur-bottom_layer.is-10 { display: none; }
+
+  /* Decorative lens samples keep their frosted backdrop, but the dichroic
+     shimmer (infinite hue-rotate) repaints every frame even off-screen —
+     stop it on mobile. */
+  .gl-lente-glass--ds::before,
+  .gl-lente-glass--ds::after,
+  .gl-lente-glass--ep::before { animation-name: none; animation-duration: 0s; }
 }

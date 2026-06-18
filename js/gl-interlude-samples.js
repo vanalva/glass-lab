@@ -8,10 +8,10 @@
    exactly like normal lenses (draggable, editable via the panel
    editor) but cannot be moved outside the section.
 
-   Each sample gets a random composition of 3–4 layers built from the
-   same catalog as the regular lens system. A subset of samples (~30%)
-   are intentionally rendered as plain glass (no patterns) so the
-   section reads as a mix of "raw glass" and "patterned glass."
+   Each sample is kept SIMPLE: always two glass layers, with at most ONE
+   feature (a single pattern OR a single texture) sandwiched between them.
+   Never two patterns in one lens. ~25% are plain (just the two glasses)
+   so the section reads as a mix of "raw glass" and "patterned glass."
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -44,29 +44,17 @@
     return 'rgba(' + hue.rgb[0] + ',' + hue.rgb[1] + ',' + hue.rgb[2] + ',' + alpha.toFixed(2) + ')';
   }
 
-  /* Build a layer settings object — random pattern/glass type, random
-     tint, random scale & opacity. Returns the same shape as preset
-     layers in gl-lente.js so addLayer() accepts it. */
-  function randomLayer(anchorHue, mode) {
+  /* Textures — used at most once per sample, as the optional middle layer. */
+  var TEXTURE_TYPES = ['tx-linen', 'tx-marble', 'tx-concrete', 'tx-leather', 'tx-velvet', 'tx-noise'];
+
+  /* Common layer settings. Blur is capped low (2-8) for bounded samples —
+     backdrop-filter is the single biggest GPU cost in the lens render. */
+  function baseLayer(anchorHue, type, opts) {
+    opts = opts || {};
     /* 60% chance to share the sample's anchor hue, 40% to drift. */
     var hue = Math.random() < 0.6 ? anchorHue : pick(TINTS);
     var alpha = rand(hue.alpha[0], hue.alpha[1]);
-    var type;
-    if (mode === 'plain') {
-      type = pick(GLASS_TYPES);
-    } else if (mode === 'pattern') {
-      type = pick(PATTERN_TYPES);
-    } else {
-      /* mixed — 50/50 */
-      type = Math.random() < 0.5 ? pick(GLASS_TYPES) : pick(PATTERN_TYPES);
-    }
-    /* Blur is capped low (2-8) for bounded samples — backdrop-filter
-       is the single biggest GPU cost in the lens render. With 7 lenses
-       × 3-4 layers each, the original 4-22 blur range was producing
-       scroll-time stutters as the section came into view. Lower blur
-       still reads as "glass" because the pattern + tint + shine carry
-       most of the visual identity. */
-    var s = {
+    return {
       type: type,
       blur: Math.round(rand(2, 8)),
       color: Math.round(rand(35, 75)),
@@ -75,33 +63,45 @@
       edgeBlur: Math.round(rand(0, 3)),
       edgeBd: 0,
       tint: tintCss(hue, alpha),
-      tintIntensity: Math.round(rand(45, 90)),
-      layerOpacity: Math.round(rand(70, 100))
+      tintIntensity: Math.round(rand(opts.tintLo || 45, opts.tintHi || 90)),
+      layerOpacity: Math.round(rand(opts.opLo || 70, opts.opHi || 100))
     };
-    if (PATTERN_TYPES.indexOf(type) !== -1) {
-      s.patternScale     = Math.round(rand(25, 80));
-      s.patternRotation  = Math.random() < 0.6 ? 0 : Math.round(rand(0, 90));
-      s.patternThickness = Math.round(rand(35, 80));
-      s.patternDepth     = Math.round(rand(0, 25));
-      s.patternShine     = Math.round(rand(35, 85));
-      s.patternShineAngle = Math.round(rand(10, 50));
-    }
+  }
+  function glassLayer(anchorHue, isCap) {
+    /* The cap glass is lighter + more transparent so the feature below it
+       reads through, like a real laminated interlayer. */
+    return baseLayer(anchorHue, pick(GLASS_TYPES),
+      isCap ? { tintLo: 18, tintHi: 50, opLo: 55, opHi: 80 } : {});
+  }
+  function patternLayer(anchorHue) {
+    var s = baseLayer(anchorHue, pick(PATTERN_TYPES), { tintLo: 55, tintHi: 95 });
+    s.patternScale      = Math.round(rand(35, 75));
+    s.patternRotation   = Math.random() < 0.7 ? 0 : Math.round(rand(0, 90));
+    s.patternThickness  = Math.round(rand(40, 75));
+    s.patternDepth      = Math.round(rand(0, 25));
+    s.patternShine      = Math.round(rand(40, 80));
+    s.patternShineAngle = Math.round(rand(10, 50));
     return s;
   }
+  function textureLayer(anchorHue) {
+    return baseLayer(anchorHue, pick(TEXTURE_TYPES), { tintLo: 50, tintHi: 85, opLo: 60, opHi: 90 });
+  }
 
-  /* Spawn one sample lens at a viewport position relative to the
-     bounds element. With suppressSpawn=true, the lens is created
-     invisible (no back.out animation, opacity 0, visibility hidden);
-     a later glLente.reveal(lens) call fades it in. */
+  /* Spawn one sample lens. Composition is deliberately SIMPLE: two glass
+     layers, with at most ONE feature (a single pattern OR a single texture)
+     sandwiched between them. Never two patterns. ~25% are plain glass-only.
+     With suppressSpawn=true the lens is created invisible and revealed later. */
   function spawnSample(boundsEl, anchorPx, sizePx, suppressSpawn) {
-    var layerCount = Math.random() < 0.5 ? 3 : 4;
-    /* ~30% of samples are plain (no patterns at all). Rest are mixed. */
-    var sampleMode = Math.random() < 0.3 ? 'plain' : 'mixed';
     var anchorHue = pick(TINTS);
+    var roll = Math.random();
+    var feature = roll < 0.25 ? null : (roll < 0.85 ? 'pattern' : 'texture');
 
-    /* Build the first layer via spawn(), then add the rest. */
-    var firstLayer = randomLayer(anchorHue, sampleMode);
-    var spawnOpts = Object.assign({}, firstLayer, {
+    var layers = [ glassLayer(anchorHue, false) ];               /* base glass */
+    if (feature === 'pattern')      layers.push(patternLayer(anchorHue));  /* the "intersection" */
+    else if (feature === 'texture') layers.push(textureLayer(anchorHue));
+    layers.push(glassLayer(anchorHue, true));                    /* cap glass (shows feature through) */
+
+    var spawnOpts = Object.assign({}, layers[0], {
       bounds: boundsEl,
       anchorX: anchorPx.x,
       anchorY: anchorPx.y,
@@ -110,21 +110,49 @@
     if (suppressSpawn) spawnOpts.suppressSpawnAnim = true;
     var lens = window.glLente.spawn(spawnOpts);
     if (!lens) return null;
-    /* Add remaining layers — addLayer() inherits the lens's preHidden
-       flag so they stay invisible until reveal(). */
-    for (var i = 1; i < layerCount; i++) {
-      window.glLente.addLayer(randomLayer(anchorHue, sampleMode));
+    /* Add remaining layers — addLayer() inherits the lens's preHidden flag. */
+    for (var i = 1; i < layers.length; i++) {
+      window.glLente.addLayer(layers[i]);
     }
-    /* Pre-spawned bounded lenses don't auto-activate (spawnLens skips
-       setActiveLens when suppressSpawnAnim is set), but addLayer()
-       above does set activeLayerIdx. We don't reset it here because
-       there's no active lens to update — the user opens the editor by
-       clicking, and only THEN does this lens become active. */
     return lens;
   }
 
-  /* Anchor positions — fractions of the section width/height. */
-  var ANCHORS = [
+  /* Anchor positions — fractions of the section width/height.
+
+     The wide desktop scatter (7 samples, 170-260px) buries the centered
+     heading once the section narrows. So the layout is viewport-aware:
+     on tablet/phone we drop to fewer, smaller samples pinned to the TOP
+     and BOTTOM bands, leaving the vertical centre clear for the heading.
+     Sizes are clamped so a sample + its -21% skin bleed never crosses the
+     viewport edge (the samples are position:fixed, so they aren't clipped
+     by the section's overflow:hidden). */
+  /* Touch devices (incl. a wide iPad Pro that reports desktop width in
+     Chrome) get a LIGHTER scatter: backdrop-filter is the dominant GPU
+     cost and tablet GPUs choke on the full 7-lens desktop set, so touch
+     wide screens use ~5 smaller samples. Only a real mouse desktop gets
+     the full scatter. */
+  var IS_TOUCH = window.matchMedia('(hover: none)').matches
+    || window.matchMedia('(pointer: coarse)').matches;
+  var VW = window.innerWidth;
+  /* Mobile/touch: 3 samples only (down from 4-5). They keep their frosted
+     backdrop, but fewer fixed backdrop-filter layers = far less per-scroll
+     recompositing. The dichroic shimmer animations are also stopped via CSS
+     (≤991px) so nothing repaints continuously off-screen. */
+  var ANCHORS = VW <= 478 ? [
+    { fx: 0.24, fy: 0.12, size: 112 },
+    { fx: 0.78, fy: 0.16, size: 104 },
+    { fx: 0.30, fy: 0.87, size: 116 }
+  ] : VW <= 991 ? [
+    { fx: 0.18, fy: 0.13, size: 160 },
+    { fx: 0.82, fy: 0.18, size: 140 },
+    { fx: 0.50, fy: 0.88, size: 150 }
+  ] : IS_TOUCH ? [
+    { fx: 0.14, fy: 0.28, size: 188 },
+    { fx: 0.50, fy: 0.15, size: 148 },
+    { fx: 0.86, fy: 0.32, size: 172 },
+    { fx: 0.30, fy: 0.72, size: 196 },
+    { fx: 0.72, fy: 0.78, size: 180 }
+  ] : [
     { fx: 0.11, fy: 0.30, size: 220 },
     { fx: 0.49, fy: 0.14, size: 170 },
     { fx: 0.85, fy: 0.34, size: 200 },

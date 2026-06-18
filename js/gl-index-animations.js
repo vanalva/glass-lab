@@ -89,7 +89,14 @@
     gsap.set('.gl-home_crossbrand_text', { autoAlpha: 0, x: -30 });
     gsap.set('.gl-home_crossbrand_img',  { autoAlpha: 0, x: 30 });
 
-    /* ── PARALLAX (scrub) ───────────────────────────────────────── */
+    /* ── PARALLAX (scrub) — desktop only ─────────────────────────
+       Per-frame scrub recomputes transforms on every scroll frame; on mobile
+       GPUs that stutters the whole page and the motion is barely perceptible
+       on a small screen. Skipping it leaves elements static — reads the same. */
+    var GL_HEAVY_OK = !window.matchMedia('(max-width: 991px)').matches
+      && !window.matchMedia('(hover: none)').matches
+      && !window.matchMedia('(pointer: coarse)').matches;
+    if (GL_HEAVY_OK) {
 
     gsap.to('.gl-home_hero_zoom', {
       y: -80, ease: 'none',
@@ -110,6 +117,8 @@
       y: -30, ease: 'none',
       scrollTrigger: { trigger: '.gl-home_crossbrand', start: 'top bottom', end: 'bottom top', scrub: 2 }
     });
+
+    } /* end GL_HEAVY_OK parallax */
 
     /* ── SCROLL REVEALS ─────────────────────────────────────────── */
 

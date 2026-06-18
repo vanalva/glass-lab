@@ -73,6 +73,12 @@
 
   function runAnimations() {
 
+    /* Heavy per-frame scrub parallax runs on desktop only — it stutters
+       mobile GPUs and is barely perceptible on a small screen. */
+    var GL_HEAVY_OK = !window.matchMedia('(max-width: 991px)').matches
+      && !window.matchMedia('(hover: none)').matches
+      && !window.matchMedia('(pointer: coarse)').matches;
+
     /* ── HERO — nav + 3D word flip + subtitle ─────────────────────── */
     const nav     = document.querySelector('.pg-nav-edge');
     const heading = document.querySelector('.pg-mob_hero_title');
@@ -131,7 +137,7 @@
           scrollTrigger: { trigger: sec, start: 'top 80%', toggleActions: 'play none none none' }
         });
         const inner = media.querySelector('.pg-mob_feature_img');
-        if (inner) {
+        if (inner && GL_HEAVY_OK) {
           gsap.fromTo(inner, { y: -16 }, {
             y: 16, ease: 'none',
             scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
