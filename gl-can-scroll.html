@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Can on Scroll | The Glass Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    .can-page { background: var(--swatch--dark-900); color: var(--swatch--light-100); }
+
+    .can-hero {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      align-items: center; gap: 1rem; padding: 4rem; text-align: center;
+    }
+    .can-hero h1 { font-size: clamp(2rem, 6vw, 5rem); margin: 0; letter-spacing: -0.02em; }
+    .can-hero p { max-width: 40rem; margin: 0; opacity: 0.7; }
+
+    /* The drmush pattern: sticky scene next to a tall content column.
+       Scroll progress through the section drives Spline object rotation. */
+    .can-section {
+      position: relative; min-height: 300vh; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 2rem; padding: 4rem;
+    }
+    .can-scene-sticky {
+      position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .can-scene {
+      width: 100%; height: 80vh; aspect-ratio: 1 / 1.5;
+      max-width: 600px;
+    }
+    .can-scene canvas { display: block; width: 100%; height: 100%; }
+    .can-content { display: flex; flex-direction: column; gap: 6rem; padding: 4rem 0; }
+    .can-content section { padding: 2rem; border-top: 1px solid var(--swatch--dark-700); }
+    .can-content h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); margin: 0 0 1rem; }
+    .can-content p { opacity: 0.7; line-height: 1.6; margin: 0; }
+
+    .can-cap {
+      min-height: 60vh; display: flex; align-items: center; justify-content: center;
+      border-top: 1px solid var(--swatch--dark-700);
+    }
+  </style>
+</head>
+<body class="can-page u-theme-dark">
+
+  <!-- Simple nav -->
+  <nav class="gl-home_nav-edge">
+    <div class="gl-home_nav">
+      <a href="gl-index.html" class="gl-home_nav_logo">
+        <img src="assets/logos/gl-logotipo-h-white.svg" alt="The Glass Lab" class="gl-home_nav_logo-img">
+      </a>
+      <span class="gl-mono gl-mono_muted">Demo · Can on Scroll</span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="can-hero">
+      <span class="gl-mono gl-mono_muted">Demo · Spline + Scroll</span>
+      <h1>Aluminum cans, rotating on scroll</h1>
+      <p>Scroll the page to drive Spline scene transforms. Mirrors the drmush
+        product-page pattern: a sticky 3D scene next to a tall content column,
+        with scroll progress mapped to per-object rotation and position.</p>
+    </section>
+
+    <!-- Spline scroll section: sticky scene + tall content column -->
+    <section class="can-section">
+      <div class="can-scene-sticky">
+        <!-- The wrapper class + canvas id make this a Webflow native Spline node.
+             The data-spline-scroll-* annotations turn the scroll-driven rotation
+             into native Webflow ix2 (SCROLLING_IN_VIEW + PLUGIN_SPLINE actions)
+             on conversion — no JS analysis needed.
+
+             Format:
+               trigger:   CSS selector that scrolls into view
+               smoothing: 0-100, smoothing of the scrub
+               action:    "<objNames>: <prop> <start>..<end>[; <prop2> <s>..<e>]…"
+                          Repeat with -1, -2, -3… for per-object differences.
+             The annotation is additive — the inline ScrollTrigger below still
+             runs imperatively, useful for the file:// preview. -->
+        <div class="ingredients_spline-scene can-scene"
+             data-spline-scroll-trigger=".can-section"
+             data-spline-scroll-smoothing="50"
+             data-spline-scroll-action="Aluminum_Can,Aluminum_Can 2,Aluminum_Can 3,Aluminum_Can 4: rotationY 0..6.28">
+          <canvas id="cans-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="can-content">
+        <section>
+          <h2>Composition</h2>
+          <p>Three aluminum cans staged in 3D. As you scroll, each can rotates
+            independently with a small phase offset between them, so they sweep
+            around the camera in a coordinated arc.</p>
+        </section>
+        <section>
+          <h2>Driver</h2>
+          <p>A single ScrollTrigger watches the section. Its progress (0 to 1)
+            drives the Y-axis rotation directly, no easing. Each can also gets a
+            small position bob to add weight to the motion.</p>
+        </section>
+        <section>
+          <h2>Why this matters</h2>
+          <p>This is the exact source-side shape that Flowriter needs to map to
+            Webflow's native <code>PLUGIN_SPLINE</code> action items. Each onUpdate
+            mutation becomes a keyframe in a <code>SCROLL_PROGRESS</code> continuous
+            action group, targeting each can by its scene UUID.</p>
+        </section>
+        <section>
+          <h2>Open question</h2>
+          <p>Spline scene objects are identified by UUIDs in <code>PLUGIN_SPLINE</code>
+            actions, but source code references them by name. Either we parse the
+            <code>.splinecode</code> at conversion time, or we ask the user to paste a
+            name→UUID mapping in Flowriter. The next iteration will pick one.</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="can-cap">
+      <span class="gl-mono gl-mono_muted">End of scroll · Cans returned to rest</span>
+    </section>
+  </main>
+
+  <!-- Spline + ScrollTrigger loader.
+       This is the SAME pattern Flowriter detects in gl-visor.html:
+         import { Application } from '...@splinetool/runtime...'
+         new Application(canvas)
+         app.load('...splinecode').then(...)
+       So after conversion, the canvas becomes a Webflow native Spline node and
+       the script below is rewritten to talk to Webflow's Spline plugin (the
+       Application instance Webflow already created). All the ScrollTrigger
+       wiring then continues to drive that same scene. -->
+  <script type="module">
+    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.12.94/build/runtime.js';
+
+    const canvas = document.getElementById('cans-canvas');
+    const app = new Application(canvas);
+
+    /* ── Animation state ──────────────────────────────────────── */
+    let cans = [];
+    let initialRotations = [];
+    let initialPositions = [];
+
+    app.load('https://prod.spline.design/K0NIFoH1Y2RUvOGV/scene.splinecode').then(() => {
+      // The drmush "cans" scene has four can objects. Grab whichever are present.
+      cans = [
+        app.findObjectByName('Aluminum_Can'),
+        app.findObjectByName('Aluminum_Can 2'),
+        app.findObjectByName('Aluminum_Can 3'),
+        app.findObjectByName('Aluminum_Can 4'),
+      ].filter(Boolean);
+
+      // Save initial transforms so each scroll update is relative, not absolute.
+      initialRotations = cans.map(c => ({ x: c.rotation.x, y: c.rotation.y, z: c.rotation.z }));
+      initialPositions = cans.map(c => ({ x: c.position.x, y: c.position.y, z: c.position.z }));
+
+      // Scroll-driven rotation. ScrollTrigger.progress is 0 → 1 across the
+      // section; we map that to a full rotation per can with a per-can phase
+      // offset so they sweep in formation.
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: '.can-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1,
+        onUpdate: (self) => {
+          const p = self.progress;
+          cans.forEach((can, i) => {
+            const phase = i * 0.2;
+            can.rotation.y = initialRotations[i].y + (p + phase) * Math.PI * 2;
+            can.position.y = initialPositions[i].y + Math.sin((p + phase) * Math.PI * 2) * 8;
+          });
+        },
+      });
+
+      console.log('[can-scroll] Spline ready, ' + cans.length + ' cans bound to scroll.');
+    });
+  </script>
+
+</body>
+</html>

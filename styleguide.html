@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Lab + Pernia Glass — Design System</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/project.css">
+    <style>
+/* ═══════════════════════════════════════════════════════════════
+   Styleguide-only layout (sg-* prefix). NOT part of design system.
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:#0B0B0B;color:#FFFFFF;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.8125rem;line-height:1.6}
+.sg-layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sg-sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background-color:#1a1a1a;padding-top:1.5rem;padding-bottom:2rem;padding-left:1rem;padding-right:1rem;border-right-width:1px;border-right-style:solid;border-right-color:rgba(255,255,255,0.08)}
+.sg-sidebar h2{font-family:'Inter',system-ui,sans-serif;font-size:0.875rem;font-weight:300;letter-spacing:0.04em;text-transform:uppercase;margin-top:0;margin-bottom:1rem;color:rgba(255,255,255,0.5)}
+.sg-sidebar a{display:block;color:rgba(255,255,255,0.45);text-decoration-line:none;font-size:0.6875rem;letter-spacing:0.06em;text-transform:uppercase;padding-top:0.25rem;padding-bottom:0.25rem;transition-property:color;transition-duration:0.15s;transition-timing-function:ease}
+.sg-sidebar a:hover{color:#FFFFFF}
+.sg-sidebar .sg-nav-section{font-weight:700;color:rgba(255,255,255,0.7);margin-top:0.75rem}
+.sg-sidebar .sg-nav-sub{padding-left:0.75rem;font-weight:400}
+.sg-sidebar .sg-stats{margin-top:1.5rem;padding-top:1rem;border-top-width:1px;border-top-style:solid;border-top-color:rgba(255,255,255,0.08);font-size:0.5625rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase}
+.sg-content{padding-top:2rem;padding-bottom:4rem;padding-left:3rem;padding-right:3rem;max-width:1200px}
+.sg-section{padding-bottom:3rem;margin-bottom:3rem;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(255,255,255,0.06)}
+.sg-section h2{font-family:'Inter',system-ui,sans-serif;font-size:1.75rem;font-weight:300;letter-spacing:-0.02em;margin-top:0;margin-bottom:0.25rem;color:#FFFFFF}
+.sg-section h3{font-family:'Inter',system-ui,sans-serif;font-size:1.125rem;font-weight:300;letter-spacing:-0.01em;margin-top:2rem;margin-bottom:0.75rem;color:rgba(255,255,255,0.85)}
+.sg-section h4{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-top:1.5rem;margin-bottom:0.5rem;color:rgba(255,255,255,0.5)}
+.sg-section-num{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.5625rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);display:block;margin-bottom:0.25rem}
+.sg-desc{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0;margin-bottom:1.5rem;max-width:60ch}
+.sg-swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.75rem}
+.sg-swatch{display:flex;flex-direction:column}
+.sg-swatch-color{width:100%;height:56px;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.08);border-right-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.08);border-left-color:rgba(255,255,255,0.08)}
+.sg-swatch-label{font-size:0.5625rem;letter-spacing:0.06em;color:rgba(255,255,255,0.45);margin-top:0.375rem;text-transform:uppercase;word-break:break-all}
+.sg-swatch-value{font-size:0.5rem;color:rgba(255,255,255,0.25);margin-top:0.125rem}
+.sg-demo{border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.12);border-right-color:rgba(255,255,255,0.12);border-bottom-color:rgba(255,255,255,0.12);border-left-color:rgba(255,255,255,0.12);padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem;margin-bottom:1rem;background-color:rgba(255,255,255,0.02)}
+.sg-demo-dark{background-color:#0B0B0B;color:#FFFFFF}
+.sg-demo-light{background-color:#FFFFFF;color:#0B0B0B}
+.sg-demo-brand{background-color:#1400FF;color:#FFFFFF}
+.sg-code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem;background-color:rgba(255,255,255,0.06);padding-top:0.125rem;padding-bottom:0.125rem;padding-left:0.375rem;padding-right:0.375rem;color:rgba(255,255,255,0.6);letter-spacing:0.02em}
+.sg-code-block{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem;background-color:rgba(255,255,255,0.04);padding-top:1rem;padding-right:1rem;padding-bottom:1rem;padding-left:1rem;color:rgba(255,255,255,0.5);overflow-x:auto;white-space:pre;margin-bottom:1rem;border-left-width:2px;border-left-style:solid;border-left-color:rgba(255,255,255,0.08)}
+.sg-pair{display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem}
+.sg-pair-label{flex-shrink:0;width:220px;font-size:0.625rem;color:rgba(255,255,255,0.4);letter-spacing:0.04em;text-transform:uppercase}
+.sg-pair-demo{flex-grow:1}
+.sg-class-table{width:100%;border-collapse:collapse;font-size:0.6875rem}
+.sg-class-table th{text-align:left;font-weight:700;color:rgba(255,255,255,0.5);font-size:0.5625rem;letter-spacing:0.08em;text-transform:uppercase;padding-top:0.5rem;padding-bottom:0.5rem;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(255,255,255,0.12)}
+.sg-class-table td{padding-top:0.375rem;padding-bottom:0.375rem;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);vertical-align:top}
+.sg-class-table td:first-child{color:#FFFFFF;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem}
+.sg-class-table .sg-cat-header td{color:rgba(255,255,255,0.3);font-weight:700;font-size:0.5625rem;letter-spacing:0.08em;text-transform:uppercase;padding-top:1rem;border-bottom-color:rgba(255,255,255,0.1)}
+.sg-bar{height:12px;background-color:#1400FF;opacity:0.6;min-width:4px}
+.sg-bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.375rem}
+.sg-bar-label{flex-shrink:0;width:180px;font-size:0.5625rem;color:rgba(255,255,255,0.4);letter-spacing:0.04em;text-transform:uppercase}
+.sg-bar-value{font-size:0.5rem;color:rgba(255,255,255,0.3);flex-shrink:0;width:100px}
+.sg-flex-box{width:48px;height:48px;background-color:rgba(20,0,255,0.25);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.5);border-right-color:rgba(20,0,255,0.5);border-bottom-color:rgba(20,0,255,0.5);border-left-color:rgba(20,0,255,0.5);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.5)}
+.sg-flex-container{display:flex;gap:0.5rem;min-height:80px;padding-top:0.5rem;padding-right:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(255,255,255,0.1);border-right-color:rgba(255,255,255,0.1);border-bottom-color:rgba(255,255,255,0.1);border-left-color:rgba(255,255,255,0.1);margin-bottom:0.5rem}
+.sg-grid-cell{background-color:rgba(20,0,255,0.15);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.3);border-right-color:rgba(20,0,255,0.3);border-bottom-color:rgba(20,0,255,0.3);border-left-color:rgba(20,0,255,0.3);padding-top:0.5rem;padding-right:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;font-size:0.5625rem;color:rgba(255,255,255,0.5);text-align:center;min-height:40px;display:flex;align-items:center;justify-content:center}
+.sg-color-strip{display:flex;height:6px;margin-bottom:1.5rem}
+.sg-color-strip div{flex-grow:1}
+.sg-theme-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem}
+.sg-theme-card{padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.08);border-right-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.08);border-left-color:rgba(255,255,255,0.08)}
+.sg-ratio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
+.sg-ratio-box{background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5625rem;color:rgba(255,255,255,0.4)}
+.sg-container-demo{border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(20,0,255,0.3);border-right-color:rgba(20,0,255,0.3);border-bottom-color:rgba(20,0,255,0.3);border-left-color:rgba(20,0,255,0.3);padding-top:0.75rem;padding-right:0.75rem;padding-bottom:0.75rem;padding-left:0.75rem;margin-bottom:0.5rem;background-color:rgba(20,0,255,0.05);font-size:0.5625rem;color:rgba(255,255,255,0.4);text-align:center}
+.sg-index-wrap{max-height:600px;overflow-y:auto;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.08);border-right-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.08);border-left-color:rgba(255,255,255,0.08)}
+.sg-index-wrap table{width:100%}
+@media (max-width:991px){
+    .sg-layout{grid-template-columns:1fr}
+    .sg-sidebar{position:relative;height:auto;max-height:none}
+    .sg-content{padding-left:1.5rem;padding-right:1.5rem}
+    .sg-theme-cards{grid-template-columns:1fr}
+}
+    </style>
+</head>
+<body>
+<div class="sg-layout">
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIDEBAR NAVIGATION
+     ═══════════════════════════════════════════════════════════ -->
+<nav class="sg-sidebar">
+    <h2>Glass Lab</h2>
+    <a href="#overview" class="sg-nav-section">01 Overview</a>
+    <a href="#colors" class="sg-nav-section">02 Colors</a>
+    <a href="#colors-swatches" class="sg-nav-sub">Swatches</a>
+    <a href="#colors-theme" class="sg-nav-sub">Theme Semantic</a>
+    <a href="#colors-modes" class="sg-nav-sub">Theme Modes</a>
+    <a href="#typography" class="sg-nav-section">03 Typography</a>
+    <a href="#type-families" class="sg-nav-sub">Font Families</a>
+    <a href="#type-headings" class="sg-nav-sub">Heading Scale</a>
+    <a href="#type-text-styles" class="sg-nav-sub">Text Styles</a>
+    <a href="#type-weights" class="sg-nav-sub">Weights</a>
+    <a href="#type-line-heights" class="sg-nav-sub">Line Heights</a>
+    <a href="#type-letter-spacing" class="sg-nav-sub">Letter Spacing</a>
+    <a href="#type-transforms" class="sg-nav-sub">Transforms</a>
+    <a href="#type-utilities" class="sg-nav-sub">Utilities</a>
+    <a href="#spacing" class="sg-nav-section">04 Spacing</a>
+    <a href="#spacing-scale" class="sg-nav-sub">Scale</a>
+    <a href="#spacing-gap" class="sg-nav-sub">Gap</a>
+    <a href="#spacing-margin" class="sg-nav-sub">Margin</a>
+    <a href="#spacing-padding" class="sg-nav-sub">Padding</a>
+    <a href="#layout" class="sg-nav-section">05 Layout</a>
+    <a href="#layout-containers" class="sg-nav-sub">Containers</a>
+    <a href="#layout-grid" class="sg-nav-sub">Grid</a>
+    <a href="#layout-flex" class="sg-nav-sub">Flexbox</a>
+    <a href="#sizing" class="sg-nav-section">06 Sizing &amp; Visibility</a>
+    <a href="#sizing-wh" class="sg-nav-sub">Width / Height</a>
+    <a href="#sizing-ratios" class="sg-nav-sub">Aspect Ratios</a>
+    <a href="#sizing-position" class="sg-nav-sub">Positioning</a>
+    <a href="#sizing-overflow" class="sg-nav-sub">Overflow</a>
+    <a href="#sizing-cover" class="sg-nav-sub">Cover</a>
+    <a href="#sizing-display" class="sg-nav-sub">Display</a>
+    <a href="#sizing-pointer" class="sg-nav-sub">Pointer</a>
+    <a href="#sizing-radius" class="sg-nav-sub">Radius</a>
+    <a href="#components" class="sg-nav-section">07 Components</a>
+    <a href="#comp-buttons" class="sg-nav-sub">Buttons (LUMOS)</a>
+    <a href="#comp-skew-button" class="sg-nav-sub">Parallelogram Button</a>
+    <a href="#comp-rect-button" class="sg-nav-sub">Rect Button</a>
+    <a href="#comp-images" class="sg-nav-sub">Image Wrappers</a>
+    <a href="#comp-clickable" class="sg-nav-sub">Clickable</a>
+    <a href="#comp-close" class="sg-nav-sub">Close Button</a>
+    <a href="#comp-nav" class="sg-nav-sub">Navigation</a>
+    <a href="#comp-modal" class="sg-nav-sub">Modal</a>
+    <a href="#states" class="sg-nav-section">08 States &amp; Triggers</a>
+    <a href="#accessibility" class="sg-nav-section">09 Accessibility</a>
+    <a href="#responsive" class="sg-nav-section">10 Responsive</a>
+    <a href="#svg-icons" class="sg-nav-section">11 SVG &amp; Icons</a>
+    <a href="#class-index" class="sg-nav-section">12 Class Index</a>
+    <a href="#project-classes" class="sg-nav-section">13 Project Classes</a>
+    <div class="sg-stats">
+        Variables: 80+<br>
+        LUMOS classes: 480+<br>
+        Custom classes: 17<br>
+        Themes: 3 (Light, Dark, Brand)<br>
+        Framework: LUMOS
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════ -->
+<main class="sg-content">
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 1: OVERVIEW
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="overview">
+    <span class="sg-section-num">01 // Overview</span>
+    <h2>Glass Lab + Pernia Glass</h2>
+    <p class="sg-desc">Minimal brutalism design system for a glass manufacturer. Two brands share one variable system: Glass Lab (dark) and Pernia Glass (light). Built on the LUMOS framework with Inter for headings and monospace for UI.</p>
+
+    <div class="sg-color-strip">
+        <div style="background-color:#0B0B0B"></div>
+        <div style="background-color:#1a1a1a"></div>
+        <div style="background-color:#1400FF"></div>
+        <div style="background-color:#f5f5f0"></div>
+        <div style="background-color:#FFFFFF"></div>
+        <div style="background-color:#c9a84c"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
+        <div>
+            <h4>Framework</h4>
+            <p style="font-size:1rem;color:#FFFFFF;margin-top:0.25rem;margin-bottom:0">LUMOS</p>
+        </div>
+        <div>
+            <h4>Typography</h4>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.25rem;margin-bottom:0">Primary: Inter (headings)<br>Secondary: Monospace (UI, body)</p>
+        </div>
+        <div>
+            <h4>Border Radius</h4>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.25rem;margin-bottom:0">0px everywhere — brutalist sharp corners</p>
+        </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem">
+        <div>
+            <h4>Swatches</h4>
+            <p style="font-size:1.5rem;color:#FFFFFF;margin-top:0.25rem;margin-bottom:0;font-family:'Inter',system-ui,sans-serif;font-weight:300">22</p>
+        </div>
+        <div>
+            <h4>Theme Variables</h4>
+            <p style="font-size:1.5rem;color:#FFFFFF;margin-top:0.25rem;margin-bottom:0;font-family:'Inter',system-ui,sans-serif;font-weight:300">27</p>
+        </div>
+        <div>
+            <h4>Spacing Tokens</h4>
+            <p style="font-size:1.5rem;color:#FFFFFF;margin-top:0.25rem;margin-bottom:0;font-family:'Inter',system-ui,sans-serif;font-weight:300">12</p>
+        </div>
+        <div>
+            <h4>Type Sizes</h4>
+            <p style="font-size:1.5rem;color:#FFFFFF;margin-top:0.25rem;margin-bottom:0;font-family:'Inter',system-ui,sans-serif;font-weight:300">10</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 2: COLORS
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="colors">
+    <span class="sg-section-num">02 // Colors</span>
+    <h2>Colors</h2>
+
+    <!-- 2a: Primitive Swatches -->
+    <h3 id="colors-swatches">Primitive Swatches</h3>
+    <p class="sg-desc">Raw color values from variables.css. These feed into the theme system.</p>
+
+    <h4>Brand Accent (Electric Blue)</h4>
+    <div class="sg-swatch-grid">
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, white 80%)"></div>
+            <span class="sg-swatch-label">brand-100</span>
+            <span class="sg-swatch-value">brand-500 + 80% white</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, white 60%)"></div>
+            <span class="sg-swatch-label">brand-200</span>
+            <span class="sg-swatch-value">brand-500 + 60% white</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, white 40%)"></div>
+            <span class="sg-swatch-label">brand-300</span>
+            <span class="sg-swatch-value">brand-500 + 40% white</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, white 20%)"></div>
+            <span class="sg-swatch-label">brand-400</span>
+            <span class="sg-swatch-value">brand-500 + 20% white</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#1400FF"></div>
+            <span class="sg-swatch-label">brand-500</span>
+            <span class="sg-swatch-value">#1400FF</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, black 20%)"></div>
+            <span class="sg-swatch-label">brand-600</span>
+            <span class="sg-swatch-value">brand-500 + 20% black</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, black 40%)"></div>
+            <span class="sg-swatch-label">brand-700</span>
+            <span class="sg-swatch-value">brand-500 + 40% black</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, black 60%)"></div>
+            <span class="sg-swatch-label">brand-800</span>
+            <span class="sg-swatch-value">brand-500 + 60% black</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, black 80%)"></div>
+            <span class="sg-swatch-label">brand-900</span>
+            <span class="sg-swatch-value">brand-500 + 80% black</span>
+        </div>
+    </div>
+
+    <h4>Dark / Light Neutrals</h4>
+    <div class="sg-swatch-grid">
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#0B0B0B"></div>
+            <span class="sg-swatch-label">dark-900</span>
+            <span class="sg-swatch-value">#0B0B0B</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#1a1a1a"></div>
+            <span class="sg-swatch-label">dark-800</span>
+            <span class="sg-swatch-value">#1a1a1a</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #0B0B0B 20%, transparent);border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2)"></div>
+            <span class="sg-swatch-label">dark-900-o20</span>
+            <span class="sg-swatch-value">dark-900 @ 20%</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#FFFFFF"></div>
+            <span class="sg-swatch-label">light-100</span>
+            <span class="sg-swatch-value">#FFFFFF</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#f5f5f0"></div>
+            <span class="sg-swatch-label">light-200</span>
+            <span class="sg-swatch-value">#f5f5f0</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:color-mix(in srgb, #FFFFFF 20%, transparent);border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2)"></div>
+            <span class="sg-swatch-label">light-100-o20</span>
+            <span class="sg-swatch-value">light-100 @ 20%</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:transparent;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2)"></div>
+            <span class="sg-swatch-label">transparent</span>
+            <span class="sg-swatch-value">transparent</span>
+        </div>
+    </div>
+
+    <h4>Material Palette (Pernia Glass)</h4>
+    <div class="sg-swatch-grid">
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#c9a84c"></div>
+            <span class="sg-swatch-label">material-gold</span>
+            <span class="sg-swatch-value">#c9a84c</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#4a1520"></div>
+            <span class="sg-swatch-label">material-burgundy</span>
+            <span class="sg-swatch-value">#4a1520</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#1a3a5c"></div>
+            <span class="sg-swatch-label">material-navy</span>
+            <span class="sg-swatch-value">#1a3a5c</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#b08d6e"></div>
+            <span class="sg-swatch-label">material-bronze</span>
+            <span class="sg-swatch-value">#b08d6e</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#5c4a3a"></div>
+            <span class="sg-swatch-label">material-walnut</span>
+            <span class="sg-swatch-value">#5c4a3a</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#3a4a2a"></div>
+            <span class="sg-swatch-label">material-forest</span>
+            <span class="sg-swatch-value">#3a4a2a</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#8a5a2a"></div>
+            <span class="sg-swatch-label">material-amber</span>
+            <span class="sg-swatch-value">#8a5a2a</span>
+        </div>
+        <div class="sg-swatch">
+            <div class="sg-swatch-color" style="background-color:#c0c0c0"></div>
+            <span class="sg-swatch-label">material-silver</span>
+            <span class="sg-swatch-value">#c0c0c0</span>
+        </div>
+    </div>
+
+    <!-- 2b: Theme Semantic Colors -->
+    <h3 id="colors-theme">Theme Semantic Colors</h3>
+    <p class="sg-desc">Semantic aliases that change per theme mode. Shown here in Light and Dark side by side.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <!-- Light column -->
+        <div>
+            <h4>u-theme-light (Pernia Glass)</h4>
+            <div class="sg-swatch-grid" style="grid-template-columns:repeat(2,1fr)">
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#FFFFFF"></div><span class="sg-swatch-label">background</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#f5f5f0"></div><span class="sg-swatch-label">background-2</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#0B0B0B"></div><span class="sg-swatch-label">text</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#1400FF"></div><span class="sg-swatch-label">heading-accent</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:color-mix(in srgb, #0B0B0B 20%, transparent);border-top-color:rgba(0,0,0,0.15);border-right-color:rgba(0,0,0,0.15);border-bottom-color:rgba(0,0,0,0.15);border-left-color:rgba(0,0,0,0.15)"></div><span class="sg-swatch-label">border</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#1400FF"></div><span class="sg-swatch-label">btn-primary bg</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:transparent;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(0,0,0,0.15);border-right-color:rgba(0,0,0,0.15);border-bottom-color:rgba(0,0,0,0.15);border-left-color:rgba(0,0,0,0.15)"></div><span class="sg-swatch-label">btn-secondary bg</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, white 40%)"></div><span class="sg-swatch-label">selection bg</span></div>
+            </div>
+        </div>
+        <!-- Dark column -->
+        <div>
+            <h4>u-theme-dark (Glass Lab)</h4>
+            <div class="sg-swatch-grid" style="grid-template-columns:repeat(2,1fr)">
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#0B0B0B"></div><span class="sg-swatch-label">background</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#1a1a1a"></div><span class="sg-swatch-label">background-2</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#FFFFFF"></div><span class="sg-swatch-label">text</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#1400FF"></div><span class="sg-swatch-label">heading-accent</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:color-mix(in srgb, #FFFFFF 20%, transparent);border-top-color:rgba(255,255,255,0.15);border-right-color:rgba(255,255,255,0.15);border-bottom-color:rgba(255,255,255,0.15);border-left-color:rgba(255,255,255,0.15)"></div><span class="sg-swatch-label">border</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:#1400FF"></div><span class="sg-swatch-label">btn-primary bg</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:transparent;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(255,255,255,0.15);border-right-color:rgba(255,255,255,0.15);border-bottom-color:rgba(255,255,255,0.15);border-left-color:rgba(255,255,255,0.15)"></div><span class="sg-swatch-label">btn-secondary bg</span></div>
+                <div class="sg-swatch"><div class="sg-swatch-color" style="background-color:color-mix(in srgb, #1400FF, black 40%)"></div><span class="sg-swatch-label">selection bg</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2c: Theme Modes Demo -->
+    <h3 id="colors-modes">Theme Modes Demo</h3>
+    <p class="sg-desc">The same card rendered in each theme mode. Themes cascade through the DOM.</p>
+
+    <div class="sg-theme-cards">
+        <div class="sg-theme-card" style="background-color:#FFFFFF;color:#0B0B0B">
+            <span style="font-size:0.5625rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(11,11,11,0.4)">u-theme-light</span>
+            <p style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:300;margin-top:0.75rem;margin-bottom:0.5rem">Pernia Glass</p>
+            <p style="font-size:0.75rem;color:rgba(11,11,11,0.6);margin-top:0;margin-bottom:1rem">Premium artisanal glass with refined elegance.</p>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;background-color:#1400FF;color:#FFFFFF;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase">Primary Button</div>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(11,11,11,0.2);border-right-color:rgba(11,11,11,0.2);border-bottom-color:rgba(11,11,11,0.2);border-left-color:rgba(11,11,11,0.2);font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;margin-left:0.5rem">Secondary</div>
+        </div>
+
+        <div class="sg-theme-card" style="background-color:#0B0B0B;color:#FFFFFF">
+            <span style="font-size:0.5625rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4)">u-theme-dark</span>
+            <p style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:300;margin-top:0.75rem;margin-bottom:0.5rem">Glass Lab</p>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0;margin-bottom:1rem">Experimental glass engineering and innovation.</p>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;background-color:#1400FF;color:#FFFFFF;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase">Primary Button</div>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2);font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;margin-left:0.5rem;color:#FFFFFF">Secondary</div>
+        </div>
+
+        <div class="sg-theme-card" style="background-color:#1400FF;color:#FFFFFF">
+            <span style="font-size:0.5625rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5)">u-theme-brand</span>
+            <p style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:300;margin-top:0.75rem;margin-bottom:0.5rem">Brand Accent</p>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.7);margin-top:0;margin-bottom:1rem">High-impact sections and call-to-action areas.</p>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;background-color:#FFFFFF;color:#1400FF;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase">Primary Button</div>
+            <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2);font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;margin-left:0.5rem">Secondary</div>
+        </div>
+    </div>
+
+    <div class="sg-code-block">&lt;body class="u-theme-dark"&gt;
+    &lt;section class="u-theme-light"&gt;...&lt;/section&gt;
+    &lt;section class="u-theme-brand"&gt;...&lt;/section&gt;
+&lt;/body&gt;</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 3: TYPOGRAPHY
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="typography">
+    <span class="sg-section-num">03 // Typography</span>
+    <h2>Typography</h2>
+
+    <!-- 3a: Font Families -->
+    <h3 id="type-families">Font Families</h3>
+
+    <h4>Primary: Inter (headings, display)</h4>
+    <div class="sg-demo">
+        <p style="font-family:'Inter',system-ui,sans-serif;font-size:1.5rem;font-weight:300;line-height:1.3;margin-top:0;margin-bottom:0.5rem">The quick brown fox jumps over the lazy dog</p>
+        <p style="font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:400;line-height:1.6;margin-top:0;margin-bottom:0">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</p>
+    </div>
+    <div class="sg-code-block">--_typography---font--primary-family: 'Inter', system-ui, sans-serif;</div>
+
+    <h4>Secondary: Monospace (UI, body, labels)</h4>
+    <div class="sg-demo">
+        <p style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.875rem;font-weight:400;line-height:1.6;margin-top:0;margin-bottom:0.5rem">The quick brown fox jumps over the lazy dog</p>
+        <p style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.875rem;font-weight:400;line-height:1.6;margin-top:0;margin-bottom:0">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</p>
+    </div>
+    <div class="sg-code-block">--_typography---font--secondary-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;</div>
+
+    <!-- 3b: Heading Scale -->
+    <h3 id="type-headings">Heading Scale</h3>
+    <p class="sg-desc">Apply <code>u-text-style-*</code> utilities directly on any element. Font: Inter, weight 200, fluid clamp() sizing. The utility carries family + size + weight + line-height + letter-spacing + margin reset.</p>
+
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-display (4rem-7rem)</span>
+            <div class="sg-pair-demo u-text-style-display">Display</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h1 (3rem-5rem)</span>
+            <div class="sg-pair-demo u-text-style-h1">Heading 1</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h2 (2.5rem-4rem)</span>
+            <div class="sg-pair-demo u-text-style-h2">Heading 2</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h3 (2.25rem-3rem)</span>
+            <div class="sg-pair-demo u-text-style-h3">Heading 3</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h4 (1.75rem-2rem)</span>
+            <div class="sg-pair-demo u-text-style-h4">Heading 4</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h5 (1.375rem-1.5rem)</span>
+            <div class="sg-pair-demo u-text-style-h5">Heading 5</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-h6 (1rem-1.125rem)</span>
+            <div class="sg-pair-demo u-text-style-h6">Heading 6</div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;h1 class="u-text-style-display"&gt;Display&lt;/h1&gt;
+&lt;h1 class="u-text-style-h1"&gt;Heading 1&lt;/h1&gt;
+&lt;h2 class="u-text-style-h2"&gt;Heading 2&lt;/h2&gt;
+&lt;h3 class="u-text-style-h3"&gt;Heading 3&lt;/h3&gt;
+&lt;h4 class="u-text-style-h4"&gt;Heading 4&lt;/h4&gt;
+&lt;h5 class="u-text-style-h5"&gt;Heading 5&lt;/h5&gt;
+&lt;h6 class="u-text-style-h6"&gt;Heading 6&lt;/h6&gt;</div>
+
+    <!-- 3c: Text Styles -->
+    <h3 id="type-text-styles">Text Styles (Body)</h3>
+    <p class="sg-desc">Body utilities for paragraphs and lead text. Font: Inter, weight 300. Pair with <code>gl-mono_muted</code> for a muted color modifier.</p>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-large (1.25rem-2rem)</span>
+            <div class="sg-pair-demo u-text-style-large">Large text for introductions and lead paragraphs with generous sizing.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-main (1rem-1.375rem)</span>
+            <div class="sg-pair-demo u-text-style-main">Main body text for paragraphs and general content throughout the site.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-style-small (0.875rem-1rem)</span>
+            <div class="sg-pair-demo u-text-style-small">Small text for captions, footnotes, and secondary information.</div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;p class="u-text-style-large"&gt;Large text&lt;/p&gt;
+&lt;p class="u-text-style-main"&gt;Main text&lt;/p&gt;
+&lt;p class="u-text-style-small"&gt;Small text&lt;/p&gt;</div>
+
+    <!-- 3d: Font Weights -->
+    <h3 id="type-weights">Font Weights</h3>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-weight-regular (400)</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:400">Regular weight text sample</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-weight-medium (500)</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:500">Medium weight text sample</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-weight-bold (700)</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:700">Bold weight text sample</div>
+        </div>
+    </div>
+
+    <!-- 3e: Line Heights -->
+    <h3 id="type-line-heights">Line Heights</h3>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-line-height-small (1)</span>
+            <div class="sg-pair-demo" style="font-size:0.875rem;line-height:1;background-color:rgba(20,0,255,0.08);padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;padding-right:0.5rem">Line height 1.0 — tight, used for headings and display text where vertical space is minimal.</div>
+        </div>
+        <div class="sg-pair" style="margin-top:0.5rem">
+            <span class="sg-pair-label">u-line-height-medium (1.1)</span>
+            <div class="sg-pair-demo" style="font-size:0.875rem;line-height:1.1;background-color:rgba(20,0,255,0.08);padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;padding-right:0.5rem">Line height 1.1 — compact, good for subheadings and short text blocks.</div>
+        </div>
+        <div class="sg-pair" style="margin-top:0.5rem">
+            <span class="sg-pair-label">u-line-height-large (1.3)</span>
+            <div class="sg-pair-demo" style="font-size:0.875rem;line-height:1.3;background-color:rgba(20,0,255,0.08);padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;padding-right:0.5rem">Line height 1.3 — comfortable reading for medium-length paragraphs.</div>
+        </div>
+        <div class="sg-pair" style="margin-top:0.5rem">
+            <span class="sg-pair-label">u-line-height-huge (1.6)</span>
+            <div class="sg-pair-demo" style="font-size:0.875rem;line-height:1.6;background-color:rgba(20,0,255,0.08);padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;padding-right:0.5rem">Line height 1.6 — generous spacing for body text and long-form reading.</div>
+        </div>
+    </div>
+
+    <!-- 3f: Letter Spacing -->
+    <h3 id="type-letter-spacing">Letter Spacing</h3>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-letter-spacing-tight (-0.03em)</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:1.5rem;letter-spacing:-0.03em">Tight tracking for large headings</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-letter-spacing-normal (0em)</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:1.5rem;letter-spacing:0em">Normal tracking for body text</div>
+        </div>
+    </div>
+
+    <!-- 3g: Text Transforms -->
+    <h3 id="type-transforms">Text Transforms</h3>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-transform-none</span>
+            <div class="sg-pair-demo" style="text-transform:none">This Text Is Not Transformed</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-transform-uppercase</span>
+            <div class="sg-pair-demo" style="text-transform:uppercase">This text is uppercased</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-transform-capitalize</span>
+            <div class="sg-pair-demo" style="text-transform:capitalize">this text is capitalized</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-transform-lowercase</span>
+            <div class="sg-pair-demo" style="text-transform:lowercase">THIS TEXT IS LOWERCASED</div>
+        </div>
+    </div>
+
+    <!-- 3h: Text Utilities -->
+    <h3 id="type-utilities">Text Utilities</h3>
+
+    <h4>Text Wrap</h4>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-wrap-default</span>
+            <div class="sg-pair-demo" style="text-wrap:auto;max-width:30ch;font-size:0.875rem">Default text wrapping behavior for standard content flow.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-wrap-balance</span>
+            <div class="sg-pair-demo" style="text-wrap:balance;max-width:30ch;font-size:0.875rem">Balanced wrapping for short text like headings and titles.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-wrap-pretty</span>
+            <div class="sg-pair-demo" style="text-wrap:pretty;max-width:30ch;font-size:0.875rem">Pretty wrapping prevents orphans in longer paragraph text blocks.</div>
+        </div>
+    </div>
+
+    <h4>Line Clamp</h4>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-line-clamp-1</span>
+            <div class="sg-pair-demo" style="display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:0.875rem">This is a long text that should be clamped to a single line regardless of how much content there is in the paragraph.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-line-clamp-2</span>
+            <div class="sg-pair-demo" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:0.875rem">This is a long text that should be clamped to two lines. It keeps going to show how the clamp works with multiple lines of content that overflow the container.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-line-clamp-3</span>
+            <div class="sg-pair-demo" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:0.875rem">This is a long text clamped to three lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-line-clamp-4</span>
+            <div class="sg-pair-demo" style="display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:0.875rem">This is a long text clamped to four lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</div>
+        </div>
+    </div>
+
+    <h4>Special Typography Classes</h4>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-heading-accent</span>
+            <div class="sg-pair-demo" style="font-family:'Inter',system-ui,sans-serif;font-size:2rem;font-weight:300;color:#1400FF">Accent-colored heading</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-rich-text</span>
+            <div class="sg-pair-demo" style="font-size:0.75rem;color:rgba(255,255,255,0.5)">Container class for CMS rich text blocks. Applies proper spacing and styling to child elements.</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">u-text-trim-off</span>
+            <div class="sg-pair-demo" style="font-size:0.75rem;color:rgba(255,255,255,0.5)">Disables LUMOS automatic line-height trimming on text elements.</div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;h2 class="u-text-style-h2 u-heading-accent"&gt;Accent Heading&lt;/h2&gt;
+&lt;div class="u-rich-text"&gt;...CMS content...&lt;/div&gt;</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 4: SPACING
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="spacing">
+    <span class="sg-section-num">04 // Spacing</span>
+    <h2>Spacing</h2>
+
+    <!-- 4a: Spacing Scale -->
+    <h3 id="spacing-scale">Spacing Scale</h3>
+    <p class="sg-desc">Fluid 8-point scale using clamp(). Values shown are desktop max.</p>
+
+    <div class="sg-bar-row"><span class="sg-bar-label">space-1</span><div class="sg-bar" style="width:8px"></div><span class="sg-bar-value">~6px - 8px (0.375rem - 0.5rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-2</span><div class="sg-bar" style="width:12px"></div><span class="sg-bar-value">~10px - 12px (0.625rem - 0.75rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-3</span><div class="sg-bar" style="width:16px"></div><span class="sg-bar-value">~14px - 16px (0.875rem - 1rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-4</span><div class="sg-bar" style="width:24px"></div><span class="sg-bar-value">~20px - 24px (1.25rem - 1.5rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-5</span><div class="sg-bar" style="width:32px"></div><span class="sg-bar-value">~28px - 32px (1.75rem - 2rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-6</span><div class="sg-bar" style="width:40px"></div><span class="sg-bar-value">~32px - 40px (2rem - 2.5rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-7</span><div class="sg-bar" style="width:48px"></div><span class="sg-bar-value">~36px - 48px (2.25rem - 3rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">space-8</span><div class="sg-bar" style="width:64px"></div><span class="sg-bar-value">~40px - 64px (2.5rem - 4rem)</span></div>
+
+    <h4>Section Spacing</h4>
+    <div class="sg-bar-row"><span class="sg-bar-label">section-space-none</span><div class="sg-bar" style="width:2px;opacity:0.3"></div><span class="sg-bar-value">0px</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">section-space-small</span><div class="sg-bar" style="width:80px"></div><span class="sg-bar-value">~48px - 80px (3rem - 5rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">section-space-main</span><div class="sg-bar" style="width:112px"></div><span class="sg-bar-value">~64px - 112px (4rem - 7rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">section-space-large</span><div class="sg-bar" style="width:160px"></div><span class="sg-bar-value">~88px - 160px (5.5rem - 10rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">section-space-page-top</span><div class="sg-bar" style="width:224px"></div><span class="sg-bar-value">~160px - 224px (10rem - 14rem)</span></div>
+
+    <h4>Site Layout</h4>
+    <div class="sg-bar-row"><span class="sg-bar-label">site-gutter</span><div class="sg-bar" style="width:32px"></div><span class="sg-bar-value">~16px - 32px (1rem - 2rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">site-margin</span><div class="sg-bar" style="width:48px"></div><span class="sg-bar-value">~16px - 48px (1rem - 3rem)</span></div>
+    <div class="sg-bar-row"><span class="sg-bar-label">site-column-split</span><div class="sg-bar" style="width:44px"></div><span class="sg-bar-value">1fr 1.2fr — shared 2-column rhythm used by hero + catalog</span></div>
+
+    <!-- 4b: Gap Utilities -->
+    <h3 id="spacing-gap">Gap Utilities</h3>
+
+    <h4>Inline Gap (column-gap)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-gap-inline-0</td><td>0px</td></tr>
+        <tr><td>u-gap-inline-1</td><td>var(--_spacing---space--1)</td></tr>
+        <tr><td>u-gap-inline-2</td><td>var(--_spacing---space--2)</td></tr>
+        <tr><td>u-gap-inline-3</td><td>var(--_spacing---space--3)</td></tr>
+        <tr><td>u-gap-inline-4</td><td>var(--_spacing---space--4)</td></tr>
+        <tr><td>u-gap-inline-5</td><td>var(--_spacing---space--5)</td></tr>
+        <tr><td>u-gap-inline-6</td><td>var(--_spacing---space--6)</td></tr>
+        <tr><td>u-gap-inline-7</td><td>var(--_spacing---space--7)</td></tr>
+        <tr><td>u-gap-inline-8</td><td>var(--_spacing---space--8)</td></tr>
+        <tr><td>u-gap-inline-gutter</td><td>var(--site--gutter)</td></tr>
+    </table>
+
+    <h4>Row Gap (row-gap)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-gap-row-inherit</td><td>inherit</td></tr>
+        <tr><td>u-gap-row-0</td><td>0px</td></tr>
+        <tr><td>u-gap-row-1</td><td>var(--_spacing---space--1)</td></tr>
+        <tr><td>u-gap-row-2</td><td>var(--_spacing---space--2)</td></tr>
+        <tr><td>u-gap-row-3</td><td>var(--_spacing---space--3)</td></tr>
+        <tr><td>u-gap-row-4</td><td>var(--_spacing---space--4)</td></tr>
+        <tr><td>u-gap-row-5</td><td>var(--_spacing---space--5)</td></tr>
+        <tr><td>u-gap-row-6</td><td>var(--_spacing---space--6)</td></tr>
+        <tr><td>u-gap-row-7</td><td>var(--_spacing---space--7)</td></tr>
+        <tr><td>u-gap-row-8</td><td>var(--_spacing---space--8)</td></tr>
+        <tr><td>u-gap-row-gutter</td><td>var(--site--gutter)</td></tr>
+    </table>
+
+    <!-- 4c: Margin Utilities -->
+    <h3 id="spacing-margin">Margin Utilities</h3>
+
+    <h4>Margin Top</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-margin-top-0</td><td>0px</td></tr>
+        <tr><td>u-margin-top-1</td><td>var(--_spacing---space--1)</td></tr>
+        <tr><td>u-margin-top-2</td><td>var(--_spacing---space--2)</td></tr>
+        <tr><td>u-margin-top-3</td><td>var(--_spacing---space--3)</td></tr>
+        <tr><td>u-margin-top-4</td><td>var(--_spacing---space--4)</td></tr>
+        <tr><td>u-margin-top-5</td><td>var(--_spacing---space--5)</td></tr>
+        <tr><td>u-margin-top-6</td><td>var(--_spacing---space--6)</td></tr>
+        <tr><td>u-margin-top-7</td><td>var(--_spacing---space--7)</td></tr>
+        <tr><td>u-margin-top-8</td><td>var(--_spacing---space--8)</td></tr>
+        <tr><td>u-margin-top-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-margin-top-text</td><td>var(--_text-style---margin-top)</td></tr>
+        <tr><td>u-margin-top-auto</td><td>auto</td></tr>
+    </table>
+
+    <h4>Margin Bottom</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-margin-bottom-0</td><td>0px</td></tr>
+        <tr><td>u-margin-bottom-1</td><td>var(--_spacing---space--1)</td></tr>
+        <tr><td>u-margin-bottom-2</td><td>var(--_spacing---space--2)</td></tr>
+        <tr><td>u-margin-bottom-3</td><td>var(--_spacing---space--3)</td></tr>
+        <tr><td>u-margin-bottom-4</td><td>var(--_spacing---space--4)</td></tr>
+        <tr><td>u-margin-bottom-5</td><td>var(--_spacing---space--5)</td></tr>
+        <tr><td>u-margin-bottom-6</td><td>var(--_spacing---space--6)</td></tr>
+        <tr><td>u-margin-bottom-7</td><td>var(--_spacing---space--7)</td></tr>
+        <tr><td>u-margin-bottom-8</td><td>var(--_spacing---space--8)</td></tr>
+        <tr><td>u-margin-bottom-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-margin-bottom-text</td><td>var(--_text-style---margin-bottom)</td></tr>
+        <tr><td>u-margin-bottom-auto</td><td>auto</td></tr>
+    </table>
+
+    <h4>Other Margin</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-margin-inline-auto</td><td>Centers element horizontally (margin-left: auto; margin-right: auto)</td></tr>
+        <tr><td>u-margin-trim</td><td>Enables line-height trimming on text elements</td></tr>
+        <tr><td>u-ignore-trim</td><td>Disables trimming on a specific child element</td></tr>
+    </table>
+
+    <!-- 4d: Padding Utilities -->
+    <h3 id="spacing-padding">Padding Utilities</h3>
+
+    <h4>Padding (all sides)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-padding-0</td><td>0px</td></tr>
+        <tr><td>u-padding-1</td><td>var(--_spacing---space--1)</td></tr>
+        <tr><td>u-padding-2</td><td>var(--_spacing---space--2)</td></tr>
+        <tr><td>u-padding-3</td><td>var(--_spacing---space--3)</td></tr>
+        <tr><td>u-padding-4</td><td>var(--_spacing---space--4)</td></tr>
+        <tr><td>u-padding-5</td><td>var(--_spacing---space--5)</td></tr>
+        <tr><td>u-padding-6</td><td>var(--_spacing---space--6)</td></tr>
+        <tr><td>u-padding-7</td><td>var(--_spacing---space--7)</td></tr>
+        <tr><td>u-padding-8</td><td>var(--_spacing---space--8)</td></tr>
+        <tr><td>u-padding-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-padding-small</td><td>var(--_spacing---section-space--small)</td></tr>
+        <tr><td>u-padding-main</td><td>var(--_spacing---section-space--main)</td></tr>
+        <tr><td>u-padding-large</td><td>var(--_spacing---section-space--large)</td></tr>
+    </table>
+
+    <h4>Padding Block (top + bottom)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-padding-block-0</td><td>0px</td></tr>
+        <tr><td>u-padding-block-1 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-block-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-block-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-padding-block-small</td><td>var(--_spacing---section-space--small)</td></tr>
+        <tr><td>u-padding-block-main</td><td>var(--_spacing---section-space--main)</td></tr>
+        <tr><td>u-padding-block-large</td><td>var(--_spacing---section-space--large)</td></tr>
+    </table>
+
+    <h4>Padding Inline (left + right)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-padding-inline-0</td><td>0px</td></tr>
+        <tr><td>u-padding-inline-1 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-inline-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-inline-gutter</td><td>var(--site--gutter)</td></tr>
+    </table>
+
+    <h4>Padding Top / Bottom</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-padding-top-0 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-top-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-top-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-padding-top-small</td><td>var(--_spacing---section-space--small)</td></tr>
+        <tr><td>u-padding-top-main</td><td>var(--_spacing---section-space--main)</td></tr>
+        <tr><td>u-padding-top-large</td><td>var(--_spacing---section-space--large)</td></tr>
+        <tr><td>u-padding-bottom-0 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-bottom-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-bottom-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-padding-bottom-small</td><td>var(--_spacing---section-space--small)</td></tr>
+        <tr><td>u-padding-bottom-main</td><td>var(--_spacing---section-space--main)</td></tr>
+        <tr><td>u-padding-bottom-large</td><td>var(--_spacing---section-space--large)</td></tr>
+    </table>
+
+    <h4>Padding Left / Right</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-padding-left-0 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-left-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-left-gutter</td><td>var(--site--gutter)</td></tr>
+        <tr><td>u-padding-right-0 ... 8</td><td>var(--_spacing---space--N)</td></tr>
+        <tr><td>u-padding-right-sitemargin</td><td>var(--site--margin)</td></tr>
+        <tr><td>u-padding-right-gutter</td><td>var(--site--gutter)</td></tr>
+    </table>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 5: LAYOUT
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="layout">
+    <span class="sg-section-num">05 // Layout</span>
+    <h2>Layout</h2>
+
+    <!-- 5a: Containers -->
+    <h3 id="layout-containers">Containers</h3>
+    <p class="sg-desc">Content containers constrain width and center content. LUMOS uses the site variables for max-width and margins.</p>
+
+    <div class="sg-container-demo" style="max-width:100%">
+        <div style="font-size:0.5625rem;margin-bottom:0.25rem;color:rgba(255,255,255,0.3)">u-container-full — max-width: 100%</div>
+        <div class="sg-container-demo" style="max-width:90rem;margin-left:auto;margin-right:auto">
+            <div style="font-size:0.5625rem;margin-bottom:0.25rem;color:rgba(255,255,255,0.3)">u-container — max-width: 90rem (1440px)</div>
+            <div class="sg-container-demo" style="max-width:50rem;margin-left:auto;margin-right:auto">
+                <div style="font-size:0.5625rem;color:rgba(255,255,255,0.3)">u-container-small — max-width: 50rem (800px)</div>
+            </div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="u-container"&gt;Main container (90rem)&lt;/div&gt;
+&lt;div class="u-container-small"&gt;Narrow container (50rem)&lt;/div&gt;
+&lt;div class="u-container-full"&gt;Full width (100%)&lt;/div&gt;</div>
+
+    <!-- 5b: Grid System -->
+    <h3 id="layout-grid">Grid System</h3>
+
+    <h4>Grid Types</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-grid-custom</td><td>Configurable grid — set column count via --_column-count---value variable</td></tr>
+        <tr><td>u-grid-autofit</td><td>Responsive grid: auto-fit columns at minimum width, expands to fill</td></tr>
+        <tr><td>u-grid-autofill</td><td>Responsive grid: auto-fill columns at minimum width, preserves column size</td></tr>
+        <tr><td>u-grid-above</td><td>12-column grid above threshold, stacks to vertical flex below</td></tr>
+        <tr><td>u-grid-below</td><td>Vertical flex above threshold, switches to 12-column grid below</td></tr>
+        <tr><td>u-grid-breakout</td><td>Grid with extra edge columns for full-bleed breakout content</td></tr>
+        <tr><td>u-grid-subgrid</td><td>Enables CSS subgrid for nested grid alignment</td></tr>
+    </table>
+
+    <h4>Grid Demo: 12-column</h4>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell">1</div>
+        <div class="sg-grid-cell">2</div>
+        <div class="sg-grid-cell">3</div>
+        <div class="sg-grid-cell">4</div>
+        <div class="sg-grid-cell">5</div>
+        <div class="sg-grid-cell">6</div>
+        <div class="sg-grid-cell">7</div>
+        <div class="sg-grid-cell">8</div>
+        <div class="sg-grid-cell">9</div>
+        <div class="sg-grid-cell">10</div>
+        <div class="sg-grid-cell">11</div>
+        <div class="sg-grid-cell">12</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell" style="grid-column:span 12">u-column-full (span 12)</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell" style="grid-column:span 6">u-column-6</div>
+        <div class="sg-grid-cell" style="grid-column:span 6">u-column-6</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell" style="grid-column:span 4">u-column-4</div>
+        <div class="sg-grid-cell" style="grid-column:span 4">u-column-4</div>
+        <div class="sg-grid-cell" style="grid-column:span 4">u-column-4</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell" style="grid-column:span 3">u-column-3</div>
+        <div class="sg-grid-cell" style="grid-column:span 3">u-column-3</div>
+        <div class="sg-grid-cell" style="grid-column:span 3">u-column-3</div>
+        <div class="sg-grid-cell" style="grid-column:span 3">u-column-3</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:1rem">
+        <div class="sg-grid-cell" style="grid-column:span 8">u-column-8</div>
+        <div class="sg-grid-cell" style="grid-column:span 4">u-column-4</div>
+    </div>
+
+    <h4>Column Span Utilities</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Spans</th></tr>
+        <tr><td>u-column-full</td><td>All columns (1 / -1)</td></tr>
+        <tr><td>u-column-1 ... u-column-12</td><td>1 to 12 columns</td></tr>
+        <tr><td>u-column-indent</td><td>Indents content by 1 column</td></tr>
+    </table>
+
+    <h4>Column Start</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Position</th></tr>
+        <tr><td>u-column-start-auto</td><td>Auto placement</td></tr>
+        <tr><td>u-column-start-1 ... u-column-start-12</td><td>Start at column 1-12</td></tr>
+    </table>
+
+    <h4>Row Span / Start</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-row-span-1 ... u-row-span-6</td><td>Span 1-6 rows</td></tr>
+        <tr><td>u-row-start-1 ... u-row-start-6</td><td>Start at row 1-6</td></tr>
+        <tr><td>u-row-start-auto</td><td>Auto row placement</td></tr>
+    </table>
+
+    <!-- 5c: Flexbox -->
+    <h3 id="layout-flex">Flexbox</h3>
+
+    <h4>Display Modes</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+        <div>
+            <p style="font-size:0.5625rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-top:0;margin-bottom:0.5rem">u-flex-horizontal-wrap</p>
+            <div class="sg-flex-container" style="flex-wrap:wrap">
+                <div class="sg-flex-box">1</div><div class="sg-flex-box">2</div><div class="sg-flex-box">3</div><div class="sg-flex-box">4</div><div class="sg-flex-box">5</div>
+            </div>
+        </div>
+        <div>
+            <p style="font-size:0.5625rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-top:0;margin-bottom:0.5rem">u-flex-horizontal-nowrap</p>
+            <div class="sg-flex-container" style="flex-wrap:nowrap;overflow-x:auto">
+                <div class="sg-flex-box">1</div><div class="sg-flex-box">2</div><div class="sg-flex-box">3</div><div class="sg-flex-box">4</div><div class="sg-flex-box">5</div>
+            </div>
+        </div>
+        <div>
+            <p style="font-size:0.5625rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-top:0;margin-bottom:0.5rem">u-flex-vertical-wrap</p>
+            <div class="sg-flex-container" style="flex-direction:column;flex-wrap:wrap;height:120px">
+                <div class="sg-flex-box">1</div><div class="sg-flex-box">2</div><div class="sg-flex-box">3</div>
+            </div>
+        </div>
+        <div>
+            <p style="font-size:0.5625rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-top:0;margin-bottom:0.5rem">u-flex-vertical-nowrap</p>
+            <div class="sg-flex-container" style="flex-direction:column;flex-wrap:nowrap">
+                <div class="sg-flex-box">1</div><div class="sg-flex-box">2</div><div class="sg-flex-box">3</div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Align Items</h4>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;margin-bottom:1rem">
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">variable</p>
+            <div class="sg-flex-container" style="align-items:var(--alignment,start);min-height:100px"><div class="sg-flex-box" style="height:30px">A</div><div class="sg-flex-box" style="height:50px">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">start</p>
+            <div class="sg-flex-container" style="align-items:flex-start;min-height:100px"><div class="sg-flex-box" style="height:30px">A</div><div class="sg-flex-box" style="height:50px">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">center</p>
+            <div class="sg-flex-container" style="align-items:center;min-height:100px"><div class="sg-flex-box" style="height:30px">A</div><div class="sg-flex-box" style="height:50px">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">end</p>
+            <div class="sg-flex-container" style="align-items:flex-end;min-height:100px"><div class="sg-flex-box" style="height:30px">A</div><div class="sg-flex-box" style="height:50px">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">stretch</p>
+            <div class="sg-flex-container" style="align-items:stretch;min-height:100px"><div class="sg-flex-box" style="height:auto">A</div><div class="sg-flex-box" style="height:auto">B</div></div>
+        </div>
+    </div>
+
+    <h4>Justify Content</h4>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem">
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">start</p>
+            <div class="sg-flex-container" style="justify-content:flex-start"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">center</p>
+            <div class="sg-flex-container" style="justify-content:center"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">end</p>
+            <div class="sg-flex-container" style="justify-content:flex-end"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">between</p>
+            <div class="sg-flex-container" style="justify-content:space-between"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div><div class="sg-flex-box">C</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">around</p>
+            <div class="sg-flex-container" style="justify-content:space-around"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div><div class="sg-flex-box">C</div></div>
+        </div>
+        <div>
+            <p style="font-size:0.5rem;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0;margin-bottom:0.25rem">variable</p>
+            <div class="sg-flex-container" style="justify-content:var(--alignment,start)"><div class="sg-flex-box">A</div><div class="sg-flex-box">B</div></div>
+        </div>
+    </div>
+
+    <h4>Align Self</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-align-self-variable</td><td>var(--alignment)</td></tr>
+        <tr><td>u-align-self-start</td><td>flex-start</td></tr>
+        <tr><td>u-align-self-center</td><td>center</td></tr>
+        <tr><td>u-align-self-end</td><td>flex-end</td></tr>
+        <tr><td>u-align-self-stretch</td><td>stretch</td></tr>
+    </table>
+
+    <h4>Flex Sizing</h4>
+    <div class="sg-demo">
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem">
+            <div class="sg-flex-box" style="flex-grow:1;width:auto">u-flex-grow</div>
+            <div class="sg-flex-box">fixed</div>
+        </div>
+        <p style="font-size:0.5625rem;color:rgba(255,255,255,0.3);margin-top:0;margin-bottom:0">u-flex-grow | u-flex-shrink | u-flex-noshrink</p>
+    </div>
+
+    <h4>Ordering</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-order-first</td><td>Moves item to the beginning (order: -1)</td></tr>
+        <tr><td>u-order-last</td><td>Moves item to the end (order: 9999)</td></tr>
+        <tr><td>u-order-unset-above</td><td>Resets order above threshold</td></tr>
+        <tr><td>u-order-unset-below</td><td>Resets order below threshold</td></tr>
+    </table>
+
+    <h4>Alignment Modes</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Sets --alignment to</th></tr>
+        <tr><td>u-alignment-start</td><td>flex-start / start</td></tr>
+        <tr><td>u-alignment-center</td><td>center</td></tr>
+        <tr><td>u-alignment-end</td><td>flex-end / end</td></tr>
+    </table>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 6: SIZING & VISIBILITY
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="sizing">
+    <span class="sg-section-num">06 // Sizing &amp; Visibility</span>
+    <h2>Sizing &amp; Visibility</h2>
+
+    <!-- 6a: Width/Height -->
+    <h3 id="sizing-wh">Width &amp; Height</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-width-full</td><td>width: 100%</td></tr>
+        <tr><td>u-height-full</td><td>height: 100%</td></tr>
+        <tr><td>u-height-auto</td><td>height: auto</td></tr>
+        <tr><td>u-min-height-screen</td><td>min-height: 100vh (full viewport)</td></tr>
+        <tr><td>u-object-fit-cover</td><td>object-fit: cover (fills container, crops)</td></tr>
+        <tr><td>u-object-fit-contain</td><td>object-fit: contain (fits inside, letterboxed)</td></tr>
+    </table>
+
+    <h4>Max Width (character-based)</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-max-width-none</td><td>none</td></tr>
+        <tr><td>u-max-width-10ch ... 20ch</td><td>10ch to 20ch (in 2ch steps)</td></tr>
+        <tr><td>u-max-width-30ch</td><td>30ch</td></tr>
+        <tr><td>u-max-width-40ch</td><td>40ch</td></tr>
+    </table>
+
+    <!-- 6b: Aspect Ratios -->
+    <h3 id="sizing-ratios">Aspect Ratios</h3>
+    <div class="sg-ratio-grid">
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:1/1">1:1</div>
+            <span class="sg-swatch-label">u-ratio-1</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:16/9">16:9</div>
+            <span class="sg-swatch-label">u-ratio-16-9</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:3/1">3:1</div>
+            <span class="sg-swatch-label">u-ratio-3-1</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:2/1">2:1</div>
+            <span class="sg-swatch-label">u-ratio-2-1</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:5/4">5:4</div>
+            <span class="sg-swatch-label">u-ratio-5-4</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:2/3">2:3</div>
+            <span class="sg-swatch-label">u-ratio-2-3</span>
+        </div>
+        <div>
+            <div class="sg-ratio-box" style="aspect-ratio:4/5">4:5</div>
+            <span class="sg-swatch-label">u-ratio-4-5</span>
+        </div>
+    </div>
+
+    <!-- 6c: Positioning -->
+    <h3 id="sizing-position">Positioning</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-position-static</td><td>position: static</td></tr>
+        <tr><td>u-position-relative</td><td>position: relative</td></tr>
+        <tr><td>u-position-absolute</td><td>position: absolute</td></tr>
+        <tr><td>u-position-sticky</td><td>position: sticky</td></tr>
+        <tr><td>u-position-fixed</td><td>position: fixed</td></tr>
+    </table>
+
+    <h4>Z-Index</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Value</th></tr>
+        <tr><td>u-zindex-negative</td><td>z-index: -1</td></tr>
+        <tr><td>u-zindex-unset</td><td>z-index: auto</td></tr>
+        <tr><td>u-zindex-0</td><td>z-index: 0</td></tr>
+        <tr><td>u-zindex-1</td><td>z-index: 1</td></tr>
+        <tr><td>u-zindex-2</td><td>z-index: 2</td></tr>
+        <tr><td>u-zindex-3</td><td>z-index: 3</td></tr>
+    </table>
+
+    <!-- 6d: Overflow -->
+    <h3 id="sizing-overflow">Overflow</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-overflow-visible</td><td>Shows overflowing content (default)</td></tr>
+        <tr><td>u-overflow-hidden</td><td>Hides overflow, creates scroll context</td></tr>
+        <tr><td>u-overflow-clip</td><td>Clips overflow without scroll context</td></tr>
+        <tr><td>u-overflow-x-auto</td><td>Horizontal scroll when needed</td></tr>
+        <tr><td>u-overflow-y-auto</td><td>Vertical scroll when needed</td></tr>
+    </table>
+
+    <!-- 6e: Cover -->
+    <h3 id="sizing-cover">Cover Patterns</h3>
+    <div class="sg-demo">
+        <div style="position:relative;height:120px;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:dashed;border-right-style:dashed;border-bottom-style:dashed;border-left-style:dashed;border-top-color:rgba(255,255,255,0.1);border-right-color:rgba(255,255,255,0.1);border-bottom-color:rgba(255,255,255,0.1);border-left-color:rgba(255,255,255,0.1)">
+            <div style="position:absolute;top:0;right:0;bottom:0;left:0;background-color:rgba(20,0,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:rgba(255,255,255,0.4)">u-cover-absolute (position: absolute; inset: 0)</div>
+        </div>
+    </div>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-cover</td><td>Covers parent with position: relative + width/height 100%</td></tr>
+        <tr><td>u-cover-absolute</td><td>Covers parent with position: absolute + inset: 0</td></tr>
+    </table>
+
+    <!-- 6f: Display -->
+    <h3 id="sizing-display">Display</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-display-contents</td><td>display: contents — element becomes invisible to layout, children participate in parent</td></tr>
+        <tr><td>u-hide-if-empty</td><td>Hides element when it has no children (:empty)</td></tr>
+    </table>
+
+    <!-- 6g: Pointer -->
+    <h3 id="sizing-pointer">Pointer Events</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-pointer-on</td><td>pointer-events: auto — element is clickable</td></tr>
+        <tr><td>u-pointer-off</td><td>pointer-events: none — clicks pass through</td></tr>
+    </table>
+
+    <!-- 6h: Radius -->
+    <h3 id="sizing-radius">Border Radius</h3>
+    <p class="sg-desc">In this project ALL radius values are 0px (brutalist). Shown for reference.</p>
+    <div style="display:flex;gap:1.5rem;margin-bottom:1rem">
+        <div style="text-align:center">
+            <div style="width:60px;height:60px;background-color:rgba(20,0,255,0.2);border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.4);border-right-color:rgba(20,0,255,0.4);border-bottom-color:rgba(20,0,255,0.4);border-left-color:rgba(20,0,255,0.4)"></div>
+            <span class="sg-swatch-label">u-radius-none<br>0px</span>
+        </div>
+        <div style="text-align:center">
+            <div style="width:60px;height:60px;background-color:rgba(20,0,255,0.2);border-top-left-radius:inherit;border-top-right-radius:inherit;border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.4);border-right-color:rgba(20,0,255,0.4);border-bottom-color:rgba(20,0,255,0.4);border-left-color:rgba(20,0,255,0.4)"></div>
+            <span class="sg-swatch-label">u-radius-inherit<br>inherit</span>
+        </div>
+        <div style="text-align:center">
+            <div style="width:60px;height:60px;background-color:rgba(20,0,255,0.2);border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.4);border-right-color:rgba(20,0,255,0.4);border-bottom-color:rgba(20,0,255,0.4);border-left-color:rgba(20,0,255,0.4)"></div>
+            <span class="sg-swatch-label">u-radius-small<br>0px</span>
+        </div>
+        <div style="text-align:center">
+            <div style="width:60px;height:60px;background-color:rgba(20,0,255,0.2);border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.4);border-right-color:rgba(20,0,255,0.4);border-bottom-color:rgba(20,0,255,0.4);border-left-color:rgba(20,0,255,0.4)"></div>
+            <span class="sg-swatch-label">u-radius-main<br>0px</span>
+        </div>
+        <div style="text-align:center">
+            <div style="width:60px;height:60px;background-color:rgba(20,0,255,0.2);border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.4);border-right-color:rgba(20,0,255,0.4);border-bottom-color:rgba(20,0,255,0.4);border-left-color:rgba(20,0,255,0.4)"></div>
+            <span class="sg-swatch-label">u-radius-round<br>0px</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 7: COMPONENTS
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="components">
+    <span class="sg-section-num">07 // Components</span>
+    <h2>Components</h2>
+
+    <!-- 7a: Buttons -->
+    <h3 id="comp-buttons">Buttons</h3>
+    <p class="sg-desc">LUMOS button structure: wrap > element > text. Uses data-trigger for interaction and data-style for variants.</p>
+
+    <h4>Primary Button</h4>
+    <div class="sg-demo">
+        <div style="display:inline-flex;cursor:pointer" data-trigger="hover focus">
+            <div style="display:inline-flex;align-items:center;justify-content:center;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;background-color:#1400FF;color:#FFFFFF;min-height:3rem">
+                <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase">Request Quote</span>
+            </div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="button_main_wrap" data-trigger="hover focus"&gt;
+    &lt;a href="#" class="button_main_element"&gt;
+        &lt;div class="button_main_text u-text-style-main"&gt;Request Quote&lt;/div&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</div>
+
+    <h4>Secondary Button (Ghost/Outline)</h4>
+    <div class="sg-demo">
+        <div style="display:inline-flex;cursor:pointer" data-trigger="hover focus">
+            <div style="display:inline-flex;align-items:center;justify-content:center;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;background-color:transparent;color:#FFFFFF;min-height:3rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.2);border-right-color:rgba(255,255,255,0.2);border-bottom-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2)">
+                <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase">Learn More</span>
+            </div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="button_main_wrap" data-trigger="hover focus" data-style="secondary"&gt;
+    &lt;a href="#" class="button_main_element"&gt;
+        &lt;div class="button_main_text u-text-style-main"&gt;Learn More&lt;/div&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</div>
+
+    <h4>Button Sizes</h4>
+    <div class="sg-demo" style="display:flex;gap:1rem;align-items:center">
+        <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;background-color:#1400FF;color:#FFFFFF;min-height:2.5rem;align-items:center">
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.5625rem;letter-spacing:0.08em;text-transform:uppercase">Small</span>
+        </div>
+        <div style="display:inline-flex;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;background-color:#1400FF;color:#FFFFFF;min-height:3rem;align-items:center">
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase">Medium (3rem)</span>
+        </div>
+        <div style="display:inline-flex;padding-top:1rem;padding-bottom:1rem;padding-left:2rem;padding-right:2rem;background-color:#1400FF;color:#FFFFFF;min-height:5rem;align-items:center">
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase">Large (5rem)</span>
+        </div>
+    </div>
+
+    <!-- 7a2: Parallelogram Skew Button -->
+    <h3 id="comp-skew-button">Parallelogram Button (gl-btn_skew)</h3>
+    <p class="sg-desc">Signature notched button with chamfered top-left and bottom-right corners. SVG outline uses currentColor for automatic theme adaptation. Text offset lower-left for a "cube face" feel.</p>
+
+    <h4>Outline — Dark Theme</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" style="text-decoration-line:none;color:inherit"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Small</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:inherit"><span class="gl-btn_skew_text">Catalogo</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_lg" style="text-decoration-line:none;color:inherit"><span class="gl-btn_skew_text gl-btn_skew_text_lg">Large</span></a>
+        </div>
+    </div>
+
+    <h4>Filled — Dark Theme</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" style="text-decoration-line:none"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Small</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Explorar</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_lg" style="text-decoration-line:none"><span class="gl-btn_skew_text gl-btn_skew_text_lg">Large</span></a>
+        </div>
+    </div>
+
+    <h4>Brand Accent</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_brand-outline">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Brand Outline</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_brand">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Brand Filled</span></a>
+        </div>
+    </div>
+
+    <h4>With Arrow + Ghost</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:inherit"><span class="gl-btn_skew_text">Explorar Catalogo &nbsp;&gt;&gt;&gt;</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_ghost">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Contacto</span></a>
+        </div>
+    </div>
+
+    <h4>Light Theme (Pernia Glass)</h4>
+    <div class="sg-demo sg-demo-light" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap" style="color:#0B0B0B">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:#0B0B0B"><span class="gl-btn_skew_text">Outline</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled" style="color:#0B0B0B">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:#FFFFFF"><span class="gl-btn_skew_text">Filled</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_brand">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Brand</span></a>
+        </div>
+    </div>
+
+    <h4>On Brand Background</h4>
+    <div class="sg-demo sg-demo-brand" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+        <div class="gl-btn_skew_wrap" style="color:#FFFFFF">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:#FFFFFF"><span class="gl-btn_skew_text">Outline</span></a>
+        </div>
+        <div class="gl-btn_skew_wrap" style="color:#FFFFFF">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:#1400FF"><span class="gl-btn_skew_text">Filled White</span></a>
+        </div>
+    </div>
+
+    <h4>Button Pairs</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;flex-direction:column;gap:1.5rem">
+        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+            <span style="font-size:0.5625rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;width:120px">Primary + Secondary</span>
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Solicitar Muestra &nbsp;&gt;&gt;&gt;</span></a>
+            </div>
+            <div class="gl-btn_skew_wrap">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none;color:inherit"><span class="gl-btn_skew_text">Ficha Tecnica</span></a>
+            </div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+            <span style="font-size:0.5625rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;width:120px">CTA + Ghost</span>
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_brand">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Explorar Catalogo</span></a>
+            </div>
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_ghost">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                <a href="#" class="gl-btn_skew_element" style="text-decoration-line:none"><span class="gl-btn_skew_text">Contacto</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sg-code-block">&lt;!-- Outline (default) --&gt;
+&lt;div class="gl-btn_skew_wrap"&gt;
+    &lt;svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"&gt;
+        &lt;polygon points="16,1 239,1 239,42 224,55 1,55 1,14"
+            stroke="currentColor" stroke-width="1.5"
+            stroke-linejoin="miter" vector-effect="non-scaling-stroke"/&gt;
+    &lt;/svg&gt;
+    &lt;a href="#" class="gl-btn_skew_element"&gt;
+        &lt;span class="gl-btn_skew_text"&gt;Catalogo&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- Filled: add gl-btn_skew_wrap_filled + fill="currentColor" --&gt;
+&lt;!-- Brand:  add gl-btn_skew_wrap_brand  + fill="currentColor" --&gt;
+&lt;!-- Ghost:  add gl-btn_skew_wrap_ghost --&gt;
+&lt;!-- Small:  add gl-btn_skew_element_sm + gl-btn_skew_text_sm --&gt;
+&lt;!-- Large:  add gl-btn_skew_element_lg + gl-btn_skew_text_lg --&gt;</div>
+
+    <!-- 7a3: Rect Button -->
+    <h3 id="comp-rect-button">Rect Button (gl-btn_rect)</h3>
+    <p class="sg-desc">Flat rectangular button with the design system's soft 4px radius (<code class="sg-code">var(--radius--subtle)</code>). Used in panels, dropdowns, dock vitrina launcher, modals, and any UI surface that needs a tight CTA. Three color variants, three sizes, and a full-width modifier.</p>
+
+    <h4>Color Variants</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+        <button class="gl-btn_rect">Outline</button>
+        <button class="gl-btn_rect gl-btn_rect_filled">Filled</button>
+        <button class="gl-btn_rect gl-btn_rect_brand">Brand</button>
+        <button class="gl-btn_rect gl-btn_rect_brand-outline">Brand Outline</button>
+        <button class="gl-btn_rect gl-btn_rect_ghost">Ghost</button>
+    </div>
+    <div class="sg-code-block">&lt;button class="gl-btn_rect"&gt;Outline&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_filled"&gt;Filled&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_brand"&gt;Brand&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_brand-outline"&gt;Brand Outline&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_ghost"&gt;Ghost&lt;/button&gt;</div>
+
+    <h4>Sizes</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+        <button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_sm">Small</button>
+        <button class="gl-btn_rect gl-btn_rect_brand">Medium (default)</button>
+        <button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_lg">Large</button>
+    </div>
+    <div class="sg-code-block">&lt;button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_sm"&gt;Small&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_brand"&gt;Medium&lt;/button&gt;
+&lt;button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_lg"&gt;Large&lt;/button&gt;</div>
+
+    <h4>Full-width</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;flex-direction:column;gap:0.5rem;max-width:18rem">
+        <button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_full">Lente vacía →</button>
+        <button class="gl-btn_rect gl-btn_rect_full">Cancelar</button>
+    </div>
+    <div class="sg-code-block">&lt;button class="gl-btn_rect gl-btn_rect_brand gl-btn_rect_full"&gt;Lente vacía →&lt;/button&gt;</div>
+
+    <h4>Light theme</h4>
+    <div class="sg-demo sg-demo-light" style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+        <button class="gl-btn_rect">Outline</button>
+        <button class="gl-btn_rect gl-btn_rect_filled">Filled</button>
+        <button class="gl-btn_rect gl-btn_rect_brand">Brand</button>
+        <button class="gl-btn_rect gl-btn_rect_brand-outline">Brand Outline</button>
+        <button class="gl-btn_rect gl-btn_rect_ghost">Ghost</button>
+    </div>
+
+    <h4>Disabled state</h4>
+    <div class="sg-demo sg-demo-dark" style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+        <button class="gl-btn_rect gl-btn_rect_brand" disabled>Disabled</button>
+        <button class="gl-btn_rect gl-btn_rect_brand is-disabled">Disabled (class)</button>
+    </div>
+
+    <h4>Class reference</h4>
+    <table class="sg-class-table">
+        <thead><tr><th>Class</th><th>Purpose</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td>gl-btn_rect</td><td>Base outline button (theme text + 22% border)</td><td>Hover inverts to filled theme text</td></tr>
+            <tr><td>gl-btn_rect_filled</td><td>Theme-text filled, inverse text color</td><td>Hover inverts to outline</td></tr>
+            <tr><td>gl-btn_rect_brand</td><td>Brand-blue filled (#1400FF), white text</td><td>Hover swaps to white bg + brand-blue text</td></tr>
+            <tr><td>gl-btn_rect_brand-outline</td><td>Brand-blue outline, brand-blue text</td><td>Hover fills with brand-blue</td></tr>
+            <tr><td>gl-btn_rect_ghost</td><td>Minimal — low-emphasis tertiary action</td><td>Hover lifts to 28% border + faint bg</td></tr>
+            <tr><td>gl-btn_rect_sm</td><td>Smaller padding + 0.625rem font</td><td>Size modifier</td></tr>
+            <tr><td>gl-btn_rect_lg</td><td>Larger padding + label font size</td><td>Size modifier</td></tr>
+            <tr><td>gl-btn_rect_full</td><td>width: 100%</td><td>Use alongside a variant for stretched CTAs in panels</td></tr>
+            <tr><td>[disabled] / .is-disabled</td><td>Opacity 0.4 + pointer-events: none</td><td>Apply to button element or via class</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 7b: Image Wrappers -->
+    <h3 id="comp-images">Image Wrappers</h3>
+    <p class="sg-desc">LUMOS image wrapper system with aspect ratio modifiers. All use sharp 0px corners.</p>
+
+    <div class="sg-ratio-grid" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
+        <div>
+            <div style="aspect-ratio:1/1;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">1:1 Square</div>
+            <span class="sg-swatch-label">image-wrap (1:1)</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:16/9;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">16:9 Landscape</div>
+            <span class="sg-swatch-label">image-wrap_landscape</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:4/3;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">4:3 Classic</div>
+            <span class="sg-swatch-label">image-wrap_classic</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:3/2;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">3:2 Photo</div>
+            <span class="sg-swatch-label">image-wrap_photo</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:2/1;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">2:1 Wide</div>
+            <span class="sg-swatch-label">image-wrap_wide</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:21/9;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">21:9 Ultra</div>
+            <span class="sg-swatch-label">image-wrap_ultrawide</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:2/3;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">2:3 Portrait</div>
+            <span class="sg-swatch-label">image-wrap_portrait</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:4/5;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">4:5 Tall</div>
+            <span class="sg-swatch-label">image-wrap_tall</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:9/16;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">9:16 Story</div>
+            <span class="sg-swatch-label">image-wrap_story</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:1/1;border-top-left-radius:50%;border-top-right-radius:50%;border-bottom-left-radius:50%;border-bottom-right-radius:50%;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">Circle</div>
+            <span class="sg-swatch-label">image-wrap + u-radius-round</span>
+        </div>
+        <div>
+            <div style="aspect-ratio:auto;min-height:80px;background-color:rgba(20,0,255,0.1);border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(20,0,255,0.25);border-right-color:rgba(20,0,255,0.25);border-bottom-color:rgba(20,0,255,0.25);border-left-color:rgba(20,0,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:rgba(255,255,255,0.4);overflow:hidden">Freeform</div>
+            <span class="sg-swatch-label">image-wrap_freeform</span>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="image-wrap image-wrap_landscape"&gt;
+    &lt;img class="image-wrap__img--cover" src="photo.jpg" alt="Description" loading="lazy"&gt;
+&lt;/div&gt;</div>
+
+    <!-- 7c: Clickable -->
+    <h3 id="comp-clickable">Clickable Pattern</h3>
+    <p class="sg-desc">Overlay link pattern. Makes an entire card clickable without nesting block elements inside anchors.</p>
+    <div class="sg-demo">
+        <div style="position:relative;padding-top:1rem;padding-right:1rem;padding-bottom:1rem;padding-left:1rem;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.12);border-right-color:rgba(255,255,255,0.12);border-bottom-color:rgba(255,255,255,0.12);border-left-color:rgba(255,255,255,0.12)">
+            <p style="font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:300;margin-top:0;margin-bottom:0.5rem">Card Title Here</p>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:0;margin-bottom:0">Card description text that is part of the clickable area.</p>
+            <span style="font-size:0.5rem;color:rgba(255,255,255,0.25);position:absolute;bottom:0.5rem;right:0.5rem">clickable_wrap overlays this entire card</span>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="clickable_wrap u-cover-absolute"&gt;
+    &lt;a class="clickable_link" href="#"&gt;
+        &lt;span class="clickable_text u-sr-only"&gt;Read more about this card&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</div>
+
+    <!-- 7d: Close Button -->
+    <h3 id="comp-close">Close Button</h3>
+    <div class="sg-demo">
+        <div style="display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.12);border-right-color:rgba(255,255,255,0.12);border-bottom-color:rgba(255,255,255,0.12);border-left-color:rgba(255,255,255,0.12);cursor:pointer;font-size:1rem;color:rgba(255,255,255,0.6)" data-trigger="hover focus">&#10005;</div>
+    </div>
+    <div class="sg-code-block">&lt;div class="button_close_wrap" data-trigger="hover focus"&gt;
+    &lt;div class="button_close_element"&gt;
+        &lt;div class="button_close_icon"&gt;&#38;#10005;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</div>
+
+    <!-- 7e: Navigation -->
+    <h3 id="comp-nav">Navigation</h3>
+    <p class="sg-desc">Navigation component uses the nav variables from variables.css. Monospace links with the brand accent on hover.</p>
+    <div class="sg-demo" style="background-color:#1a1a1a">
+        <div style="display:flex;justify-content:space-between;align-items:center;height:4rem;padding-left:1rem;padding-right:1rem">
+            <span style="font-family:'Inter',system-ui,sans-serif;font-size:0.875rem;font-weight:500;letter-spacing:0.02em">GLASS LAB</span>
+            <div style="display:flex;gap:2rem">
+                <a href="#" style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration-line:none">Products</a>
+                <a href="#" style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration-line:none">Process</a>
+                <a href="#" style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration-line:none">Contact</a>
+            </div>
+        </div>
+    </div>
+    <div class="sg-code-block">Nav height: var(--nav--height) = 4rem
+Nav background: var(--_theme---nav--background)
+Nav max-width: var(--nav--max-width-outer)</div>
+
+    <!-- 7f: Modal -->
+    <h3 id="comp-modal">Modal Pattern</h3>
+    <p class="sg-desc">Dialog overlay pattern using data attributes for JavaScript control.</p>
+    <div class="sg-demo">
+        <div style="position:relative;background-color:rgba(0,0,0,0.7);padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem;display:flex;align-items:center;justify-content:center;min-height:200px">
+            <div style="background-color:#1a1a1a;padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem;max-width:400px;width:100%;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:rgba(255,255,255,0.08);border-right-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.08);border-left-color:rgba(255,255,255,0.08)">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+                    <span style="font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:300">Modal Title</span>
+                    <span style="cursor:pointer;color:rgba(255,255,255,0.4);font-size:0.875rem">&#10005;</span>
+                </div>
+                <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:0;margin-bottom:1rem">Modal body content goes here.</p>
+                <div style="display:inline-flex;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;background-color:#1400FF;color:#FFFFFF;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase">Confirm</div>
+            </div>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div data-modal-target="request-quote"&gt;Open Modal&lt;/div&gt;
+&lt;div class="modal_overlay" data-modal="request-quote"&gt;
+    &lt;div class="modal_content"&gt;
+        &lt;div class="button_close_wrap" data-modal-close&gt;...&lt;/div&gt;
+        &lt;!-- content --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 8: STATE & TRIGGER SYSTEM
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="states">
+    <span class="sg-section-num">08 // States &amp; Triggers</span>
+    <h2>State &amp; Trigger System</h2>
+
+    <h3>States (data-state)</h3>
+    <p class="sg-desc">LUMOS uses data attributes to track element states. CSS reads these via attribute selectors in embeds.</p>
+
+    <table class="sg-class-table">
+        <tr><th>Attribute</th><th>Values</th><th>Purpose</th></tr>
+        <tr><td>data-state="checked"</td><td>checked</td><td>Checkbox/toggle is on</td></tr>
+        <tr><td>data-state="current"</td><td>current</td><td>Active navigation item or tab</td></tr>
+        <tr><td>data-state="open"</td><td>open</td><td>Dropdown or menu is expanded</td></tr>
+        <tr><td>data-state="expanded"</td><td>expanded</td><td>Accordion panel is open</td></tr>
+        <tr><td>data-state="external"</td><td>external</td><td>Link opens in new window</td></tr>
+    </table>
+
+    <h4>State Demo</h4>
+    <div class="sg-demo" style="display:flex;gap:1rem">
+        <div style="padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-bottom-width:2px;border-bottom-style:solid;border-bottom-color:#1400FF;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:#FFFFFF">Current</div>
+        <div style="padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-bottom-width:2px;border-bottom-style:solid;border-bottom-color:transparent;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4)">Inactive</div>
+        <div style="padding-top:0.5rem;padding-bottom:0.5rem;padding-left:1rem;padding-right:1rem;border-bottom-width:2px;border-bottom-style:solid;border-bottom-color:transparent;font-size:0.625rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4)">Inactive</div>
+    </div>
+
+    <h4>Combo Class: is-active</h4>
+    <p class="sg-desc">Add as a combo class to any element to toggle its active visual state.</p>
+    <div class="sg-code-block">&lt;div class="nav_link is-active"&gt;Active Link&lt;/div&gt;
+&lt;div class="nav_link"&gt;Inactive Link&lt;/div&gt;</div>
+
+    <h3>Triggers (data-trigger)</h3>
+    <table class="sg-class-table">
+        <tr><th>Value</th><th>Activates On</th><th>Use Case</th></tr>
+        <tr><td>hover</td><td>Mouse hover</td><td>Desktop hover effects (buttons, cards)</td></tr>
+        <tr><td>focus</td><td>Keyboard focus</td><td>Accessibility focus states</td></tr>
+        <tr><td>mobile</td><td>Touch / small screen</td><td>Mobile-specific interactions</td></tr>
+        <tr><td>preview</td><td>CMS preview mode</td><td>Show hover states in editor</td></tr>
+        <tr><td>group</td><td>Parent hover</td><td>Children react to parent hover</td></tr>
+    </table>
+
+    <h4>Trigger Demo: Button with hover + focus</h4>
+    <div class="sg-demo">
+        <div style="display:inline-flex;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;background-color:#1400FF;color:#FFFFFF;cursor:pointer;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase" data-trigger="hover focus">Hover Me</div>
+        <p style="font-size:0.5625rem;color:rgba(255,255,255,0.3);margin-top:0.5rem;margin-bottom:0">data-trigger="hover focus" enables both mouse hover and keyboard focus interactions</p>
+    </div>
+    <div class="sg-code-block">&lt;div class="button_main_wrap" data-trigger="hover focus"&gt;
+    Hover and focus trigger both activate the same visual transition.
+    The CSS reads --_trigger---on/off to interpolate styles.
+&lt;/div&gt;</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 9: ACCESSIBILITY
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="accessibility">
+    <span class="sg-section-num">09 // Accessibility</span>
+    <h2>Accessibility</h2>
+
+    <h3>Screen Reader Only Text</h3>
+    <div class="sg-demo">
+        <p style="margin-top:0;margin-bottom:0.5rem;font-size:0.75rem">The text below is visually hidden but read by screen readers:</p>
+        <span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0">This text is only visible to screen readers</span>
+        <span style="font-size:0.625rem;color:rgba(255,255,255,0.3)">[u-sr-only content is here but visually hidden]</span>
+    </div>
+    <div class="sg-code-block">&lt;span class="u-sr-only"&gt;Descriptive text for assistive technology&lt;/span&gt;</div>
+
+    <h3>Focus States</h3>
+    <p class="sg-desc">LUMOS uses data-trigger="focus" to show visible focus indicators. Focus outline uses --focus--width (0.125rem) and --focus--offset variables.</p>
+    <div class="sg-demo">
+        <div style="display:inline-flex;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;background-color:#1400FF;color:#FFFFFF;outline-width:0.125rem;outline-style:solid;outline-color:#FFFFFF;outline-offset:0.1875rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase">Focused Button</div>
+    </div>
+    <div class="sg-code-block">--focus--width: .125rem;
+--focus--offset-inner: calc(var(--focus--width) * -1);
+--focus--offset-outer: .1875rem;</div>
+
+    <h3>ARIA Labels</h3>
+    <div class="sg-code-block">&lt;a href="/contact" aria-label="Contact Glass Lab for a quote"&gt;
+    &lt;span class="gl-mono"&gt;Contact&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;button aria-label="Close dialog"&gt;
+    &lt;span class="button_close_icon"&gt;&#38;#10005;&lt;/span&gt;
+&lt;/button&gt;</div>
+
+    <h3>Semantic Landmarks</h3>
+    <div class="sg-code-block">&lt;body class="u-theme-dark"&gt;
+    &lt;div class="page-wrapper"&gt;
+        &lt;nav role="navigation" aria-label="Main navigation"&gt;...&lt;/nav&gt;
+        &lt;main class="page-main" role="main"&gt;
+            &lt;section aria-label="Hero"&gt;...&lt;/section&gt;
+            &lt;section aria-label="Products"&gt;...&lt;/section&gt;
+        &lt;/main&gt;
+        &lt;footer role="contentinfo"&gt;...&lt;/footer&gt;
+    &lt;/div&gt;
+&lt;/body&gt;</div>
+
+    <h3>Skip Links</h3>
+    <div class="sg-code-block">&lt;a href="#main-content" class="u-sr-only" style="position:fixed;top:0;left:0;z-index:999"&gt;
+    Skip to main content
+&lt;/a&gt;
+&lt;main id="main-content"&gt;...&lt;/main&gt;</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 10: RESPONSIVE
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="responsive">
+    <span class="sg-section-num">10 // Responsive</span>
+    <h2>Responsive / Breakpointless Design</h2>
+
+    <h3>Philosophy</h3>
+    <p class="sg-desc">LUMOS prefers breakpointless design: fluid values (clamp), auto-fit grids, and wrapping flexbox that adapt continuously rather than snapping at breakpoints. Container query thresholds control grid switching.</p>
+
+    <h4>Key Techniques</h4>
+    <table class="sg-class-table">
+        <tr><th>Technique</th><th>Classes</th><th>How It Works</th></tr>
+        <tr><td>Auto-fit Grid</td><td>u-grid-autofit</td><td>Columns auto-size to fill available space</td></tr>
+        <tr><td>Auto-fill Grid</td><td>u-grid-autofill</td><td>Columns maintain size, empty tracks collapse</td></tr>
+        <tr><td>Wrapping Flex</td><td>u-flex-horizontal-wrap</td><td>Items wrap to next line when space runs out</td></tr>
+        <tr><td>Fluid Typography</td><td>clamp() in variables</td><td>Font sizes scale smoothly between 20rem-90rem viewport</td></tr>
+        <tr><td>Fluid Spacing</td><td>clamp() in variables</td><td>Spacing tokens scale with viewport</td></tr>
+    </table>
+
+    <h4>Container Query Thresholds</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-threshold-large</td><td>Sets container query threshold to large breakpoint</td></tr>
+        <tr><td>u-threshold-medium</td><td>Sets container query threshold to medium breakpoint</td></tr>
+        <tr><td>u-threshold-small</td><td>Sets container query threshold to small breakpoint</td></tr>
+    </table>
+
+    <h4>Grid Switching</h4>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-grid-above</td><td>12-column grid above threshold, vertical flex below</td></tr>
+        <tr><td>u-grid-below</td><td>Vertical flex above threshold, 12-column grid below</td></tr>
+        <tr><td>u-all-unset-above</td><td>Reset all utility styles above threshold</td></tr>
+        <tr><td>u-all-unset-below</td><td>Reset all utility styles below threshold</td></tr>
+    </table>
+
+    <h4>Responsive Flags (variables.css)</h4>
+    <div class="sg-code-block">--_responsive---large: 1;    /* Desktop: active */
+--_responsive---medium: 0;   /* Tablet: inactive at desktop */
+--_responsive---small: 0;    /* Mobile: inactive at desktop */
+--_responsive---xsmall: 0;   /* Small mobile: inactive at desktop */
+
+/* These flip at each breakpoint via @media queries */</div>
+
+    <h3>Webflow Fallback Breakpoints</h3>
+    <p class="sg-desc">When container queries are not viable, Webflow uses these three fixed breakpoints (desktop-first, max-width only).</p>
+
+    <table class="sg-class-table">
+        <tr><th>Name</th><th>Media Query</th><th>Webflow Key</th><th>XscpData Variant</th></tr>
+        <tr><td>Tablet</td><td>@media (max-width: 991px)</td><td>medium</td><td>"medium": { "styleLess": "..." }</td></tr>
+        <tr><td>Mobile Landscape</td><td>@media (max-width: 767px)</td><td>small</td><td>"small": { "styleLess": "..." }</td></tr>
+        <tr><td>Mobile Portrait</td><td>@media (max-width: 478px)</td><td>tiny</td><td>"tiny": { "styleLess": "..." }</td></tr>
+    </table>
+
+    <div class="sg-code-block">/* Desktop (base — no query) */
+.my-class { font-size: 48px; }
+
+/* Tablet */
+@media (max-width: 991px) { .my-class { font-size: 36px; } }
+
+/* Mobile Landscape */
+@media (max-width: 767px) { .my-class { font-size: 28px; } }
+
+/* Mobile Portrait */
+@media (max-width: 478px) { .my-class { font-size: 22px; } }</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 11: SVG & ICONS
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="svg-icons">
+    <span class="sg-section-num">11 // SVG &amp; Icons</span>
+    <h2>SVG &amp; Icons</h2>
+
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Description</th></tr>
+        <tr><td>u-svg</td><td>SVG container utility. Sets display, sizing, and currentColor inheritance for inline SVGs.</td></tr>
+        <tr><td>u-path</td><td>SVG path fill control. Ensures paths inherit currentColor from parent for theme compatibility.</td></tr>
+    </table>
+
+    <h4>SVG Usage Pattern</h4>
+    <div class="sg-demo" style="display:flex;gap:2rem;align-items:center">
+        <div style="color:#FFFFFF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            <span style="display:block;font-size:0.5rem;color:rgba(255,255,255,0.3);margin-top:0.25rem">Default</span>
+        </div>
+        <div style="color:#1400FF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            <span style="display:block;font-size:0.5rem;color:rgba(255,255,255,0.3);margin-top:0.25rem">Brand</span>
+        </div>
+        <div style="color:rgba(255,255,255,0.3)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            <span style="display:block;font-size:0.5rem;color:rgba(255,255,255,0.3);margin-top:0.25rem">Muted</span>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="u-svg"&gt;
+    &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor"&gt;
+        &lt;path class="u-path" d="..."&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+&lt;/div&gt;
+
+/* SVG inherits color from parent via currentColor.
+   Change parent color to change icon color. */</div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 12: CLASS INDEX
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="class-index">
+    <span class="sg-section-num">12 // Class Index</span>
+    <h2>Class Index</h2>
+    <p class="sg-desc">Complete catalog of all LUMOS utility classes grouped by category. 480+ classes available.</p>
+
+    <div class="sg-index-wrap">
+        <table class="sg-class-table">
+            <tr><th>Class</th><th>Description</th></tr>
+
+            <!-- THEME -->
+            <tr class="sg-cat-header"><td colspan="2">Theme</td></tr>
+            <tr><td>u-theme-inherit</td><td>Inherit parent theme</td></tr>
+            <tr><td>u-theme-light</td><td>Light theme (Pernia Glass)</td></tr>
+            <tr><td>u-theme-dark</td><td>Dark theme (Glass Lab)</td></tr>
+            <tr><td>u-theme-brand</td><td>Brand accent theme</td></tr>
+            <tr><td>u-heading-accent</td><td>Heading accent color</td></tr>
+
+            <!-- TEXT STYLE -->
+            <tr class="sg-cat-header"><td colspan="2">Text Style</td></tr>
+            <tr><td>u-text-style-display</td><td>Display heading (4rem-7rem, w200)</td></tr>
+            <tr><td>u-text-style-h1</td><td>H1 (3rem-5rem, w200)</td></tr>
+            <tr><td>u-text-style-h2</td><td>H2 (2.5rem-4rem, w200)</td></tr>
+            <tr><td>u-text-style-h3</td><td>H3 (2.25rem-3rem, w200)</td></tr>
+            <tr><td>u-text-style-h4</td><td>H4 (1.75rem-2rem, w200)</td></tr>
+            <tr><td>u-text-style-h5</td><td>H5 (1.375rem-1.5rem, w200)</td></tr>
+            <tr><td>u-text-style-h6</td><td>H6 (1rem-1.125rem, w200)</td></tr>
+            <tr><td>u-text-style-large</td><td>Large body / lead (1.25rem-2rem, w300)</td></tr>
+            <tr><td>u-text-style-main</td><td>Main body (1rem-1.375rem, w300)</td></tr>
+            <tr><td>u-text-style-small</td><td>Small body / caption (0.875rem-1rem, w300)</td></tr>
+
+            <!-- TYPOGRAPHY -->
+            <tr class="sg-cat-header"><td colspan="2">Typography</td></tr>
+            <tr><td>u-weight-regular</td><td>Font weight 400</td></tr>
+            <tr><td>u-weight-medium</td><td>Font weight 500</td></tr>
+            <tr><td>u-weight-bold</td><td>Font weight 700</td></tr>
+            <tr><td>u-line-height-small</td><td>Line height 1</td></tr>
+            <tr><td>u-line-height-medium</td><td>Line height 1.1</td></tr>
+            <tr><td>u-line-height-large</td><td>Line height 1.3</td></tr>
+            <tr><td>u-line-height-huge</td><td>Line height 1.6</td></tr>
+            <tr><td>u-letter-spacing-tight</td><td>Letter spacing -0.03em</td></tr>
+            <tr><td>u-letter-spacing-normal</td><td>Letter spacing 0em</td></tr>
+            <tr><td>u-text-transform-none</td><td>No transform</td></tr>
+            <tr><td>u-text-transform-uppercase</td><td>UPPERCASE</td></tr>
+            <tr><td>u-text-transform-capitalize</td><td>Capitalize</td></tr>
+            <tr><td>u-text-transform-lowercase</td><td>lowercase</td></tr>
+            <tr><td>u-text-wrap-default</td><td>Default text wrapping</td></tr>
+            <tr><td>u-text-wrap-balance</td><td>Balanced wrapping</td></tr>
+            <tr><td>u-text-wrap-pretty</td><td>Pretty wrapping (no orphans)</td></tr>
+            <tr><td>u-line-clamp-1</td><td>Clamp to 1 line</td></tr>
+            <tr><td>u-line-clamp-2</td><td>Clamp to 2 lines</td></tr>
+            <tr><td>u-line-clamp-3</td><td>Clamp to 3 lines</td></tr>
+            <tr><td>u-line-clamp-4</td><td>Clamp to 4 lines</td></tr>
+            <tr><td>u-text-trim-off</td><td>Disable line-height trimming</td></tr>
+            <tr><td>u-sr-only</td><td>Screen reader only (visually hidden)</td></tr>
+            <tr><td>u-child-contain</td><td>Prevent child overflow</td></tr>
+
+            <!-- LAYOUT -->
+            <tr class="sg-cat-header"><td colspan="2">Layout</td></tr>
+            <tr><td>u-section</td><td>Page section wrapper</td></tr>
+            <tr><td>u-container</td><td>Main container (90rem)</td></tr>
+            <tr><td>u-container-small</td><td>Narrow container (50rem)</td></tr>
+            <tr><td>u-container-full</td><td>Full width container</td></tr>
+            <tr><td>u-section-spacer</td><td>Vertical spacing between sections</td></tr>
+            <tr><td>u-content-wrapper</td><td>Content grouping wrapper</td></tr>
+            <tr><td>u-button-group</td><td>Button group container</td></tr>
+            <tr><td>u-embed-css</td><td>CSS embed utility</td></tr>
+            <tr><td>u-embed-js</td><td>JS embed utility</td></tr>
+
+            <!-- GRID -->
+            <tr class="sg-cat-header"><td colspan="2">Grid</td></tr>
+            <tr><td>u-grid-custom</td><td>Custom column grid</td></tr>
+            <tr><td>u-grid-subgrid</td><td>CSS subgrid</td></tr>
+            <tr><td>u-grid-autofit</td><td>Auto-fit responsive grid</td></tr>
+            <tr><td>u-grid-autofill</td><td>Auto-fill responsive grid</td></tr>
+            <tr><td>u-grid-above</td><td>Grid above threshold</td></tr>
+            <tr><td>u-grid-below</td><td>Grid below threshold</td></tr>
+            <tr><td>u-grid-breakout</td><td>Breakout grid</td></tr>
+            <tr><td>u-threshold-large</td><td>Large threshold</td></tr>
+            <tr><td>u-threshold-medium</td><td>Medium threshold</td></tr>
+            <tr><td>u-threshold-small</td><td>Small threshold</td></tr>
+            <tr><td>u-all-unset-above</td><td>Reset above threshold</td></tr>
+            <tr><td>u-all-unset-below</td><td>Reset below threshold</td></tr>
+            <tr><td>u-column-full</td><td>Span all columns</td></tr>
+            <tr><td>u-column-indent</td><td>Indent 1 column</td></tr>
+            <tr><td>u-column-1 ... u-column-12</td><td>Span 1-12 columns</td></tr>
+            <tr><td>u-column-start-auto</td><td>Auto column start</td></tr>
+            <tr><td>u-column-start-1 ... u-column-start-12</td><td>Start at column 1-12</td></tr>
+            <tr><td>u-row-span-1 ... u-row-span-6</td><td>Span 1-6 rows</td></tr>
+            <tr><td>u-row-start-auto</td><td>Auto row start</td></tr>
+            <tr><td>u-row-start-1 ... u-row-start-6</td><td>Start at row 1-6</td></tr>
+
+            <!-- FLEX -->
+            <tr class="sg-cat-header"><td colspan="2">Flex</td></tr>
+            <tr><td>u-flex-horizontal-wrap</td><td>Horizontal flex, wrapping</td></tr>
+            <tr><td>u-flex-horizontal-nowrap</td><td>Horizontal flex, no wrap</td></tr>
+            <tr><td>u-flex-vertical-wrap</td><td>Vertical flex, wrapping</td></tr>
+            <tr><td>u-flex-vertical-nowrap</td><td>Vertical flex, no wrap</td></tr>
+            <tr><td>u-flex-grow</td><td>Flex grow</td></tr>
+            <tr><td>u-flex-shrink</td><td>Flex shrink</td></tr>
+            <tr><td>u-flex-noshrink</td><td>No flex shrink</td></tr>
+            <tr><td>u-align-items-variable</td><td>Align items via variable</td></tr>
+            <tr><td>u-align-items-start</td><td>Align items flex-start</td></tr>
+            <tr><td>u-align-items-center</td><td>Align items center</td></tr>
+            <tr><td>u-align-items-end</td><td>Align items flex-end</td></tr>
+            <tr><td>u-align-items-stretch</td><td>Align items stretch</td></tr>
+            <tr><td>u-justify-content-variable</td><td>Justify via variable</td></tr>
+            <tr><td>u-justify-content-start</td><td>Justify flex-start</td></tr>
+            <tr><td>u-justify-content-center</td><td>Justify center</td></tr>
+            <tr><td>u-justify-content-end</td><td>Justify flex-end</td></tr>
+            <tr><td>u-justify-content-between</td><td>Justify space-between</td></tr>
+            <tr><td>u-justify-content-around</td><td>Justify space-around</td></tr>
+            <tr><td>u-align-self-variable</td><td>Align self via variable</td></tr>
+            <tr><td>u-align-self-start</td><td>Align self flex-start</td></tr>
+            <tr><td>u-align-self-center</td><td>Align self center</td></tr>
+            <tr><td>u-align-self-end</td><td>Align self flex-end</td></tr>
+            <tr><td>u-align-self-stretch</td><td>Align self stretch</td></tr>
+            <tr><td>u-order-first</td><td>Order: -1</td></tr>
+            <tr><td>u-order-last</td><td>Order: 9999</td></tr>
+            <tr><td>u-order-unset-above</td><td>Reset order above threshold</td></tr>
+            <tr><td>u-order-unset-below</td><td>Reset order below threshold</td></tr>
+            <tr><td>u-alignment-start</td><td>Set alignment variable to start</td></tr>
+            <tr><td>u-alignment-center</td><td>Set alignment variable to center</td></tr>
+            <tr><td>u-alignment-end</td><td>Set alignment variable to end</td></tr>
+
+            <!-- SPACING -->
+            <tr class="sg-cat-header"><td colspan="2">Spacing</td></tr>
+            <tr><td>u-gap-inline-0 ... u-gap-inline-8</td><td>Column gap 0-8 scale</td></tr>
+            <tr><td>u-gap-inline-gutter</td><td>Column gap = site gutter</td></tr>
+            <tr><td>u-gap-row-inherit</td><td>Row gap inherit</td></tr>
+            <tr><td>u-gap-row-0 ... u-gap-row-8</td><td>Row gap 0-8 scale</td></tr>
+            <tr><td>u-gap-row-gutter</td><td>Row gap = site gutter</td></tr>
+            <tr><td>u-margin-top-0 ... u-margin-top-8</td><td>Margin top 0-8 scale</td></tr>
+            <tr><td>u-margin-top-gutter / text / auto</td><td>Special margin top values</td></tr>
+            <tr><td>u-margin-bottom-0 ... u-margin-bottom-8</td><td>Margin bottom 0-8 scale</td></tr>
+            <tr><td>u-margin-bottom-gutter / text / auto</td><td>Special margin bottom values</td></tr>
+            <tr><td>u-margin-inline-auto</td><td>Horizontal auto margin (center)</td></tr>
+            <tr><td>u-margin-trim</td><td>Enable line-height trim</td></tr>
+            <tr><td>u-ignore-trim</td><td>Skip trim on element</td></tr>
+            <tr><td>u-padding-0 ... u-padding-8</td><td>Padding all sides 0-8</td></tr>
+            <tr><td>u-padding-sitemargin / gutter</td><td>Padding = site margin/gutter</td></tr>
+            <tr><td>u-padding-small / main / large</td><td>Padding = section space</td></tr>
+            <tr><td>u-padding-block-*</td><td>Vertical padding (all scale values)</td></tr>
+            <tr><td>u-padding-inline-*</td><td>Horizontal padding (all scale values)</td></tr>
+            <tr><td>u-padding-top-*</td><td>Top padding (all scale + section values)</td></tr>
+            <tr><td>u-padding-bottom-*</td><td>Bottom padding (all scale + section values)</td></tr>
+            <tr><td>u-padding-left-*</td><td>Left padding (0-8 + sitemargin + gutter)</td></tr>
+            <tr><td>u-padding-right-*</td><td>Right padding (0-8 + sitemargin + gutter)</td></tr>
+
+            <!-- SIZING -->
+            <tr class="sg-cat-header"><td colspan="2">Sizing</td></tr>
+            <tr><td>u-width-full</td><td>Width 100%</td></tr>
+            <tr><td>u-height-full</td><td>Height 100%</td></tr>
+            <tr><td>u-height-auto</td><td>Height auto</td></tr>
+            <tr><td>u-min-height-screen</td><td>Min height 100vh</td></tr>
+            <tr><td>u-max-width-none</td><td>No max width</td></tr>
+            <tr><td>u-max-width-10ch ... 40ch</td><td>Character-based max width</td></tr>
+            <tr><td>u-object-fit-cover</td><td>Object fit cover</td></tr>
+            <tr><td>u-object-fit-contain</td><td>Object fit contain</td></tr>
+            <tr><td>u-ratio-1</td><td>Aspect ratio 1:1</td></tr>
+            <tr><td>u-ratio-16-9</td><td>Aspect ratio 16:9</td></tr>
+            <tr><td>u-ratio-3-1</td><td>Aspect ratio 3:1</td></tr>
+            <tr><td>u-ratio-2-3</td><td>Aspect ratio 2:3</td></tr>
+            <tr><td>u-ratio-2-1</td><td>Aspect ratio 2:1</td></tr>
+            <tr><td>u-ratio-5-4</td><td>Aspect ratio 5:4</td></tr>
+            <tr><td>u-ratio-4-5</td><td>Aspect ratio 4:5</td></tr>
+
+            <!-- POSITION -->
+            <tr class="sg-cat-header"><td colspan="2">Position</td></tr>
+            <tr><td>u-position-static</td><td>Static positioning</td></tr>
+            <tr><td>u-position-relative</td><td>Relative positioning</td></tr>
+            <tr><td>u-position-absolute</td><td>Absolute positioning</td></tr>
+            <tr><td>u-position-sticky</td><td>Sticky positioning</td></tr>
+            <tr><td>u-position-fixed</td><td>Fixed positioning</td></tr>
+            <tr><td>u-zindex-negative</td><td>z-index: -1</td></tr>
+            <tr><td>u-zindex-unset</td><td>z-index: auto</td></tr>
+            <tr><td>u-zindex-0</td><td>z-index: 0</td></tr>
+            <tr><td>u-zindex-1</td><td>z-index: 1</td></tr>
+            <tr><td>u-zindex-2</td><td>z-index: 2</td></tr>
+            <tr><td>u-zindex-3</td><td>z-index: 3</td></tr>
+
+            <!-- OVERFLOW -->
+            <tr class="sg-cat-header"><td colspan="2">Overflow</td></tr>
+            <tr><td>u-overflow-visible</td><td>Overflow visible</td></tr>
+            <tr><td>u-overflow-hidden</td><td>Overflow hidden</td></tr>
+            <tr><td>u-overflow-clip</td><td>Overflow clip</td></tr>
+            <tr><td>u-overflow-x-auto</td><td>Horizontal scroll</td></tr>
+            <tr><td>u-overflow-y-auto</td><td>Vertical scroll</td></tr>
+
+            <!-- VISIBILITY -->
+            <tr class="sg-cat-header"><td colspan="2">Visibility</td></tr>
+            <tr><td>u-cover</td><td>Cover parent (relative)</td></tr>
+            <tr><td>u-cover-absolute</td><td>Cover parent (absolute)</td></tr>
+            <tr><td>u-display-contents</td><td>Display contents</td></tr>
+            <tr><td>u-hide-if-empty</td><td>Hide when empty</td></tr>
+            <tr><td>u-pointer-on</td><td>Pointer events on</td></tr>
+            <tr><td>u-pointer-off</td><td>Pointer events off</td></tr>
+
+            <!-- IMAGE -->
+            <tr class="sg-cat-header"><td colspan="2">Image</td></tr>
+            <tr><td>image-wrap</td><td>Image wrapper (1:1 default)</td></tr>
+            <tr><td>image-wrap_landscape</td><td>16:9 aspect</td></tr>
+            <tr><td>image-wrap_classic</td><td>4:3 aspect</td></tr>
+            <tr><td>image-wrap_photo</td><td>3:2 aspect</td></tr>
+            <tr><td>image-wrap_wide</td><td>2:1 aspect</td></tr>
+            <tr><td>image-wrap_ultrawide</td><td>21:9 aspect</td></tr>
+            <tr><td>image-wrap_portrait</td><td>2:3 aspect</td></tr>
+            <tr><td>image-wrap_tall</td><td>4:5 aspect</td></tr>
+            <tr><td>image-wrap_story</td><td>9:16 aspect</td></tr>
+            <tr><td>image-wrap_freeform</td><td>Auto aspect</td></tr>
+            <tr><td>image-wrap__img--cover</td><td>Image cover fill</td></tr>
+
+            <!-- RADIUS -->
+            <tr class="sg-cat-header"><td colspan="2">Radius</td></tr>
+            <tr><td>u-radius-none</td><td>0px (brutalist default)</td></tr>
+            <tr><td>u-radius-inherit</td><td>Inherit parent radius</td></tr>
+            <tr><td>u-radius-small</td><td>Small radius (0px in this project)</td></tr>
+            <tr><td>u-radius-main</td><td>Main radius (0px in this project)</td></tr>
+            <tr><td>u-radius-round</td><td>Round/pill radius (0px in this project)</td></tr>
+
+            <!-- MISC -->
+            <tr class="sg-cat-header"><td colspan="2">Misc</td></tr>
+            <tr><td>u-svg</td><td>SVG container</td></tr>
+            <tr><td>u-path</td><td>SVG path fill</td></tr>
+            <tr><td>u-sr-only</td><td>Screen reader only</td></tr>
+            <tr><td>u-child-contain</td><td>Prevent child overflow</td></tr>
+            <tr><td>u-text-trim-off</td><td>Disable trim</td></tr>
+        </table>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────────────
+     SECTION 13: PROJECT CUSTOM CLASSES
+     ───────────────────────────────────────────────────────── -->
+<section class="sg-section" id="project-classes" style="border-bottom-width:0">
+    <span class="sg-section-num">13 // Project Custom Classes</span>
+    <h2>Project Custom Classes</h2>
+    <p class="sg-desc">Classes specific to Glass Lab + Pernia Glass, defined in project.css. These handle patterns LUMOS utilities don't cover.</p>
+
+    <h3>Monospace UI System</h3>
+    <div class="sg-demo">
+        <div class="sg-pair">
+            <span class="sg-pair-label">gl-mono</span>
+            <div class="sg-pair-demo gl-mono">Monospace UI text — 0.6875rem, uppercase, 0.08em tracking</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">gl-mono_muted</span>
+            <div class="sg-pair-demo gl-mono gl-mono_muted">Muted monospace — 40% text opacity</div>
+        </div>
+        <div class="sg-pair">
+            <span class="sg-pair-label">gl-mono_label</span>
+            <div class="sg-pair-demo gl-mono_label">Tiny label — 0.5625rem, 35% opacity, 0.12em tracking</div>
+        </div>
+    </div>
+
+    <h3>Section Number</h3>
+    <div class="sg-demo">
+        <span class="gl-section-number">01 // Products</span>
+        <h2 class="u-text-style-h2" style="margin-top:0.5rem">Our Glass Collection</h2>
+    </div>
+    <div class="sg-code-block">&lt;span class="gl-section-number"&gt;01 // Products&lt;/span&gt;
+&lt;h2 class="u-text-style-h2"&gt;Our Glass Collection&lt;/h2&gt;</div>
+
+    <h3>Tags</h3>
+    <div class="sg-demo" style="display:flex;gap:0.5rem">
+        <span class="gl-tag">Tempered</span>
+        <span class="gl-tag">Laminated</span>
+        <span class="gl-tag">Low-E</span>
+        <span class="gl-tag">Decorative</span>
+    </div>
+    <div class="sg-code-block">&lt;span class="gl-tag"&gt;Tempered&lt;/span&gt;</div>
+
+    <h3>Hairline Rule</h3>
+    <div class="sg-demo">
+        <p style="margin-top:0;margin-bottom:0.75rem;font-size:0.75rem">Content above</p>
+        <div class="gl-rule"></div>
+        <p style="margin-top:0.75rem;margin-bottom:0;font-size:0.75rem">Content below</p>
+    </div>
+
+    <h3>Periodic Table Cell</h3>
+    <div class="sg-demo" style="display:grid;grid-template-columns:repeat(4,120px);gap:0.5rem">
+        <div class="gl-cell gl-cell_filled">
+            <span class="gl-cell_code">SiO2</span>
+            <span class="gl-cell_symbol">Si</span>
+            <span class="gl-cell_name">Silicon</span>
+        </div>
+        <div class="gl-cell gl-cell_filled">
+            <span class="gl-cell_code">Na2O</span>
+            <span class="gl-cell_symbol">Na</span>
+            <span class="gl-cell_name">Sodium</span>
+        </div>
+        <div class="gl-cell gl-cell_filled">
+            <span class="gl-cell_code">CaO</span>
+            <span class="gl-cell_symbol">Ca</span>
+            <span class="gl-cell_name">Calcium</span>
+        </div>
+        <div class="gl-cell gl-cell_empty">
+            <span class="gl-cell_code">&nbsp;</span>
+            <span class="gl-cell_symbol" style="color:rgba(255,255,255,0.15)">?</span>
+            <span class="gl-cell_name">&nbsp;</span>
+        </div>
+    </div>
+    <div class="sg-code-block">&lt;div class="gl-cell gl-cell_filled"&gt;
+    &lt;span class="gl-cell_code"&gt;SiO2&lt;/span&gt;
+    &lt;span class="gl-cell_symbol"&gt;Si&lt;/span&gt;
+    &lt;span class="gl-cell_name"&gt;Silicon&lt;/span&gt;
+&lt;/div&gt;</div>
+
+    <h3>Spec Row</h3>
+    <div class="sg-demo" style="max-width:400px">
+        <div class="gl-spec-row">
+            <span class="gl-mono_label">Thickness</span>
+            <span class="gl-mono">4-19mm</span>
+        </div>
+        <div class="gl-spec-row" style="margin-top:0.5rem">
+            <span class="gl-mono_label">Max Size</span>
+            <span class="gl-mono">3210 x 6000mm</span>
+        </div>
+        <div class="gl-spec-row" style="margin-top:0.5rem">
+            <span class="gl-mono_label">U-Value</span>
+            <span class="gl-mono">1.1 W/m2K</span>
+        </div>
+    </div>
+
+    <h3>Image Placeholder</h3>
+    <div class="sg-demo">
+        <div class="gl-img-placeholder" style="width:200px;height:120px">
+            <span class="gl-mono_label">640 x 480</span>
+        </div>
+    </div>
+
+    <h3>Section Border</h3>
+    <div class="sg-demo">
+        <div class="gl-section-border" style="padding-bottom:1rem">
+            <p style="margin-top:0;margin-bottom:0;font-size:0.75rem">Section with bottom border separator (gl-section-border)</p>
+        </div>
+    </div>
+
+    <h3>Filter Input</h3>
+    <div class="sg-demo">
+        <input type="text" class="gl-filter-input" placeholder="FILTER PRODUCTS..." value="">
+    </div>
+
+    <h3>Color Swatch</h3>
+    <div class="sg-demo" style="display:flex;gap:0.5rem">
+        <div class="gl-swatch" style="background-color:#c9a84c"></div>
+        <div class="gl-swatch" style="background-color:#4a1520"></div>
+        <div class="gl-swatch" style="background-color:#1a3a5c"></div>
+        <div class="gl-swatch" style="background-color:#b08d6e"></div>
+        <div class="gl-swatch" style="background-color:#c0c0c0"></div>
+    </div>
+
+    <h3>Glass Hero Symbol</h3>
+    <div class="sg-demo">
+        <div class="gl-hero-symbol">Pb</div>
+        <p style="font-size:0.5625rem;color:rgba(255,255,255,0.3);margin-top:0.5rem;margin-bottom:0">gl-hero-symbol — 5rem-10rem fluid, Inter 200 weight, -0.04em tracking</p>
+    </div>
+
+    <h3>Custom Classes Summary</h3>
+    <table class="sg-class-table">
+        <tr><th>Class</th><th>Purpose</th><th>Used In</th></tr>
+        <tr><td>gl-mono</td><td>Base monospace UI text (uppercase, small, tracked)</td><td>Navigation, labels, buttons, global</td></tr>
+        <tr><td>gl-mono_muted</td><td>Muted version at 40% opacity</td><td>Secondary labels, metadata</td></tr>
+        <tr><td>gl-mono_label</td><td>Smallest label text (0.5625rem, 35% opacity)</td><td>Spec keys, captions</td></tr>
+        <tr><td>gl-section-number</td><td>Section eyebrow pattern (01 // Name)</td><td>All section headers</td></tr>
+        <tr><td>gl-tag</td><td>Inline category badge with border</td><td>Product categories, glass types</td></tr>
+        <tr><td>gl-rule</td><td>Hairline horizontal separator</td><td>Between content blocks</td></tr>
+        <tr><td>gl-cell</td><td>Periodic table cell container</td><td>Glass composition periodic table</td></tr>
+        <tr><td>gl-cell_filled</td><td>Cell with filled background</td><td>Active glass elements</td></tr>
+        <tr><td>gl-cell_empty</td><td>Cell with dashed border (placeholder)</td><td>Empty periodic table slots</td></tr>
+        <tr><td>gl-cell_symbol</td><td>Large element symbol text</td><td>Inside gl-cell</td></tr>
+        <tr><td>gl-cell_code</td><td>Chemical formula code</td><td>Inside gl-cell (top)</td></tr>
+        <tr><td>gl-cell_name</td><td>Element name label</td><td>Inside gl-cell (bottom)</td></tr>
+        <tr><td>gl-spec-row</td><td>Key-value spec pair with bottom border</td><td>Product specifications</td></tr>
+        <tr><td>gl-img-placeholder</td><td>Dashed border image placeholder</td><td>Wireframe development</td></tr>
+        <tr><td>gl-section-border</td><td>Section bottom border separator</td><td>Section dividers</td></tr>
+        <tr><td>gl-filter-input</td><td>Monospace filter/search input</td><td>Product catalog filter</td></tr>
+        <tr><td>gl-swatch</td><td>Small color swatch box (1.75rem)</td><td>Pernia Glass profile colors</td></tr>
+        <tr><td>gl-hero-symbol</td><td>Giant element symbol for detail pages</td><td>Glass detail hero section</td></tr>
+        <tr><td>gl-btn_skew_wrap</td><td>Parallelogram button container (notched corners)</td><td>All CTAs, nav, hero buttons</td></tr>
+        <tr><td>gl-btn_skew_shape</td><td>SVG outline positioned absolute behind text</td><td>Inside gl-btn_skew_wrap</td></tr>
+        <tr><td>gl-btn_skew_element</td><td>Link/button with offset padding (cube face feel)</td><td>Inside gl-btn_skew_wrap</td></tr>
+        <tr><td>gl-btn_skew_text</td><td>Inter 300, wide tracking, uppercase label</td><td>Inside gl-btn_skew_element</td></tr>
+        <tr><td>gl-btn_skew_wrap_filled</td><td>Filled variant — inverts text to background color</td><td>Primary CTAs</td></tr>
+        <tr><td>gl-btn_skew_wrap_brand</td><td>Brand accent (#1400FF) filled variant</td><td>Hero CTAs, accent buttons</td></tr>
+        <tr><td>gl-btn_skew_wrap_brand-outline</td><td>Brand accent outline only</td><td>Secondary accent buttons</td></tr>
+        <tr><td>gl-btn_skew_wrap_ghost</td><td>Low opacity ghost variant</td><td>Tertiary actions</td></tr>
+        <tr><td>gl-btn_skew_element_sm</td><td>Small size padding override</td><td>Nav buttons, compact CTAs</td></tr>
+        <tr><td>gl-btn_skew_element_lg</td><td>Large size padding override</td><td>Hero CTAs, full-width actions</td></tr>
+        <tr><td>gl-btn_skew_text_sm</td><td>Small text size (0.6875rem)</td><td>Pairs with gl-btn_skew_element_sm</td></tr>
+        <tr><td>gl-btn_skew_text_lg</td><td>Large text size (1-1.375rem fluid)</td><td>Pairs with gl-btn_skew_element_lg</td></tr>
+    </table>
+
+    <h3>Custom Variables (Beyond LUMOS Defaults)</h3>
+    <p class="sg-desc">Project-specific variables defined in variables.css that extend the LUMOS base system.</p>
+    <table class="sg-class-table">
+        <tr><th>Variable</th><th>Value</th><th>Purpose</th></tr>
+        <tr><td>--swatch--brand-500</td><td>#1400FF</td><td>Electric blue brand accent</td></tr>
+        <tr><td>--swatch--brand-100 ... 900</td><td>color-mix() scale</td><td>Full brand color ramp (9 steps)</td></tr>
+        <tr><td>--swatch--brand-text</td><td>#FFFFFF</td><td>Text on brand background</td></tr>
+        <tr><td>--swatch--material-gold</td><td>#c9a84c</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-burgundy</td><td>#4a1520</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-navy</td><td>#1a3a5c</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-bronze</td><td>#b08d6e</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-walnut</td><td>#5c4a3a</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-forest</td><td>#3a4a2a</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-amber</td><td>#8a5a2a</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--swatch--material-silver</td><td>#c0c0c0</td><td>Pernia Glass material color</td></tr>
+        <tr><td>--button-size--medium</td><td>3rem</td><td>Default button height</td></tr>
+        <tr><td>--button-size--large</td><td>5rem</td><td>Large button height</td></tr>
+    </table>
+</section>
+
+
+</main>
+</div>
+</body>
+</html>

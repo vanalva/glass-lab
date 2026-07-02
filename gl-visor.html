@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor | The Glass Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+
+</head>
+<body class="u-theme-dark">
+
+  <!-- ============================================================ -->
+  <!-- NAVBAR                                                        -->
+  <!-- ============================================================ -->
+  <nav class="gl-home_nav-edge">
+    <div class="gl-home_nav">
+      <a href="gl-index.html" class="gl-home_nav_logo">
+        <img src="assets/logos/gl-logotipo-h-white.svg" alt="The Glass Lab" class="gl-home_nav_logo-img">
+      </a>
+      <div class="gl-home_nav_links">
+        <a href="gl-index.html" class="gl-home_nav_link">Inicio</a>
+        <a href="gl-catalogo.html" class="gl-home_nav_link">Catalogo</a>
+        <a href="gl-visor.html" class="gl-home_nav_link">Visor</a>
+        <a href="gl-proyectos.html" class="gl-home_nav_link">Proyectos</a>
+        <a href="gl-laboratorio.html" class="gl-home_nav_link">Laboratorio</a>
+        <a href="gl-blog.html" class="gl-home_nav_link">Bitacora</a>
+        <a href="gl-contacto.html" class="gl-home_nav_link">Contacto</a>
+      </div>
+      <div class="gl-home_nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="gl-home_nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- VIEWER INTERFACE — FULL VIEWPORT SPLIT                        -->
+    <!-- ============================================================ -->
+    <section class="gl-visor_viewer u-h-full">
+      <!-- LEFT: ARCHITECTURAL SCENE -->
+      <div class="gl-visor_scene">
+        <canvas id="spline-canvas" class="gl-visor_scene_img"></canvas>
+        <div class="gl-visor_scene_label">
+          <span class="gl-mono gl-mono_muted">Visor interactivo — Selecciona un vidrio para previsualizarlo en la escena</span>
+        </div>
+        <div class="gl-visor_scene_controls">
+          <div class="gl-btn_skew_wrap" aria-label="Rotar arriba">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-up">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">↑ Arriba</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap" aria-label="Rotar abajo">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-down">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">↓ Abajo</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap" aria-label="Rotar izquierda">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-left">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">← Izq</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap" aria-label="Rotar derecha">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-right">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Der →</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap" aria-label="Zoom">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="zoom">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Zoom</span>
+            </a>
+          </div>
+          <div class="gl-btn_skew_wrap" aria-label="Reset">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="reset">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Reset</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: GLASS SELECTOR PANEL -->
+      <div class="gl-visor_panel">
+        <div class="gl-visor_panel_header">
+          <span class="gl-mono">Selector de vidrio</span>
+        </div>
+
+        <!-- SELECTED GLASS INFO -->
+        <div class="gl-visor_panel_info">
+          <div class="gl-visor_panel_info_top">
+            <span class="gl-visor_panel_info_symbol">At</span>
+            <div>
+              <span class="gl-mono">SA-Tejida</span>
+              <span class="gl-mono gl-mono_muted">Inserciones · Malla Serie A · 039</span>
+            </div>
+          </div>
+          <div class="gl-visor_panel_info_tags">
+            <span class="gl-tag">Translúcido</span>
+            <span class="gl-tag">Patrón tejido</span>
+            <span class="gl-tag">Tier premium</span>
+          </div>
+        </div>
+
+        <!-- GLASS GRID THUMBNAILS -->
+        <div class="gl-visor_panel_grid u-gap-collapse u-radius-inner-4">
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Vc</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Claro</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Va</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Acanalado</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Ve</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Esmerilado</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Vd</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Diamante</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Vab</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Aca-Bronce</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Gr</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Gradient</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Ds</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Sunset</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
+            <span class="gl-cell_symbol">In</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Interlayer</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Aq</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">SA-Qubo</span>
+            </div>
+          </a>
+          <div class="gl-cell gl-visor_cell_active gl-cell_cat-inserciones">
+            <span class="gl-cell_symbol">At</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">SA-Tejida</span>
+            </div>
+          </div>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-reflectivos" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Ec</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Es-Claro</span>
+            </div>
+          </a>
+          <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-reflectivos" role="button" tabindex="0">
+            <span class="gl-cell_symbol">Ed</span>
+            <div class="gl-home_catalog_cell-meta">
+              <span class="gl-cell_name">Es-Diamante</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="gl-visor_panel_controls">
+          <div class="gl-visor_control_row" data-control="transparency">
+            <div class="gl-visor_control_header">
+              <span class="gl-mono gl-mono_label">Transparencia</span>
+              <span class="gl-mono gl-mono_label">60%</span>
+            </div>
+            <div class="gl-visor_slider">
+              <div class="gl-visor_slider_fill"></div>
+              <div class="gl-visor_slider_thumb"></div>
+            </div>
+          </div>
+          <div class="gl-visor_control_row" data-control="light">
+            <div class="gl-visor_control_header">
+              <span class="gl-mono gl-mono_label">Intensidad de luz</span>
+              <span class="gl-mono gl-mono_label">75%</span>
+            </div>
+            <div class="gl-visor_slider">
+              <div class="gl-visor_slider_fill"></div>
+              <div class="gl-visor_slider_thumb"></div>
+            </div>
+          </div>
+          <div class="gl-visor_control_buttons">
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="gl-vidrio.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver ficha &gt;&gt;&gt;</span>
+              </a>
+            </div>
+            <div class="gl-btn_skew_wrap">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar muestra</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================ -->
+  <footer class="gl-home_footer">
+    <div class="gl-home_footer_inner">
+      <div class="gl-home_footer_grid">
+        <div class="gl-home_footer_col">
+          <div class="gl-home_footer_brand">
+            <img src="assets/logos/gl-imagotipo-v-white.svg" alt="The Glass Lab" class="gl-home_footer_brand-logo">
+            <img src="assets/logos/gl-isologo-white.svg" alt="The Glass Lab" class="gl-home_footer_brand-icon">
+          </div>
+          <p class="gl-mono gl-mono_muted gl-home_footer_brand-desc">Laboratorio experimental de vidrio</p>
+          <p class="gl-mono gl-mono_muted">Panama City, Panama</p>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Navegacion</span>
+          <a href="gl-catalogo.html" class="gl-home_footer_link">Catalogo</a>
+          <a href="gl-proyectos.html" class="gl-home_footer_link">Proyectos</a>
+          <a href="gl-laboratorio.html" class="gl-home_footer_link">Laboratorio</a>
+          <a href="gl-contacto.html" class="gl-home_footer_link">Contacto</a>
+          <a href="pg-index.html" class="gl-home_footer_link">Pernia Glass</a>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Contacto</span>
+          <a href="#" class="gl-home_footer_link">contacto@theglasslab.com</a>
+          <a href="#" class="gl-home_footer_link">+507 XXX XXXX</a>
+          <a href="#" class="gl-home_footer_link">WhatsApp</a>
+        </div>
+        <div class="gl-home_footer_col">
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Social</span>
+          <a href="#" class="gl-home_footer_link">Instagram</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title gl-home_footer_col-title_spaced">Legal</span>
+          <a href="legal-privacidad.html" class="gl-home_footer_link">Privacidad</a>
+          <a href="legal-terminos.html" class="gl-home_footer_link">Terminos</a>
+          <a href="legal-cookies.html" class="gl-home_footer_link">Cookies</a>
+        </div>
+      </div>
+      <div class="gl-home_footer_newsletter">
+        <div>
+          <span class="gl-mono gl-mono_muted">NEWSLETTER</span>
+          <p class="gl-home_footer_newsletter-desc">Vidrio, luz y material. Sin spam.</p>
+        </div>
+        <div class="gl-home_footer_newsletter-form">
+          <div class="gl-filter-input gl-home_footer_newsletter-input">tu@email.com</div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Suscribir &gt;&gt;&gt;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="gl-home_footer_bottom">
+        <span class="gl-mono gl-mono_muted">2026 The Glass Lab. Todos los derechos reservados.</span>
+        <span class="gl-mono gl-mono_muted">Designed by Van Alva</span>
+      </div>
+    </div>
+  </footer>
+
+<script type="module">
+import { Application } from 'https://unpkg.com/@splinetool/runtime@1.12.94/build/runtime.js';
+
+const canvas = document.getElementById('spline-canvas');
+const app = new Application(canvas);
+
+/* ── Glass data — 12 featured types from the catalog ─────
+   NOTE: Spline scene materials must be named after these
+   symbols (Vc, Va, Ve, Vd, Vab, Gr, Ds, In, Aq, At, Ec, Ed)
+   for the on-click material swap to fire. Until the scene
+   is rebuilt, the swap is a no-op (catalog UI still works). */
+const glasses = {
+  Vc:  { name: 'Vidrio Claro',         type: 'Colores · base claros',     code: '001', tags: ['Transparente', 'Sin tinte', 'Disponible'] },
+  Va:  { name: 'Vidrio Acanalado',     type: 'Colores · acanalados',      code: '007', tags: ['Translúcido', 'Patrón vertical', 'Variantes color'] },
+  Ve:  { name: 'Vidrio Esmerilado',    type: 'Colores · texturizados',    code: '009', tags: ['Translúcido', 'Acabado satinado', 'Privacidad'] },
+  Vd:  { name: 'Vidrio Diamante',      type: 'Colores · texturizados',    code: '011', tags: ['Translúcido', 'Patrón diamante', 'Decorativo'] },
+  Vab: { name: 'Acanalado Bronce',     type: 'Colores · acanalados',      code: '014', tags: ['Translúcido', 'Tinte bronce', 'Tier color'] },
+  Gr:  { name: 'Gradient',             type: 'Inserciones · gradientes',  code: '018', tags: ['Translúcido', 'Transición de color', 'Decorativo'] },
+  Ds:  { name: 'Dichroic Sunset',      type: 'Inserciones · dicroicos',   code: '020', tags: ['Iridiscente', 'Cambia con la luz', 'Spot color'] },
+  In:  { name: 'Interlayer',           type: 'Inserciones · color',       code: '022', tags: ['Translúcido', '300 colores', 'Made-to-order'] },
+  Aq:  { name: 'Malla SA-Qubo',        type: 'Inserciones · Mallas A',    code: '036', tags: ['Translúcido', 'Patrón cubo', 'Tier premium'] },
+  At:  { name: 'Malla SA-Tejida',      type: 'Inserciones · Mallas A',    code: '039', tags: ['Translúcido', 'Patrón tejido', 'Tier premium'] },
+  Ec:  { name: 'Espejo Claro',         type: 'Reflectivos · base',        code: '091', tags: ['Espejo', 'Reflectivo total', 'Decorativo'] },
+  Ed:  { name: 'Espejo Diamante',      type: 'Reflectivos · texturizados',code: '098', tags: ['Espejo', 'Patrón diamante', 'Decorativo'] },
+};
+
+/* ── State ───────────────────────────────────────────── */
+const ROTATE_STEP = Math.PI / 12;  // 15° per click
+const INITIAL_TRANSPARENCY = 60;
+const INITIAL_LIGHT = 75;
+
+let spline = null;
+let initialCamera = null;
+let initialScene = null;
+let currentZoom = 1;
+let sceneRotation = { x: 0, y: 0 };
+let transparencyPct = INITIAL_TRANSPARENCY;
+let lightPct = INITIAL_LIGHT;
+
+/* ── Object lookup helpers ───────────────────────────
+   IMPORTANT: spline.findObjectByName() returns a proxy whose .children array
+   is empty — Spline doesn't expose the scene graph through proxies. Mutations
+   on the proxy DO propagate to the underlying Three.js object (we verified
+   rotation.y writes on individual proxy meshes stick), but you can't traverse
+   from a proxy to its descendants. To enumerate (e.g. find all glass meshes),
+   we have to walk the RAW scene tree at `app._runtime.scene` directly.
+   This scene's camera is named "Webflow", scene container is "Scene 1", and
+   the light is "Default Ambient Light" — the helpers below stay name-agnostic
+   so they survive any future rename of the .splinecode. */
+function rawSceneRoot() {
+  if (!spline) return null;
+  return spline._runtime?.scene || spline.runtime?.scene || spline._scene || spline.scene || null;
+}
+function findRawObject(predicate) {
+  const root = rawSceneRoot();
+  if (!root) return null;
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    if (predicate(node)) return node;
+    if (node.children) queue.push(...node.children);
+  }
+  return null;
+}
+function findRawObjects(predicate) {
+  const root = rawSceneRoot();
+  if (!root) return [];
+  const found = [];
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    if (predicate(node)) found.push(node);
+    if (node.children) queue.push(...node.children);
+  }
+  return found;
+}
+const isCamera = (o) => o?.isCamera || /Camera/i.test(o?.type || '') || /Camera/i.test(o?.constructor?.name || '');
+const isLight  = (o) => o?.isLight  || /Light/i.test(o?.type || '')  || /Light/i.test(o?.constructor?.name || '');
+const isMesh   = (o) => o?.isMesh   || o?.type === 'Mesh';
+
+const getCameraObj  = () => findRawObject(isCamera);
+const getLightObj   = () => findRawObject(isLight);
+const getSceneObj   = () => findRawObject(o => /Scene/i.test(o?.type || ''));
+const getGlassMeshes = () => findRawObjects(isMesh);
+
+/* ── Variable existence check ────────────────────────
+   Spline's setVariable() doesn't throw when a variable is missing — it just
+   prints a warning. So a try/catch can't tell us whether the call landed. The
+   runtime caches the variable map on `app._variablesCache`; reading that lets
+   us decide whether to use the variable or a fallback. */
+function splineHasVariable(name) {
+  return !!(spline && spline._variablesCache && name in spline._variablesCache);
+}
+
+/* ── Apply helpers ────────────────────────────────────
+   Transparencia: prefer a Spline scene variable named 'transparency'; otherwise
+   dim the entire canvas via CSS opacity so the slider still gives visible
+   feedback (not real material transparency, but visible).
+   Intensidad de luz: prefer a 'lightIntensity' variable; otherwise mutate the
+   first light in the scene directly (mapping 0-100% to 0-2 in scene units). */
+function applyTransparency(pct) {
+  if (splineHasVariable('transparency')) {
+    spline.setVariable('transparency', pct / 100);
+    canvas.style.opacity = '';
+  } else {
+    canvas.style.opacity = String(pct / 100);
+  }
+}
+function applyLight(pct) {
+  if (splineHasVariable('lightIntensity')) {
+    spline.setVariable('lightIntensity', pct / 100);
+    return;
+  }
+  const light = getLightObj();
+  if (light && 'intensity' in light) {
+    light.intensity = (pct / 100) * 2;
+  }
+}
+
+/* ── Mesh rotation ─────────────────────────────────
+   Rotate every mesh in the scene (the glass shapes). We could in theory rotate
+   the Scene container instead, but its children include the camera + lights —
+   rotating the container would move the view with the meshes, producing no
+   apparent change. Mutating each mesh's rotation directly via its raw scene
+   tree node DOES propagate (verified). */
+function rotateGlass(deltaX, deltaY) {
+  for (const mesh of getGlassMeshes()) {
+    if (mesh.rotation) {
+      mesh.rotation.x += deltaX;
+      mesh.rotation.y += deltaY;
+    }
+  }
+  sceneRotation.x += deltaX;
+  sceneRotation.y += deltaY;
+  spline?.requestRender?.();
+}
+
+/* ── Load scene ──────────────────────────────────────── */
+app.load('https://prod.spline.design/xf1jUTMiAlfe5hwy/scene.splinecode').then(() => {
+  spline = app;
+  // Expose for debugging in DevTools (read object names, test rotation by hand)
+  window.__visorSpline = app;
+  const cam = getCameraObj();
+  if (cam) {
+    initialCamera = {
+      x: cam.position.x, y: cam.position.y, z: cam.position.z,
+      rx: cam.rotation.x, ry: cam.rotation.y, rz: cam.rotation.z,
+    };
+  }
+  const scene = getSceneObj();
+  if (scene) {
+    initialScene = { rx: scene.rotation.x, ry: scene.rotation.y };
+    sceneRotation = { x: scene.rotation.x, y: scene.rotation.y };
+  }
+  // Push the initial slider values into the scene now that it's ready
+  applyTransparency(transparencyPct);
+  applyLight(lightPct);
+  const light = getLightObj();
+  console.log('[visor] Spline ready.', {
+    camera: cam?.name || null,
+    scene: scene?.name || null,
+    light: light?.name || null,
+    hasTransparencyVar: splineHasVariable('transparency'),
+    hasLightVar: splineHasVariable('lightIntensity'),
+  });
+});
+
+/* ── Scene controls: directional rotate, zoom, reset ──── */
+document.querySelectorAll('[data-action]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!spline) return;
+    const action = btn.dataset.action;
+
+    if (action === 'rotate-left')  rotateGlass(0, -ROTATE_STEP);
+    if (action === 'rotate-right') rotateGlass(0,  ROTATE_STEP);
+    if (action === 'rotate-up')    rotateGlass(-ROTATE_STEP, 0);
+    if (action === 'rotate-down')  rotateGlass( ROTATE_STEP, 0);
+
+    if (action === 'zoom') {
+      currentZoom = currentZoom > 1.4 ? 1 : currentZoom + 0.25;
+      const cam = getCameraObj();
+      if (cam) {
+        cam.position.z = (initialCamera ? initialCamera.z : cam.position.z) / currentZoom;
+      }
+    }
+
+    if (action === 'reset') {
+      currentZoom = 1;
+      const cam = getCameraObj();
+      if (cam && initialCamera) {
+        cam.position.x = initialCamera.x;
+        cam.position.y = initialCamera.y;
+        cam.position.z = initialCamera.z;
+        cam.rotation.x = initialCamera.rx;
+        cam.rotation.y = initialCamera.ry;
+        cam.rotation.z = initialCamera.rz;
+      }
+      // Undo any glass rotation by subtracting our tracked delta from each mesh.
+      // (rotateGlass walks the raw scene tree, so we must do the same here.)
+      for (const mesh of getGlassMeshes()) {
+        if (mesh.rotation) {
+          mesh.rotation.x -= sceneRotation.x;
+          mesh.rotation.y -= sceneRotation.y;
+        }
+      }
+      sceneRotation = { x: 0, y: 0 };
+      spline?.requestRender?.();
+      setSlider('transparency', INITIAL_TRANSPARENCY);
+      setSlider('light', INITIAL_LIGHT);
+    }
+  });
+});
+
+/* ── Sliders: transparencia + intensidad de luz ─────── */
+function setSlider(control, pct) {
+  const row = document.querySelector(`[data-control="${control}"]`);
+  if (!row) return;
+  pct = Math.max(0, Math.min(100, pct));
+  const fill = row.querySelector('.gl-visor_slider_fill');
+  const thumb = row.querySelector('.gl-visor_slider_thumb');
+  const labels = row.querySelectorAll('.gl-visor_control_header .gl-mono_label');
+  if (fill) fill.style.width = pct + '%';
+  if (thumb) thumb.style.left = pct + '%';
+  if (labels[1]) labels[1].textContent = Math.round(pct) + '%';
+  if (control === 'transparency') { transparencyPct = pct; applyTransparency(pct); }
+  if (control === 'light') { lightPct = pct; applyLight(pct); }
+}
+
+document.querySelectorAll('[data-control]').forEach(row => {
+  const control = row.dataset.control;
+  const slider = row.querySelector('.gl-visor_slider');
+  if (!slider) return;
+  // Render initial state immediately (before scene loads, so the visual matches state)
+  setSlider(control, control === 'transparency' ? transparencyPct : lightPct);
+
+  let dragging = false;
+  const updateFromEvent = (e) => {
+    const rect = slider.getBoundingClientRect();
+    const x = (e.clientX ?? e.touches?.[0]?.clientX ?? 0) - rect.left;
+    setSlider(control, (x / rect.width) * 100);
+  };
+  slider.style.cursor = 'pointer';
+  slider.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    try { slider.setPointerCapture(e.pointerId); } catch (_) {}
+    updateFromEvent(e);
+  });
+  slider.addEventListener('pointermove', (e) => { if (dragging) updateFromEvent(e); });
+  slider.addEventListener('pointerup', (e) => {
+    dragging = false;
+    try { slider.releasePointerCapture(e.pointerId); } catch (_) {}
+  });
+  slider.addEventListener('pointercancel', () => { dragging = false; });
+});
+
+/* ── Glass selector ──────────────────────────────────── */
+const cells = document.querySelectorAll('.gl-visor_panel_grid .gl-cell');
+const infoSymbol = document.querySelector('.gl-visor_panel_info_symbol');
+const infoName = document.querySelector('.gl-visor_panel_info_top .gl-mono:not(.gl-mono_muted)');
+const infoType = document.querySelector('.gl-visor_panel_info_top .gl-mono_muted');
+const infoTags = document.querySelector('.gl-visor_panel_info_tags');
+
+cells.forEach(cell => {
+  cell.style.cursor = 'pointer';
+  cell.addEventListener('click', () => {
+    const symbol = cell.querySelector('.gl-cell_symbol')?.textContent.trim();
+    const glass = glasses[symbol];
+    if (!glass) return;
+
+    // Update active state
+    cells.forEach(c => { c.classList.remove('gl-visor_cell_active'); c.classList.add('gl-cell_filled'); });
+    cell.classList.remove('gl-cell_filled');
+    cell.classList.add('gl-visor_cell_active');
+
+    // Update info panel
+    if (infoSymbol) infoSymbol.textContent = symbol;
+    if (infoName) infoName.textContent = glass.name;
+    if (infoType) infoType.textContent = glass.type + ' — ' + glass.code;
+    if (infoTags) infoTags.innerHTML = glass.tags.map(t => '<span class="gl-tag">' + t + '</span>').join('');
+
+    // Fire Spline event — triggers material swap if scene has mouseDown events on objects named by symbol
+    if (spline) {
+      try { spline.emitEvent('mouseDown', symbol); } catch (_) {}
+      try { spline.emitEvent('mouseDown', glass.name); } catch (_) {}
+    }
+  });
+});
+</script>
+
+  <!-- FULLSCREEN MENU -->
+  <div class="gl-menu u-theme-dark" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menu de navegacion">
+    <div class="gl-menu_header">
+      <img src="assets/logos/gl-logotipo-h-white.svg" alt="The Glass Lab" class="gl-menu_header-logo" style="height:1.5rem">
+      <button class="gl-menu_close" aria-label="Cerrar menu">
+        <span>Cerrar</span>
+        <span class="gl-menu_close-icon"></span>
+      </button>
+    </div>
+    <nav class="gl-menu_nav">
+      <ul class="gl-menu_items">
+        <li class="gl-menu_item"><a href="gl-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-catalogo.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text">Catalogo</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-visor.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text">Visor</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-proyectos.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text">Proyectos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text">Laboratorio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-blog.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text">Bitacora</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
+      </ul>
+    </nav>
+    <div class="gl-menu_footer">
+      <div class="gl-menu_footer-brand">
+        <a href="pg-index.html" class="gl-menu_footer-link">Pernia Glass →</a>
+        <span class="gl-mono gl-mono_muted">Panama City, Panama</span>
+      </div>
+      <span class="gl-menu_footer-lang">ES / EN</span>
+    </div>
+  </div>
+  <script src='js/gl-menu.js'></script>
+  <script src='js/gl-nav-scroll.js'></script>
+</body>
+</html>

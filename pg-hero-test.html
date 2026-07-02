@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color:#ede7dd">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Test | Pernia Glass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+  <style>
+    /* ── Test hero layout — positioning glue only. All visual values come
+       from the design system (variables.css) + utility classes. ───────── */
+    .pgt-hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 47% 53%;
+      min-height: 100svh;
+      background-color: var(--swatch--light-100);
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    .pgt-hero_left { position: relative; z-index: 2; }
+    .pgt-hero_right { position: relative; overflow-x: hidden; overflow-y: hidden; }
+
+    .pgt-hero_media {
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      opacity: 0;
+      transition-property: opacity;
+      transition-duration: 0.8s;
+      transition-timing-function: ease;
+    }
+    .pgt-hero_media.is-active { opacity: 1; }
+
+    /* Cream scrim keeps the seam-crossing headline legible on the photo. */
+    .pgt-hero_scrim {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 42%; z-index: 1;
+      pointer-events: none;
+      background-image: linear-gradient(to right,
+        var(--swatch--light-100),
+        color-mix(in srgb, var(--swatch--light-100) 50%, transparent) 50%,
+        transparent);
+    }
+
+    .pgt-hero_center {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      z-index: 3; width: 64%; text-align: center; pointer-events: none;
+    }
+    .pgt-hero_sub {
+      max-width: 44rem; margin-top: var(--_spacing---space--3);
+      margin-right: auto; margin-bottom: 0px; margin-left: auto;
+    }
+
+    .pgt-hero_nav {
+      position: absolute; left: var(--site--margin); bottom: var(--site--margin); z-index: 4;
+      display: flex; flex-direction: column; row-gap: var(--_spacing---space--1);
+    }
+    .pgt-hero_nav a {
+      color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
+      text-decoration: none;
+      transition-property: color; transition-duration: 0.2s; transition-timing-function: ease;
+    }
+    .pgt-hero_nav a:hover { color: var(--_theme---text); }
+
+    .pgt-hero_card {
+      position: absolute; right: var(--_spacing---space--5); bottom: var(--_spacing---space--5); z-index: 4;
+      display: flex; column-gap: var(--_spacing---space--3); align-items: stretch; max-width: 27rem;
+      padding-top: var(--_spacing---space--2); padding-right: var(--_spacing---space--2);
+      padding-bottom: var(--_spacing---space--2); padding-left: var(--_spacing---space--2);
+      background-color: color-mix(in srgb, var(--swatch--light-100) 95%, transparent);
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color); border-right-color: var(--_border---divider-color);
+      border-bottom-color: var(--_border---divider-color); border-left-color: var(--_border---divider-color);
+      border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle);
+      border-bottom-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle);
+    }
+    .pgt-hero_card-img {
+      width: 9rem; flex-shrink: 0; align-self: stretch; object-fit: cover; display: block;
+      border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle);
+      border-bottom-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle);
+    }
+    .pgt-hero_card-body { display: flex; flex-direction: column; row-gap: var(--_spacing---space--1); }
+    .pgt-hero_card-btn { margin-top: var(--_spacing---space--2); }
+
+    .pgt-hero_dots {
+      position: absolute; bottom: var(--_spacing---space--5); left: 73.5%; transform: translateX(-50%); z-index: 4;
+      display: flex; column-gap: var(--_spacing---space--1);
+    }
+    .pgt-hero_dot {
+      width: var(--_spacing---space--1); height: var(--_spacing---space--1);
+      padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;
+      border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px;
+      border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle);
+      border-bottom-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle);
+      background-color: color-mix(in srgb, var(--swatch--light-100) 55%, transparent);
+      cursor: pointer;
+      transition-property: width, background-color; transition-duration: 0.3s; transition-timing-function: ease;
+    }
+    .pgt-hero_dot.is-active { width: var(--_spacing---space--4); background-color: var(--swatch--light-100); }
+
+    @media (max-width: 767px) {
+      .pgt-hero { grid-template-columns: 1fr; }
+      .pgt-hero_right { min-height: 60svh; }
+      .pgt-hero_center { width: 86%; }
+      .pgt-hero_card { left: var(--_spacing---space--3); right: var(--_spacing---space--3); max-width: none; }
+      .pgt-hero_dots { left: 50%; }
+      .pgt-hero_nav { position: static; flex-direction: row; flex-wrap: wrap; column-gap: var(--_spacing---space--3); padding-top: var(--_spacing---space--4); padding-left: var(--site--margin); }
+    }
+  </style>
+</head>
+<body class="u-theme-light">
+
+  <!-- Pernia navbar (border-bottom removed via utility) -->
+  <nav class="pg-nav-edge is-fixed u-bg-none" aria-label="Navegación principal">
+    <div class="pg-nav u-border-bottom-none">
+      <a href="pg-index.html" class="pg-nav_logo">
+        <img src="assets/logos/pg-logo-black.svg" alt="Pernia Glass" class="pg-nav_logo-img">
+      </a>
+      <div class="pg-nav_links">
+        <a href="pg-index.html" class="pg-nav_link">Inicio</a>
+        <a href="pg-sistemas.html" class="pg-nav_link">Sistemas</a>
+        <a href="pg-mobiliario.html" class="pg-nav_link">Mobiliario</a>
+        <a href="pg-proyectos.html" class="pg-nav_link">Proyectos</a>
+        <a href="pg-recursos.html" class="pg-nav_link">Recursos</a>
+        <a href="pg-nosotros.html" class="pg-nav_link">Nosotros</a>
+        <a href="pg-contacto.html" class="pg-nav_link">Contacto</a>
+      </div>
+      <div class="pg-nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="pg-nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pgt-hero">
+
+    <!-- Left cream panel -->
+    <div class="pgt-hero_left">
+      <nav class="pgt-hero_nav" aria-label="Accesos directos">
+        <a href="pg-sistemas.html" class="gl-mono">/ Sistemas</a>
+        <a href="pg-proyectos.html" class="gl-mono">Proyectos</a>
+        <a href="pg-recursos.html" class="gl-mono">Recursos</a>
+        <a href="pg-nosotros.html" class="gl-mono">Nosotros</a>
+        <a href="pg-contacto.html" class="gl-mono">Contacto</a>
+      </nav>
+    </div>
+
+    <!-- Right image panel -->
+    <div class="pgt-hero_right">
+      <img src="assets/media/pernia/renders/PUERTA 1.jpg" alt="Puerta corrediza de vidrio" class="pgt-hero_media is-active" loading="eager" data-pgt-slide="0">
+      <img src="assets/media/pernia/renders/PUERTA 2.jpg" alt="Sistema de vidrio Pernia Glass" class="pgt-hero_media" loading="lazy" data-pgt-slide="1">
+      <img src="assets/media/pernia/renders/PUERTA 3.jpg" alt="Fachada de vidrio Pernia Glass" class="pgt-hero_media" loading="lazy" data-pgt-slide="2">
+      <div class="pgt-hero_scrim" aria-hidden="true"></div>
+    </div>
+
+    <!-- Centred headline crossing the seam -->
+    <div class="pgt-hero_center">
+      <h1 class="u-text-style-display gl-no-wavy">Separar<br>sin interrumpir</h1>
+      <p class="u-text-style-large gl-mono_muted pgt-hero_sub">Sistemas de vidrio corredizo de alta gama, a medida para cada espacio.</p>
+    </div>
+
+    <!-- Floating info card -->
+    <div class="pgt-hero_card">
+      <img src="assets/pernia/details/glss04.jpg" alt="" class="pgt-hero_card-img" loading="lazy">
+      <div class="pgt-hero_card-body">
+        <span class="gl-mono">Sistemas GLSS</span>
+        <p class="u-text-style-small gl-mono_muted">Siete configuraciones de puertas corredizas de vidrio, fabricadas a medida para cada proyecto.</p>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled pgt-hero_card-btn">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="pg-sistemas.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver sistemas</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider dots -->
+    <div class="pgt-hero_dots" role="tablist" aria-label="Imágenes del hero">
+      <button type="button" class="pgt-hero_dot is-active" data-pgt-dot="0" aria-label="Imagen 1"></button>
+      <button type="button" class="pgt-hero_dot" data-pgt-dot="1" aria-label="Imagen 2"></button>
+      <button type="button" class="pgt-hero_dot" data-pgt-dot="2" aria-label="Imagen 3"></button>
+    </div>
+
+  </main>
+
+  <script>
+  /* Minimal hero image slider (test page) */
+  (function () {
+    'use strict';
+    const slides = Array.from(document.querySelectorAll('.pgt-hero_media'));
+    const dots   = Array.from(document.querySelectorAll('.pgt-hero_dot'));
+    if (slides.length < 2) return;
+    let cur = 0, timer = null;
+    function show(i) {
+      i = (i + slides.length) % slides.length;
+      if (i === cur) return;
+      slides[cur].classList.remove('is-active');
+      if (dots[cur]) dots[cur].classList.remove('is-active');
+      cur = i;
+      slides[cur].classList.add('is-active');
+      if (dots[cur]) dots[cur].classList.add('is-active');
+    }
+    function start() { if (!timer) timer = setInterval(() => show(cur + 1), 5500); }
+    function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+    dots.forEach((d, i) => d.addEventListener('click', () => { show(i); stop(); start(); }));
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+    start();
+  })();
+  </script>
+</body>
+</html>

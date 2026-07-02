@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color:#ede7dd">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobiliario | Pernia Glass</title>
+  <meta name="description" content="Mobiliario de vidrio templado de color sólido: mesas, consolas y mesitas que transforman la luz en arquitectura doméstica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+</head>
+<body class="u-theme-light">
+
+  <!-- ============================================================ -->
+  <!-- NAVBAR                                                        -->
+  <!-- ============================================================ -->
+  <nav class="pg-nav-edge">
+    <div class="pg-nav">
+      <a href="pg-index.html" class="pg-nav_logo">
+        <img src="assets/logos/pg-logo-black.svg" alt="Pernia Glass" class="pg-nav_logo-img">
+      </a>
+      <div class="pg-nav_links">
+        <a href="pg-index.html" class="pg-nav_link">Inicio</a>
+        <a href="pg-sistemas.html" class="pg-nav_link">Sistemas</a>
+        <a href="pg-mobiliario.html" class="pg-nav_link">Mobiliario</a>
+        <a href="pg-laboratorio.html" class="pg-nav_link">Laboratorio</a>
+        <a href="pg-proyectos.html" class="pg-nav_link">Proyectos</a>
+        <a href="pg-recursos.html" class="pg-nav_link">Recursos</a>
+        <a href="pg-nosotros.html" class="pg-nav_link">Nosotros</a>
+        <a href="pg-contacto.html" class="pg-nav_link">Contacto</a>
+      </div>
+      <div class="pg-nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="pg-nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- 01 // HERO                                                    -->
+    <!-- ============================================================ -->
+    <section class="pg-mob_hero">
+      <div class="pg-mob_hero_inner">
+        <span class="gl-section-number">01 // Colección</span>
+        <h1 class="pg-mob_hero_title">Luz hecha <em>mobiliario</em></h1>
+        <p class="pg-mob_hero_sub">Mesas, consolas y mesitas en vidrio templado de color sólido. Piezas que llevan el mismo vidrio de nuestra arquitectura del umbral al interior — y convierten la luz en color habitable.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 02 // COLLECTION CAROUSEL (reuses the homepage find engine)   -->
+    <!-- ============================================================ -->
+    <section class="pg-index_find gl-section-border">
+      <div class="pg-index_find_inner">
+        <span class="gl-section-number">La colección</span>
+        <div class="pg-index_find_search">
+          <input type="search" class="pg-index_find_input" placeholder="Busca una pieza" aria-label="Buscar piezas de mobiliario" autocomplete="off" data-find-search>
+        </div>
+        <div class="pg-index_find_bar">
+          <span class="gl-mono gl-mono_muted pg-index_find_label" data-find-count>Destacados</span>
+          <a href="#galeria" class="gl-mono pg-index_find_all">Ver en contexto &rarr;</a>
+        </div>
+      </div>
+
+      <div class="pg-index_find_swiper">
+        <div class="pg-index_find_track" data-find-track>
+          <a href="#piezas" class="pg-index_find_card is-h-wide" data-find-text="console table consola vidrio">
+            <img src="assets/media/pernia/renders/CONSOLE%20TABLE_1.jpg" alt="Console Table de vidrio" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Console Table</p><span class="gl-mono gl-mono_muted">Consola</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Vidrio</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-square" data-find-text="perforata mesa vidrio perforado color">
+            <img src="assets/media/pernia/renders/PERFORATA1.jpg" alt="Mesa Perforata de vidrio" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Perforata</p><span class="gl-mono gl-mono_muted">Mesa</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Color</span></div></div>
+          </a>
+          <a href="#colores" class="pg-index_find_card is-h-tall" data-find-text="mesita de noche azul amarilla mesita">
+            <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20AZUL%20AMARILLA.jpg" alt="Mesita de noche azul y amarilla" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Azul · Amarilla</p><span class="gl-mono gl-mono_muted">Mesita</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Mesita</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-square" data-find-text="arlecchino arlequin mosaico color mesa">
+            <img src="assets/media/pernia/renders/ARLECCHINO.jpg" alt="Mesa Arlecchino multicolor" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Arlecchino</p><span class="gl-mono gl-mono_muted">Mesa</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Color</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-wide" data-find-text="console table consola vidrio">
+            <img src="assets/media/pernia/renders/CONSOLE%20TABLE_2.jpg" alt="Console Table de vidrio variante" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Console Table</p><span class="gl-mono gl-mono_muted">Consola</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Vidrio</span></div></div>
+          </a>
+          <a href="#colores" class="pg-index_find_card is-h-tall" data-find-text="mesita de noche azul roja mesita">
+            <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20AZUL%20ROJA.jpg" alt="Mesita de noche azul y roja" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Azul · Roja</p><span class="gl-mono gl-mono_muted">Mesita</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Mesita</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-wide" data-find-text="coffee table dekton mesa de centro">
+            <img src="assets/media/pernia/renders/COFFEE%20TABLE%20DEKTON.jpg" alt="Coffee Table Dekton" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Coffee Table</p><span class="gl-mono gl-mono_muted">Centro · Dekton</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Mixto</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-square" data-find-text="perforata mesa vidrio perforado color">
+            <img src="assets/media/pernia/renders/PERFORATA%202.jpg" alt="Mesa Perforata, segunda vista" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Perforata</p><span class="gl-mono gl-mono_muted">Mesa</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Color</span></div></div>
+          </a>
+          <a href="#colores" class="pg-index_find_card is-h-tall" data-find-text="mesita de noche morada naranja mesita">
+            <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20MORADA%20NARANJA_3.jpg" alt="Mesita de noche morada y naranja" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Morada · Naranja</p><span class="gl-mono gl-mono_muted">Mesita</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Mesita</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-wide" data-find-text="biplanar consola dos planos voladizo">
+            <img src="assets/media/pernia/sesiones/BIPLANAR_5.jpg" alt="Consola Biplanar en contexto" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Biplanar</p><span class="gl-mono gl-mono_muted">Consola</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Vidrio</span></div></div>
+          </a>
+          <a href="#piezas" class="pg-index_find_card is-h-square" data-find-text="console table consola vidrio">
+            <img src="assets/media/pernia/renders/CONSOLE%20TABLE_2.1.jpg" alt="Console Table, tercera vista" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Console Table</p><span class="gl-mono gl-mono_muted">Consola</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Vidrio</span></div></div>
+          </a>
+          <a href="#galeria" class="pg-index_find_card is-h-wide" data-find-text="lantana coleccion vidrio contexto">
+            <img src="assets/media/pernia/sesiones/Lantana-1.jpg" alt="Pieza Lantana en contexto" class="pg-index_find_card-img" loading="lazy">
+            <div class="pg-index_find_card-info"><div><p class="pg-index_find_card-title">Lantana</p><span class="gl-mono gl-mono_muted">En contexto</span></div><div class="pg-index_find_card-tags"><span class="gl-tag">Serie</span></div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="pg-index_find_empty" data-find-empty hidden>
+        <p class="gl-mono gl-mono_muted">No encontramos piezas para esa búsqueda.</p>
+        <button type="button" class="pg-index_find_empty-reset" data-find-reset>Ver toda la colección</button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 03 // MANIFESTO                                               -->
+    <!-- ============================================================ -->
+    <section class="pg-mob_manifesto gl-section-border">
+      <div class="pg-mob_manifesto_inner">
+        <span class="gl-section-number">02 // Principio</span>
+        <p class="pg-mob_manifesto_body">El mismo vidrio que define nuestros sistemas — laminado, templado, teñido en masa — llevado del umbral al interior. <em>Superficies que filtran la luz</em> y proyectan color sobre cada ambiente.</p>
+        <div class="pg-mob_manifesto_cta">
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+              <polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <a href="pg-laboratorio.html" class="gl-btn_skew_element">
+              <span class="gl-btn_skew_text">El laboratorio &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 04 // FEATURES — alternating pieces                           -->
+    <!-- ============================================================ -->
+    <div id="piezas"></div>
+
+    <section class="pg-mob_feature gl-section-border">
+      <div class="pg-mob_feature_inner">
+        <div class="pg-mob_feature_media">
+          <img src="assets/media/pernia/renders/PERFORATA1.jpg" alt="Mesa Perforata de vidrio teñido" class="pg-mob_feature_img" loading="lazy">
+        </div>
+        <div class="pg-mob_feature_text">
+          <span class="gl-section-number">Pieza 01</span>
+          <h2 class="pg-mob_feature_title">Perforata</h2>
+          <p class="pg-mob_feature_body">Capas de vidrio teñido que se superponen y multiplican el color con la profundidad. Un volumen sólido que, a contraluz, se vuelve translúcido.</p>
+          <div class="pg-mob_feature_specs">
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Material</span><span class="gl-mono">Vidrio laminado teñido</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Cantos</span><span class="gl-mono">Pulido brillante</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">A medida</span><span class="gl-mono">Color y dimensión</span></div>
+          </div>
+          <div class="gl-btn_skew_wrap pg-mob_feature_link">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Consultar &rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pg-mob_feature is-reverse gl-section-border">
+      <div class="pg-mob_feature_inner">
+        <div class="pg-mob_feature_media">
+          <img src="assets/media/pernia/sesiones/BIPLANAR_5.jpg" alt="Consola Biplanar de vidrio" class="pg-mob_feature_img" loading="lazy">
+        </div>
+        <div class="pg-mob_feature_text">
+          <span class="gl-section-number">Pieza 02</span>
+          <h2 class="pg-mob_feature_title">Biplanar</h2>
+          <p class="pg-mob_feature_body">Dos planos de vidrio que se cruzan en voladizo. Una consola que parece sostener su propio reflejo — estructura y superficie en el mismo gesto.</p>
+          <div class="pg-mob_feature_specs">
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Material</span><span class="gl-mono">Vidrio templado · color en masa</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Unión</span><span class="gl-mono">Adhesivo UV invisible</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Acabado</span><span class="gl-mono">Tornasol opcional</span></div>
+          </div>
+          <div class="gl-btn_skew_wrap pg-mob_feature_link">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Consultar &rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pg-mob_feature gl-section-border">
+      <div class="pg-mob_feature_inner">
+        <div class="pg-mob_feature_media">
+          <img src="assets/media/pernia/renders/CONSOLE%20TABLE_1.jpg" alt="Console Table de vidrio" class="pg-mob_feature_img" loading="lazy">
+        </div>
+        <div class="pg-mob_feature_text">
+          <span class="gl-section-number">Pieza 03</span>
+          <h2 class="pg-mob_feature_title">Console Table</h2>
+          <p class="pg-mob_feature_body">Una consola que parece sostenida por la luz. Planos limpios, cantos pulidos y un perfil que casi desaparece contra la pared.</p>
+          <div class="pg-mob_feature_specs">
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Material</span><span class="gl-mono">Vidrio templado de color</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Formato</span><span class="gl-mono">Recibidor · pasillo</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">A medida</span><span class="gl-mono">10 acabados de color</span></div>
+          </div>
+          <div class="gl-btn_skew_wrap pg-mob_feature_link">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Consultar &rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pg-mob_feature is-reverse gl-section-border">
+      <div class="pg-mob_feature_inner">
+        <div class="pg-mob_feature_media">
+          <img src="assets/media/pernia/renders/ARLECCHINO.jpg" alt="Mesa Arlecchino multicolor de vidrio" class="pg-mob_feature_img" loading="lazy">
+        </div>
+        <div class="pg-mob_feature_text">
+          <span class="gl-section-number">Pieza 04</span>
+          <h2 class="pg-mob_feature_title">Arlecchino</h2>
+          <p class="pg-mob_feature_body">Un mosaico de color en vidrio templado — homenaje al arlequín. Cada cara enfrenta un tono distinto y la pieza cambia con cada paso alrededor.</p>
+          <div class="pg-mob_feature_specs">
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Material</span><span class="gl-mono">Vidrio templado multicolor</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Composición</span><span class="gl-mono">Paleta a elección</span></div>
+            <div class="gl-spec-row"><span class="gl-mono gl-mono_muted">Pieza</span><span class="gl-mono">Edición limitada</span></div>
+          </div>
+          <div class="gl-btn_skew_wrap pg-mob_feature_link">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Consultar &rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 05 // GALLERY — in context                                    -->
+    <!-- ============================================================ -->
+    <section class="pg-mob_gallery gl-section-border" id="galeria">
+      <div class="pg-mob_gallery_head">
+        <span class="gl-section-number">03 // En contexto</span>
+        <h2 class="pg-mob_gallery_title">El vidrio habita el espacio</h2>
+      </div>
+      <div class="pg-mob_gallery_grid">
+        <div class="pg-mob_gallery_item is-wide">
+          <img src="assets/media/pernia/sesiones/TDM-1.jpg" alt="Pieza de mobiliario en ambiente" class="pg-mob_gallery_img" loading="lazy">
+          <span class="gl-mono gl-mono_muted pg-mob_gallery_cap">Sala</span>
+        </div>
+        <div class="pg-mob_gallery_item is-tall">
+          <img src="assets/media/pernia/sesiones/Lantana-3.jpg" alt="Detalle de pieza Lantana" class="pg-mob_gallery_img" loading="lazy">
+        </div>
+        <div class="pg-mob_gallery_item is-third">
+          <img src="assets/media/pernia/sesiones/Pradera-2.jpg" alt="Pieza Pradera en contexto" class="pg-mob_gallery_img" loading="lazy">
+        </div>
+        <div class="pg-mob_gallery_item is-third">
+          <img src="assets/media/pernia/sesiones/TDM-5.jpg" alt="Mobiliario de vidrio, detalle" class="pg-mob_gallery_img" loading="lazy">
+        </div>
+        <div class="pg-mob_gallery_item is-third">
+          <img src="assets/media/pernia/sesiones/Lantana-7.jpg" alt="Pieza Lantana, ángulo" class="pg-mob_gallery_img" loading="lazy">
+        </div>
+        <div class="pg-mob_gallery_item is-half">
+          <img src="assets/media/pernia/sesiones/TDM-8.jpg" alt="Ambiente con mobiliario de vidrio" class="pg-mob_gallery_img" loading="lazy">
+          <span class="gl-mono gl-mono_muted pg-mob_gallery_cap">Dormitorio</span>
+        </div>
+        <div class="pg-mob_gallery_item is-half">
+          <img src="assets/media/pernia/sesiones/Pradera-5.jpg" alt="Pieza Pradera, vista amplia" class="pg-mob_gallery_img" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 06 // COLORWAYS — mesita de noche                             -->
+    <!-- ============================================================ -->
+    <section class="pg-mob_colors gl-section-border" id="colores">
+      <div class="pg-mob_colors_inner">
+        <div class="pg-mob_colors_head">
+          <span class="gl-section-number">04 // Acabados</span>
+          <h2 class="pg-mob_colors_title">Tres formas de teñir la luz</h2>
+        </div>
+        <div class="pg-mob_colors_grid">
+          <div class="pg-mob_colors_item">
+            <div class="pg-mob_colors_media">
+              <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20AZUL%20AMARILLA.jpg" alt="Mesita de noche azul y amarilla" class="pg-mob_colors_img" loading="lazy">
+            </div>
+            <p class="pg-mob_colors_name">Azul · Amarilla</p>
+            <span class="gl-mono gl-mono_muted">Mesita de noche</span>
+          </div>
+          <div class="pg-mob_colors_item">
+            <div class="pg-mob_colors_media">
+              <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20AZUL%20ROJA.jpg" alt="Mesita de noche azul y roja" class="pg-mob_colors_img" loading="lazy">
+            </div>
+            <p class="pg-mob_colors_name">Azul · Roja</p>
+            <span class="gl-mono gl-mono_muted">Mesita de noche</span>
+          </div>
+          <div class="pg-mob_colors_item">
+            <div class="pg-mob_colors_media">
+              <img src="assets/media/pernia/renders/MESITA%20DE%20NOCHE%20MORADA%20NARANJA_3.jpg" alt="Mesita de noche morada y naranja" class="pg-mob_colors_img" loading="lazy">
+            </div>
+            <p class="pg-mob_colors_name">Morada · Naranja</p>
+            <span class="gl-mono gl-mono_muted">Mesita de noche</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 07 // CTA                                                     -->
+    <!-- ============================================================ -->
+    <section class="pg-mob_cta gl-section-border">
+      <div class="pg-mob_cta_inner">
+        <span class="gl-section-number">05 // A medida</span>
+        <h2 class="pg-mob_cta_heading">¿Una pieza para tu espacio?</h2>
+        <p class="pg-mob_cta_sub">Cada pieza se fabrica a medida — color, dimensión y acabado. Cuéntanos tu proyecto y diseñamos el objeto de vidrio que le corresponde.</p>
+        <div class="pg-mob_cta_buttons">
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-contacto.html" class="gl-btn_skew_element"><span class="gl-btn_skew_text">Consultar una pieza &rarr;</span></a>
+          </div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-sistemas.html" class="gl-btn_skew_element"><span class="gl-btn_skew_text">Ver sistemas</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================ -->
+  <footer class="pg-footer u-theme-dark">
+    <div class="pg-footer_inner">
+      <div class="pg-footer_grid">
+        <div class="pg-footer_col">
+          <div class="pg-footer_brand">
+            <svg class="pg-footer_brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 592.74 299.72" fill="currentColor" aria-label="Pernia Glass"><g><g><g><path d="M64.25,214.3H0v85.28h20.73v-22.9h43.52c22.11,0,36.4-12.24,36.4-31.19s-13.95-31.19-36.4-31.19ZM60.86,259.3H20.73v-27.52h40.13c18.58,0,18.58,10.31,18.58,13.7s0,13.82-18.58,13.82Z"/><path d="M271.41,214.3h-64.25v85.28h20.73v-22.9h28.94l22.16,22.88h27.17l-23.31-24.11c15.47-3.54,24.96-14.52,24.96-29.96,0-19.24-13.95-31.19-36.4-31.19ZM268.02,259.3h-40.13v-27.52h40.13c18.58,0,18.58,10.31,18.58,13.7s0,13.82-18.58,13.82Z"/><polygon points="407.06 277.99 345.35 214.3 318.3 214.3 318.3 299.58 339.02 299.58 339.02 235.89 400.72 299.58 427.66 299.58 427.66 214.3 407.06 214.3 407.06 277.99"/><rect x="440.8" y="214.3" width="20.73" height="85.28"/><path d="M542.75,214.3h-23.16l-50.24,85.28h22.68l10.53-18.46h57.09l10.53,18.46h22.55l-49.98-85.28ZM511.68,265.23l19.49-34.11,19.39,34.11h-38.88Z"/><polygon points="109.22 299.72 198.59 299.72 198.59 283.31 130.03 283.31 130.03 264.61 196.16 264.61 196.16 249.11 130.03 249.11 130.03 230.41 198.59 230.41 198.59 214.11 109.22 214.11 109.22 299.72"/></g><g><polygon points="396.35 0 301.52 0 291.22 0 196.39 0 136.01 38.36 136.01 46.88 291.22 46.88 301.52 46.88 456.73 46.88 456.73 38.36 396.35 0"/><polygon points="396.35 73.82 301.52 73.82 291.22 73.82 196.39 73.82 136.01 103.25 136.01 111.78 291.22 111.78 301.52 111.78 456.73 111.78 456.73 103.25 396.35 73.82"/><polygon points="396.35 138.72 301.52 138.72 291.22 138.72 196.39 138.72 136.01 162.79 136.01 171.31 291.22 171.31 301.52 171.31 456.73 171.31 456.73 162.79 396.35 138.72"/></g></g></g></svg>
+            <svg class="pg-footer_brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.71 171.31" fill="currentColor" aria-hidden="true"><g><g><polygon points="260.33 0 165.51 0 155.21 0 60.38 0 0 38.36 0 46.88 155.21 46.88 165.51 46.88 320.71 46.88 320.71 38.36 260.33 0"/><polygon points="260.33 73.82 165.51 73.82 155.21 73.82 60.38 73.82 0 103.25 0 111.78 155.21 111.78 165.51 111.78 320.71 111.78 320.71 103.25 260.33 73.82"/><polygon points="260.33 138.72 165.51 138.72 155.21 138.72 60.38 138.72 0 162.79 0 171.31 155.21 171.31 165.51 171.31 320.71 171.31 320.71 162.79 260.33 138.72"/></g></g></svg>
+          </div>
+          <p class="gl-mono gl-mono_muted pg-footer_brand-desc">Sistemas de vidrio arquitectónico</p>
+          <p class="gl-mono gl-mono_muted">Panama City, Panamá</p>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Navegación</span>
+          <a href="pg-sistemas.html" class="pg-footer_link">Sistemas</a>
+          <a href="pg-mobiliario.html" class="pg-footer_link">Mobiliario</a>
+          <a href="pg-laboratorio.html" class="pg-footer_link">Laboratorio</a>
+          <a href="pg-proyectos.html" class="pg-footer_link">Proyectos</a>
+          <a href="pg-recursos.html" class="pg-footer_link">Recursos</a>
+          <a href="pg-nosotros.html" class="pg-footer_link">Nosotros</a>
+          <a href="pg-contacto.html" class="pg-footer_link">Contacto</a>
+          <a href="gl-index.html" class="pg-footer_link">The Glass Lab</a>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Contacto</span>
+          <a href="#" class="pg-footer_link">info@perniaglass.com</a>
+          <a href="#" class="pg-footer_link">+507 XXX XXXX</a>
+          <a href="#" class="pg-footer_link">WhatsApp</a>
+        </div>
+        <div class="pg-footer_col">
+          <span class="gl-mono gl-mono_label pg-footer_col-title">Social</span>
+          <a href="#" class="pg-footer_link">Instagram</a>
+          <span class="gl-mono gl-mono_label pg-footer_col-title pg-footer_col-title_spaced">Legal</span>
+          <a href="legal-privacidad.html" class="pg-footer_link">Privacidad</a>
+          <a href="legal-terminos.html" class="pg-footer_link">Términos</a>
+          <a href="legal-cookies.html" class="pg-footer_link">Cookies</a>
+        </div>
+      </div>
+      <div class="pg-footer_newsletter">
+        <div>
+          <span class="gl-mono gl-mono_muted">NEWSLETTER</span>
+          <p class="pg-footer_newsletter-desc">Sistemas, proyectos y novedades. Sin spam.</p>
+        </div>
+        <div class="pg-footer_newsletter-form">
+          <div class="gl-filter-input pg-footer_newsletter-input">tu@email.com</div>
+          <div class="gl-btn_skew_wrap">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><polygon points="16,1 239,1 239,42 224,55 1,55 1,14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Suscribir &gt;&gt;&gt;</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="pg-footer_bottom">
+        <span class="gl-mono gl-mono_muted">2026 Pernia Glass. Todos los derechos reservados.</span>
+        <span class="gl-mono gl-mono_muted">Designed by Van Alva</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
+  <script src='js/gl-nav-scroll.js'></script>
+  <script src='js/pg-mobiliario-animations.js'></script>
+  <script src='js/pg-index-find.js'></script>
+  <script src='js/gl-wavy-bend.js'></script>
+
+  <!-- FULLSCREEN MENU -->
+  <div class="gl-menu u-theme-light is-light" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="gl-menu_header">
+      <img src="assets/logos/pg-logotipo-black.svg" alt="Pernia Glass" class="gl-menu_header-logo" style="height:1.5rem">
+      <button class="gl-menu_close" aria-label="Cerrar menú">
+        <span>Cerrar</span>
+        <span class="gl-menu_close-icon"></span>
+      </button>
+    </div>
+    <nav class="gl-menu_nav">
+      <ul class="gl-menu_items">
+        <li class="gl-menu_item"><a href="pg-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-sistemas.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text">Sistemas</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-mobiliario.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text">Mobiliario</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text">Laboratorio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-proyectos.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text">Proyectos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-recursos.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text">Recursos</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-nosotros.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text">Nosotros</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="pg-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">08</span><span class="gl-menu_link-text">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
+      </ul>
+    </nav>
+    <div class="gl-menu_footer">
+      <div class="gl-menu_footer-brand">
+        <a href="gl-index.html" class="gl-menu_footer-link">The Glass Lab →</a>
+        <span class="gl-mono gl-mono_muted">Panama City, Panamá</span>
+      </div>
+      <span class="gl-menu_footer-lang">ES / EN</span>
+    </div>
+  </div>
+  <script src='js/gl-menu.js'></script>
+  <script src="js/gl-interactions.js"></script>
+  <script src="js/gl-page-transition.js"></script>
+  <script src="js/gl-theme-transition.js"></script>
+</body>
+</html>

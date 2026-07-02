@@ -1,0 +1,677 @@
+{
+  "$schema": "./pernia-systems.schema.json",
+  "version": "1.0.0",
+  "lastUpdated": "2026-05-11",
+  "brand": "pernia-glass",
+  "family": {
+    "name": {
+      "es": "Sistema de puertas corredizas Pernia",
+      "en": "Pernia Sliding Door System"
+    },
+    "comment": "Pernia Glass is ONE product family with 8 parametric configurations (GLSS01-08). All systems share: 8mm laminated glass, slim aluminum profile, soft-close mechanism. They differ only in panel count, configuration, and dimensions.",
+    "universal": {
+      "vidrio": {
+        "es": "8mm laminado",
+        "en": "8mm laminated"
+      },
+      "perfil": {
+        "es": "Aluminio slim anodizado",
+        "en": "Slim anodized aluminum"
+      },
+      "mecanismo": {
+        "es": "Soft close",
+        "en": "Soft close"
+      },
+      "header": {
+        "es": "HIERRO 2x2 / 2x4 / 2x6 según carga",
+        "en": "Steel header 2x2 / 2x4 / 2x6 by load"
+      },
+      "soffit": {
+        "es": "GYPSUM (cielo raso)",
+        "en": "GYPSUM (suspended ceiling)"
+      },
+      "trim": {
+        "es": "MADERA 2x1 (opcional)",
+        "en": "Wood 2x1 (optional)"
+      }
+    },
+    "perfilColores": [
+      {
+        "id": "black",
+        "name": {
+          "es": "Negro",
+          "en": "Black"
+        },
+        "hex": "#1a1a1a",
+        "ral": null
+      },
+      {
+        "id": "porcelain",
+        "name": {
+          "es": "Porcelana",
+          "en": "Porcelain"
+        },
+        "hex": "#f5f5f0",
+        "ral": "RAL 9016"
+      },
+      {
+        "id": "gold",
+        "name": {
+          "es": "Oro",
+          "en": "Gold"
+        },
+        "hex": "#c9a84c",
+        "ral": null
+      },
+      {
+        "id": "burgundy",
+        "name": {
+          "es": "Burdeos",
+          "en": "Burgundy"
+        },
+        "hex": "#4a1520",
+        "ral": "RAL 3007"
+      },
+      {
+        "id": "navy",
+        "name": {
+          "es": "Azul Cobalto",
+          "en": "Cobalt Blue"
+        },
+        "hex": "#1a3a5c",
+        "ral": "RAL 5013"
+      },
+      {
+        "id": "bronze",
+        "name": {
+          "es": "Bronce",
+          "en": "Bronze"
+        },
+        "hex": "#b08d6e",
+        "ral": null
+      },
+      {
+        "id": "walnut",
+        "name": {
+          "es": "Nogal",
+          "en": "Walnut"
+        },
+        "hex": "#5c4a3a",
+        "ral": null
+      },
+      {
+        "id": "forest",
+        "name": {
+          "es": "Verde Oliva",
+          "en": "Forest Green"
+        },
+        "hex": "#3a4a2a",
+        "ral": "RAL 6003"
+      },
+      {
+        "id": "amber",
+        "name": {
+          "es": "Ámbar",
+          "en": "Amber"
+        },
+        "hex": "#8a5a2a",
+        "ral": "RAL 8002"
+      },
+      {
+        "id": "silver",
+        "name": {
+          "es": "Plata",
+          "en": "Silver"
+        },
+        "hex": "#c0c0c0",
+        "ral": null
+      }
+    ]
+  },
+  "configurationFilters": [
+    {
+      "id": "todos",
+      "name": {
+        "es": "Todos",
+        "en": "All"
+      }
+    },
+    {
+      "id": "mono-panel",
+      "name": {
+        "es": "Monopanel",
+        "en": "Single-panel"
+      }
+    },
+    {
+      "id": "bi-panel",
+      "name": {
+        "es": "Bipanel",
+        "en": "Two-panel"
+      }
+    },
+    {
+      "id": "tri-panel",
+      "name": {
+        "es": "Tripanel",
+        "en": "Three-panel"
+      }
+    },
+    {
+      "id": "quad-panel",
+      "name": {
+        "es": "Cuadripanel",
+        "en": "Four-panel"
+      }
+    },
+    {
+      "id": "con-pocket",
+      "name": {
+        "es": "Con pocket",
+        "en": "With pocket"
+      }
+    }
+  ],
+  "systems": [
+    {
+      "code": "GLSS01",
+      "slug": "GLSS01-monopanel",
+      "name": {
+        "es": "GLSS01 — Puerta monopanel",
+        "en": "GLSS01 — Single-panel slider"
+      },
+      "tagline": {
+        "es": "Una hoja deslizante. La discreción esencial.",
+        "en": "One sliding panel. Essential discretion."
+      },
+      "description": {
+        "es": "El miembro más compacto de la familia. Una sola hoja deslizante sobre perfil slim. Ideal para divisiones de espacio pequeñas, cierres de cuarto auxiliar o puertas de baño.",
+        "en": "The most compact member of the family. A single sliding panel on a slim profile. Ideal for small space divisions, auxiliary room closures, or bathroom doors."
+      },
+      "panels": 1,
+      "configuration": {
+        "es": "1 panel corredizo",
+        "en": "1 sliding panel"
+      },
+      "configType": "mono-panel",
+      "hasPocket": false,
+      "dimensions": [
+        {
+          "width": 1000,
+          "height": 3000
+        },
+        {
+          "width": 1300,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x2",
+      "applications": [
+        {
+          "es": "Divisoria interior",
+          "en": "Interior division"
+        },
+        {
+          "es": "Cierre de cuarto auxiliar",
+          "en": "Auxiliary room closure"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss01.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss01.png",
+        "sectionDrawing": "assets/pernia/sections/glss01.png",
+        "video": "assets/media/videos/Glass 1 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null,
+          "size": null,
+          "format": "PDF"
+        },
+        "guiaInstalacion": {
+          "url": null,
+          "size": null,
+          "format": "PDF"
+        },
+        "cad": {
+          "url": null,
+          "size": null,
+          "format": "DWG"
+        }
+      },
+      "tbd": {
+        "downloads": "Generate from data per Q5"
+      }
+    },
+    {
+      "code": "GLSS02",
+      "slug": "GLSS02-bipanel",
+      "name": {
+        "es": "GLSS02 — Puerta bipanel",
+        "en": "GLSS02 — Two-panel slider"
+      },
+      "tagline": {
+        "es": "Un panel fijo y uno corredizo. El clásico de la línea.",
+        "en": "One fixed and one sliding. The line's classic."
+      },
+      "description": {
+        "es": "La configuración más versátil de la familia. Un panel fijo a la izquierda y uno corredizo a la derecha — el sistema canónico para divisiones de habitación, baños principales y oficinas privadas.",
+        "en": "The most versatile configuration in the family. One fixed panel left, one sliding right — the canonical setup for room divisions, master bathrooms, and private offices."
+      },
+      "panels": 2,
+      "configuration": {
+        "es": "1 fijo + 1 corredizo",
+        "en": "1 fixed + 1 sliding"
+      },
+      "configType": "bi-panel",
+      "hasPocket": false,
+      "dimensions": [
+        {
+          "width": 2000,
+          "height": 3000
+        },
+        {
+          "width": 2500,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x2",
+      "applications": [
+        {
+          "es": "División de habitación",
+          "en": "Room division"
+        },
+        {
+          "es": "Baño principal",
+          "en": "Master bathroom"
+        },
+        {
+          "es": "Oficina privada",
+          "en": "Private office"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss02.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss02.png",
+        "sectionDrawing": "assets/pernia/sections/glss02.png",
+        "video": "assets/media/videos/Glass 2 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS03",
+      "slug": "GLSS03-tripanel",
+      "name": {
+        "es": "GLSS03 — Puerta tripanel",
+        "en": "GLSS03 — Three-panel slider"
+      },
+      "tagline": {
+        "es": "Un fijo, dos corredizos. Apertura total.",
+        "en": "One fixed, two sliding. Full opening."
+      },
+      "description": {
+        "es": "Tres paneles: un fijo a la izquierda más dos corredizos que se apilan a la derecha. Pensado para divisiones de gran luz donde se requiere apertura amplia sin perder el cerramiento total.",
+        "en": "Three panels: one fixed left plus two sliding that stack to the right. Designed for large openings where you need full closure and wide access."
+      },
+      "panels": 3,
+      "configuration": {
+        "es": "1 fijo + 2 corredizos apilables",
+        "en": "1 fixed + 2 stacking sliding"
+      },
+      "configType": "tri-panel",
+      "hasPocket": false,
+      "dimensions": [
+        {
+          "width": 3000,
+          "height": 3000
+        },
+        {
+          "width": 3500,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x4",
+      "applications": [
+        {
+          "es": "Divisiones de gran luz",
+          "en": "Large openings"
+        },
+        {
+          "es": "Closets walk-in",
+          "en": "Walk-in closets"
+        },
+        {
+          "es": "Salón a terraza",
+          "en": "Living room to terrace"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss03.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss03.png",
+        "sectionDrawing": "assets/pernia/sections/glss03.png",
+        "video": "assets/media/videos/Glass 3 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS04",
+      "slug": "GLSS04-cuadripanel-simetrico",
+      "name": {
+        "es": "GLSS04 — Cuadripanel simétrico",
+        "en": "GLSS04 — Symmetric four-panel"
+      },
+      "tagline": {
+        "es": "Apertura central. Configuración bypass simétrica.",
+        "en": "Central opening. Symmetric bypass."
+      },
+      "description": {
+        "es": "El miembro «francés» de la línea: dos fijos en los extremos y dos corredizos que se encuentran en el centro. La apertura central libera el paso completo. La opción más arquitectónica para grandes vanos.",
+        "en": "The line's «French» member: two fixed at the ends and two sliding meeting in the center. Central opening clears the full passage. The most architectural option for large openings."
+      },
+      "panels": 4,
+      "configuration": {
+        "es": "2 fijos + 2 corredizos (bypass central)",
+        "en": "2 fixed + 2 sliding (central bypass)"
+      },
+      "configType": "quad-panel",
+      "hasPocket": false,
+      "dimensions": [
+        {
+          "width": 4000,
+          "height": 3000
+        },
+        {
+          "width": 4600,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x2",
+      "applications": [
+        {
+          "es": "Grandes vanos arquitectónicos",
+          "en": "Large architectural openings"
+        },
+        {
+          "es": "Apertura tipo francesa",
+          "en": "French-style opening"
+        },
+        {
+          "es": "Salones principales",
+          "en": "Main living spaces"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss04.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss04.png",
+        "sectionDrawing": "assets/pernia/sections/glss04.png",
+        "video": "assets/media/videos/Glass 4 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS05",
+      "slug": "GLSS05-bipanel-pocket",
+      "name": {
+        "es": "GLSS05 — Bipanel con pocket",
+        "en": "GLSS05 — Two-panel with pocket"
+      },
+      "tagline": {
+        "es": "Dos paneles que desaparecen en el muro.",
+        "en": "Two panels that vanish into the wall."
+      },
+      "description": {
+        "es": "Dos corredizos que se ocultan completamente en un pocket de pared. Ideal para apertura total en espacios donde la puerta no debe ser visible cuando está abierta.",
+        "en": "Two sliding panels that hide completely in a wall pocket. Ideal for full opening in spaces where the door must disappear when open."
+      },
+      "panels": 2,
+      "configuration": {
+        "es": "2 corredizos en pocket de pared",
+        "en": "2 sliding in wall pocket"
+      },
+      "configType": "bi-panel",
+      "hasPocket": true,
+      "dimensions": [
+        {
+          "width": 2000,
+          "height": 3000
+        },
+        {
+          "width": 2500,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x4",
+      "applications": [
+        {
+          "es": "Apertura sin obstrucción visual",
+          "en": "Visually unobstructed opening"
+        },
+        {
+          "es": "Suites principales",
+          "en": "Master suites"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss05.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss05.png",
+        "sectionDrawing": "assets/pernia/sections/glss05.png",
+        "video": "assets/media/videos/Glass 5 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS06",
+      "slug": "GLSS06-cuadripanel-asimetrico",
+      "name": {
+        "es": "GLSS06 — Cuadripanel asimétrico",
+        "en": "GLSS06 — Asymmetric four-panel"
+      },
+      "tagline": {
+        "es": "Un fijo, tres corredizos. Máxima apertura.",
+        "en": "One fixed, three sliding. Maximum opening."
+      },
+      "description": {
+        "es": "El más ancho de la familia sin pocket: un panel fijo a la izquierda y tres corredizos que se apilan a la derecha. La pieza para divisiones residenciales de gran formato.",
+        "en": "The widest without-pocket member: one fixed panel left and three sliding stacking right. The piece for large-format residential divisions."
+      },
+      "panels": 4,
+      "configuration": {
+        "es": "1 fijo + 3 corredizos apilables",
+        "en": "1 fixed + 3 stacking sliding"
+      },
+      "configType": "quad-panel",
+      "hasPocket": false,
+      "dimensions": [
+        {
+          "width": 4000,
+          "height": 3000
+        },
+        {
+          "width": 4600,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x6",
+      "applications": [
+        {
+          "es": "Divisiones residenciales de gran formato",
+          "en": "Large-format residential divisions"
+        },
+        {
+          "es": "Cerramientos a terraza",
+          "en": "Terrace enclosures"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss06.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss06.png",
+        "sectionDrawing": "assets/pernia/sections/glss06.png",
+        "video": "assets/media/videos/Glass 6 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS07",
+      "slug": "GLSS07-tripanel-pocket",
+      "name": {
+        "es": "GLSS07 — Tripanel con pocket",
+        "en": "GLSS07 — Three-panel with pocket"
+      },
+      "tagline": {
+        "es": "Tres paneles que desaparecen. Vacío arquitectónico total.",
+        "en": "Three panels that disappear. Total architectural void."
+      },
+      "description": {
+        "es": "Tres corredizos que se apilan completamente dentro de un pocket de pared. La apertura más limpia de la línea: cuando está abierta, no hay puerta visible. Para suites principales y conexiones interior-exterior.",
+        "en": "Three sliding panels that stack completely inside a wall pocket. The cleanest opening in the line: when open, no door is visible. For master suites and interior-exterior connections."
+      },
+      "panels": 3,
+      "configuration": {
+        "es": "3 corredizos en pocket de pared",
+        "en": "3 sliding in wall pocket"
+      },
+      "configType": "tri-panel",
+      "hasPocket": true,
+      "dimensions": [
+        {
+          "width": 4000,
+          "height": 3000
+        },
+        {
+          "width": 4600,
+          "height": 2600
+        }
+      ],
+      "headerSteel": "HIERRO 2x6",
+      "applications": [
+        {
+          "es": "Suites principales con vestidor",
+          "en": "Master suites with dressing room"
+        },
+        {
+          "es": "Conexión interior-exterior premium",
+          "en": "Premium indoor-outdoor connection"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss07.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss07.png",
+        "sectionDrawing": "assets/pernia/sections/glss07.png",
+        "video": "assets/media/videos/Glass 6 (Door animation).mp4"
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      }
+    },
+    {
+      "code": "GLSS08",
+      "slug": "GLSS08-cuadripanel-pocket",
+      "name": {
+        "es": "GLSS08 — Cuadripanel con pocket",
+        "en": "GLSS08 — Four-panel with pocket"
+      },
+      "tagline": {
+        "es": "El sistema más ambicioso de la línea.",
+        "en": "The line's most ambitious system."
+      },
+      "description": {
+        "es": "Cuatro corredizos en pocket — la configuración más amplia y técnicamente exigente. Requiere un header de hierro 2x6 y un pocket de pared dimensionado a la luz total. Para apertura completa de grandes vanos.",
+        "en": "Four sliding panels in pocket — the widest and most technically demanding configuration. Requires a 2x6 steel header and a wall pocket sized to the full opening."
+      },
+      "panels": 4,
+      "configuration": {
+        "es": "4 corredizos en pocket de pared",
+        "en": "4 sliding in wall pocket"
+      },
+      "configType": "quad-panel",
+      "hasPocket": true,
+      "dimensions": null,
+      "headerSteel": "HIERRO 2x6",
+      "applications": [
+        {
+          "es": "Grandes luces con apertura total",
+          "en": "Large openings with full clearance"
+        }
+      ],
+      "media": {
+        "detailRender": "assets/pernia/details/glss08.jpg",
+        "configurationDiagram": "assets/pernia/configurations/glss08.png",
+        "sectionDrawing": "assets/pernia/sections/glss08.png",
+        "video": null
+      },
+      "downloads": {
+        "fichaTecnica": {
+          "url": null
+        },
+        "guiaInstalacion": {
+          "url": null
+        },
+        "cad": {
+          "url": null
+        }
+      },
+      "availability": "proximamente",
+      "tbd": {
+        "scope": "Pending client confirmation (Q1) — keep listed with próximamente badge until detail render and configuration diagram supplied"
+      }
+    }
+  ]
+}
