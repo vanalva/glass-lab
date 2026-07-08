@@ -31,7 +31,6 @@
   let titleWords = [];
   if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     gsap.set('.gl-home_nav-edge',     { opacity: 0, y: -18 });
-    gsap.set('.gl-home_hero_accent',  { opacity: 0, y: 20 });
     gsap.set('.gl-home_hero_sub',     { opacity: 0, y: 14 });
     gsap.set('.gl-home_hero_right',   { opacity: 0, scale: 0.97 });
     if (heroTitle) {
@@ -62,7 +61,6 @@
        in. */
     const tl = gsap.timeline();
     tl.to('.gl-home_nav-edge', { opacity: 1, y: 0, duration: 0.65 });
-    tl.to('.gl-home_hero_accent', { opacity: 1, y: 0, duration: 0.8 }, '-=0.4');
     if (titleWords.length) {
       tl.to(titleWords, {
         y: 0, autoAlpha: 1, rotationX: 0, duration: 0.6,
@@ -101,11 +99,6 @@
     gsap.to('.gl-home_hero_zoom', {
       y: -80, ease: 'none',
       scrollTrigger: { trigger: '.gl-home_hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
-    });
-
-    gsap.to('.gl-home_hero_accent', {
-      y: 60, ease: 'none',
-      scrollTrigger: { trigger: '.gl-home_hero', start: 'top top', end: 'bottom top', scrub: 2 }
     });
 
     gsap.to('.gl-home_catalog_visual', {

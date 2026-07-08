@@ -13,9 +13,11 @@
    ════════════════════════════════════════════════════════════════════ */
 
 window.GL_DATA = (async function loadData() {
-  const [glass, pernia] = await Promise.all([
-    fetch('../data/glass-types.json').then(r => r.json()),
-    fetch('../data/pernia-systems.json').then(r => r.json())
+  const [glass, pernia, mobiliario] = await Promise.all([
+    fetch('data/glass-types.json').then(r => r.json()),
+    fetch('data/pernia-systems.json').then(r => r.json()),
+    // mobiliario is optional — pages that don't need it still resolve
+    fetch('data/pernia-mobiliario.json').then(r => r.ok ? r.json() : null).catch(() => null)
   ]);
 
   /* ── Lookups ─────────────────────────────────────────── */
@@ -35,6 +37,19 @@ window.GL_DATA = (async function loadData() {
 
   function getSystem(code) {
     return pernia.systems.find(s => s.code === code) || null;
+  }
+
+  /* ── Pernia mobiliario (furniture) lookups ────────────── */
+
+  function getMueble(idOrSlug) {
+    if (!mobiliario || !mobiliario.pieces) return null;
+    return mobiliario.pieces.find(
+      p => p.slug === idOrSlug || p.code === idOrSlug
+    ) || null;
+  }
+
+  function getMuebles() {
+    return (mobiliario && mobiliario.pieces) ? mobiliario.pieces : [];
   }
 
   /* ── Related products (siblings + tier + mirror + acidada + film) ─ */
@@ -129,8 +144,10 @@ window.GL_DATA = (async function loadData() {
   return {
     glass,
     pernia,
+    mobiliario,
     helpers: {
       getProduct, getCategory, getSubcategory, getSystem,
+      getMueble, getMuebles,
       getRelated, getCompatiblePerniaSystems,
       getFacets, getCodeFromUrl
     }

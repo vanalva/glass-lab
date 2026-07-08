@@ -40,8 +40,9 @@ function renderSystem(system, pernia) {
 
   // Hero image
   const heroImg = document.querySelector('[data-bind-src="hero"]');
-  if (heroImg && system.media?.detailRender) {
-    heroImg.src = system.media.detailRender;
+  const heroSrc = system.media?.render || system.media?.detailRender;
+  if (heroImg && heroSrc) {
+    heroImg.src = heroSrc;
     heroImg.alt = `${system.code} — ${stripCode(system.name?.es)}`;
   }
 
@@ -51,9 +52,10 @@ function renderSystem(system, pernia) {
 
   // Overview detail render
   const overviewImg = document.querySelector('[data-bind-src="overview"]');
-  if (overviewImg && system.media?.detailRender) {
-    overviewImg.src = system.media.detailRender;
-    overviewImg.alt = `Detalle técnico — ${system.code}`;
+  const overviewSrc = system.media?.application || system.media?.detailRender;
+  if (overviewImg && overviewSrc) {
+    overviewImg.src = overviewSrc;
+    overviewImg.alt = system.media?.application ? `${system.code} en contexto — instalación` : `Detalle técnico — ${system.code}`;
   }
 
   // Features
@@ -194,7 +196,7 @@ function relatedCard(system) {
   const img = document.createElement('img');
   img.className = 'pg-sistema_related_card-img';
   img.loading = 'lazy';
-  img.src = system.media?.detailRender || '';
+  img.src = system.media?.render || system.media?.detailRender || '';
   img.alt = `${system.code} — ${stripCode(system.name?.es)}`;
 
   const info = document.createElement('div');

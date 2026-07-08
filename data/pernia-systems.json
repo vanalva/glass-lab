@@ -217,6 +217,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss04/1.jpg",
+        "application": "../assets/media/pernia/systems-app/glss01-app-a.webp",
         "detailRender": "../assets/pernia/details/glss01.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss01.png",
         "sectionDrawing": "../assets/pernia/sections/glss01.png",
@@ -291,6 +293,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss01/1.jpg",
+        "application": "../assets/media/pernia/systems-app/glss02-app-a.webp",
         "detailRender": "../assets/pernia/details/glss02.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss02.png",
         "sectionDrawing": "../assets/pernia/sections/glss02.png",
@@ -356,6 +360,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss03/1.jpg",
+        "application": "../assets/media/pernia/systems-app/glss03-app-a.webp",
         "detailRender": "../assets/pernia/details/glss03.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss03.png",
         "sectionDrawing": "../assets/pernia/sections/glss03.png",
@@ -421,6 +427,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss02/1.jpg",
+        "application": "../assets/media/pernia/systems-app/glss04-app-a.webp",
         "detailRender": "../assets/pernia/details/glss04.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss04.png",
         "sectionDrawing": "../assets/pernia/sections/glss04.png",
@@ -482,6 +490,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss01/5.jpg",
+        "application": "../assets/media/pernia/systems-app/glss05-app-a.webp",
         "detailRender": "../assets/pernia/details/glss05.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss05.png",
         "sectionDrawing": "../assets/pernia/sections/glss05.png",
@@ -543,6 +553,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss02/4.jpg",
+        "application": "../assets/media/pernia/systems-app/glss06-app-a.webp",
         "detailRender": "../assets/pernia/details/glss06.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss06.png",
         "sectionDrawing": "../assets/pernia/sections/glss06.png",
@@ -604,6 +616,8 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss03/6.jpg",
+        "application": "../assets/media/pernia/systems-app/glss07-app-a.webp",
         "detailRender": "../assets/pernia/details/glss07.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss07.png",
         "sectionDrawing": "../assets/pernia/sections/glss07.png",
@@ -652,6 +666,7 @@
         }
       ],
       "media": {
+        "render": "../assets/media/pernia/renders/glss02/6.jpg",
         "detailRender": "../assets/pernia/details/glss08.jpg",
         "configurationDiagram": "../assets/pernia/configurations/glss08.png",
         "sectionDrawing": "../assets/pernia/sections/glss08.png",

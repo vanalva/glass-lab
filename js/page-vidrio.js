@@ -6,6 +6,13 @@
    Generates the related-products row from product.relations.
    ════════════════════════════════════════════════════════════════════ */
 
+// IIFE-wrapped so gl-page-transition.js can safely re-execute this script after
+// an SPA DOM swap. Without the wrapper the top-level `const RELATION_LABELS`
+// lands in the shared global scope and the 2nd run throws
+// "Identifier 'RELATION_LABELS' has already been declared", which halts the
+// script and leaves the visor stuck on "Cargando…".
+(function () {
+
 const RELATION_LABELS = {
   'es-version-espejo-de':     'Versión vidrio',
   'tiene-version-espejo':     'Versión espejo',
@@ -41,7 +48,7 @@ window.GL_DATA.then(({ glass, helpers }) => {
         <p class="u-text-style-main" style="max-width:50ch;color:color-mix(in srgb, var(--_theme---text) 70%, transparent);">
           ${isFileProtocol
             ? 'La página se está abriendo con el protocolo <code>file://</code> — los navegadores bloquean los <code>fetch()</code> locales por seguridad. Sirve la carpeta <code>src/</code> con un servidor local (<code>python -m http.server 8765</code> o <code>npx serve src</code>) y abre <code>http://localhost:8765/pages/gl-vidrio.html?code=Vc</code>.'
-            : 'Hubo un error al cargar <code>../data/glass-types.json</code>. Revisa la consola del navegador para el detalle.'}
+            : 'Hubo un error al cargar <code>data/glass-types.json</code>. Revisa la consola del navegador para el detalle.'}
         </p>
         <p class="gl-mono gl-mono_muted" style="font-size:0.8rem;">Error: ${(err && err.message) || err}</p>
         <a href="gl-catalogo.html" class="gl-mono">&larr; Volver al catálogo</a>
@@ -112,29 +119,39 @@ function renderProduct(product, glass, helpers) {
   setPropCard('aplicaciones',   'Divisorias · Mobiliario · Decorativo',
               'Compatible con todos los sistemas de puerta Pernia (GLSS01-07).');
 
-  // Gallery — replace placeholder slots with real images IF product has gallery items
+  // Gallery — use explicit media.gallery, else derive 4 views from heroSlides
+  // (every shipped catalog type has 11 editorial slides — pick detail/app/env/surface)
   const galleryContainer = document.querySelector('[data-bind="gallery"]');
-  if (galleryContainer && Array.isArray(product.media?.gallery) && product.media.gallery.length > 0) {
-    galleryContainer.innerHTML = '';
-    product.media.gallery.slice(0, 4).forEach(src => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.className = 'gl-vidrio_gallery_img';
-      img.loading = 'lazy';
-      img.alt = product.name?.es || product.code;
-      galleryContainer.appendChild(img);
-    });
-  } else if (galleryContainer) {
-    // Customize the placeholder labels per product
-    const placeholders = galleryContainer.querySelectorAll('.gl-img-placeholder .gl-mono');
-    const productName = (product.name?.es || product.code).toUpperCase();
-    const customLabels = [
-      `DETALLE MACRO — ${productName}`,
-      `INSTALACIÓN EN CONTEXTO — ${productName}`,
-      `MUESTRA ANGULAR — LUZ LATERAL`,
-      `APLICACIÓN ARQUITECTÓNICA`
-    ];
-    placeholders.forEach((el, i) => { if (customLabels[i]) el.textContent = customLabels[i]; });
+  if (galleryContainer) {
+    let gallerySrcs = Array.isArray(product.media?.gallery) && product.media.gallery.length > 0
+      ? product.media.gallery.slice(0, 4)
+      : null;
+    if (!gallerySrcs && Array.isArray(product.media?.heroSlides) && product.media.heroSlides.length >= 4) {
+      const s = product.media.heroSlides;
+      const pick = [2, 7, 4, 3].map(i => s[i]).filter(Boolean); // detail-edge, app, env, surface
+      gallerySrcs = (pick.length >= 4 ? pick : s).slice(0, 4);
+    }
+    if (gallerySrcs && gallerySrcs.length > 0) {
+      galleryContainer.innerHTML = '';
+      gallerySrcs.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'gl-vidrio_gallery_img';
+        img.loading = 'lazy';
+        img.alt = product.name?.es || product.code;
+        galleryContainer.appendChild(img);
+      });
+    } else {
+      const placeholders = galleryContainer.querySelectorAll('.gl-img-placeholder .gl-mono');
+      const productName = (product.name?.es || product.code).toUpperCase();
+      const customLabels = [
+        `DETALLE MACRO — ${productName}`,
+        `INSTALACIÓN EN CONTEXTO — ${productName}`,
+        `MUESTRA ANGULAR — LUZ LATERAL`,
+        `APLICACIÓN ARQUITECTÓNICA`
+      ];
+      placeholders.forEach((el, i) => { if (customLabels[i]) el.textContent = customLabels[i]; });
+    }
   }
 
   // Related products row
@@ -217,7 +234,7 @@ function renderPerniaCard(system) {
   const img = document.createElement('img');
   img.className = 'pg-sistemas_card-img';
   img.loading = 'lazy';
-  img.src = system.media?.detailRender || '';
+  img.src = system.media?.render || system.media?.application || system.media?.detailRender || '';
   img.alt = `${system.code} — ${system.name?.es || system.code}`;
 
   const body = document.createElement('div');
@@ -428,3 +445,5 @@ function describeTransparencia(t) {
   };
   return map[t] || 'Variable.';
 }
+
+})(); // end IIFE — safe to re-run on SPA swaps

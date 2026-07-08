@@ -7,6 +7,21 @@
   'use strict';
   if (typeof gsap === 'undefined') return;
 
+  /* ─── Static (non-interactive) mode for touch / small viewports ──────
+     The lens engine is built around hover + mouse drag/resize + a
+     hover-launched editor panel — none of which work on touch, and the
+     live backdrop-filter recompositing on pointer events murders perf on
+     tablet GPUs (an iPad Pro reports a desktop-width viewport in Chrome
+     yet chokes on the full engine and renders the section glitchy). So we
+     go STATIC whenever the primary input can't hover / is coarse (any
+     touch device, ANY width) OR the viewport is ≤991px. In static mode
+     the decorative interlude samples still render as pure decoration — no
+     drag, resize, editor — and the dock "Lente" generator + free-floating
+     lenses are suppressed. Only a real mouse desktop keeps full editing. */
+  var GL_LENTE_STATIC = window.matchMedia('(max-width: 991px)').matches
+    || window.matchMedia('(hover: none)').matches
+    || window.matchMedia('(pointer: coarse)').matches;
+
   /* ─── Categories ──────────────────────────────────────────────────── */
   window.GL_LENTE_CATEGORIES = [
     { id: 'vidrio',  label: 'Vidrios',  sub: 'Láminas y tintes' },
@@ -76,158 +91,1869 @@
      and replaces it with the preset's layers in order. */
   window.GL_LENTE_PRESETS = [
     {
-      id: 'es-acanalado',
-      name: 'Ea · Espejo Acanalado',
-      sub: 'Reflectivo + reed',
-      dot: 'linear-gradient(135deg,#98afc0 0%,#a8bece 50%,#dae8f5 100%)',
-      layers: [
-        { type: 'vc', blur: 40, color: 45, refraction: 30, edge: 35, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'va', blur: 12, color: 55, refraction: 18, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, patternScale: 55, patternRotation: 0, patternThickness: 60, patternDepth: 12, patternShine: 65, patternShineAngle: 32, layerOpacity: 92 },
-        { type: 'ec', blur: 6, color: 90, refraction: 28, edge: 70, edgeBlur: 4, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 88 }
+      "id": "vidrio-claro",
+      "code": "Vc",
+      "name": "Vc · Vidrio Claro",
+      "sub": "Colores · float",
+      "dot": "rgba(210,235,248,0.5)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 0,
+          "color": 35,
+          "refraction": 20,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 18,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'sunset-acidado',
-      name: 'Dsa · Dichroic Sunset Acidado',
-      sub: 'Inserción dicroica acidada',
-      dot: 'conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)',
-      layers: [
-        { type: 'ds', blur: 8, color: 88, refraction: 38, edge: 45, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 've', blur: 55, color: 60, refraction: 35, edge: 55, edgeBlur: 6, edgeBd: 0, tint: 'rgba(255, 220, 195, 0.45)', tintIntensity: 35, layerOpacity: 95 }
+      "id": "vidrio-ultraclaro",
+      "code": "Vu",
+      "name": "Vu · Vidrio Ultraclaro",
+      "sub": "Colores · low-iron",
+      "dot": "rgba(228,245,255,0.65)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 0,
+          "color": 45,
+          "refraction": 18,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 12,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'sa-cuadros-bronce',
-      name: 'Cuadros Bronce',
-      sub: 'Creativo · Ac + bronce',
-      dot: 'linear-gradient(135deg,#70481a 0%,#b88028 100%)',
-      layers: [
-        { type: 'vb', blur: 22, color: 80, refraction: 32, edge: 40, edgeBlur: 0, edgeBd: 0, tint: 'rgba(180, 110, 30, 0.85)', tintIntensity: 55, layerOpacity: 100 },
-        { type: 'ac', blur: 10, color: 60, refraction: 20, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'rgba(195, 145, 55, 1)', tintIntensity: 85, patternScale: 70, patternRotation: 0, patternThickness: 60, patternDepth: 18, patternShine: 55, patternShineAngle: 28, layerOpacity: 96 }
+      "id": "vidrio-pacifica",
+      "code": "Vp",
+      "name": "Vp · Vidrio Pacífica",
+      "sub": "Colores · tintado azul",
+      "dot": "#1a3f68",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vp",
+          "blur": 22,
+          "color": 75,
+          "refraction": 30,
+          "edge": 34,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(20,70,120,0.72)",
+          "tintIntensity": 52,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'microperf-rojo',
-      name: 'Microperforado Rojo',
-      sub: 'Creativo · no catálogo',
-      dot: 'linear-gradient(135deg,#aa1818 0%,#7a8898 100%)',
-      layers: [
-        { type: 'vc', blur: 30, color: 35, refraction: 25, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'vmp', blur: 8, color: 55, refraction: 0, edge: 0, edgeBlur: 0, edgeBd: 0, tint: 'rgba(220, 28, 36, 1)', tintIntensity: 100, patternScale: 45, patternRotation: 0, patternThickness: 65, patternDepth: 10, layerOpacity: 100 },
-        { type: 'vc', blur: 15, color: 30, refraction: 20, edge: 25, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 80 }
+      "id": "vidrio-indigo",
+      "code": "Vi",
+      "name": "Vi · Vidrio Indigo",
+      "sub": "Colores · azul profundo",
+      "dot": "#121a5e",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vi",
+          "blur": 25,
+          "color": 80,
+          "refraction": 30,
+          "edge": 34,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(24,32,110,0.72)",
+          "tintIntensity": 58,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'es-marble',
-      name: 'Espejo Mármol',
-      sub: 'Creativo · Ec + mármol',
-      dot: 'linear-gradient(135deg,#dcd6cd 0%,#98afc0 100%)',
-      layers: [
-        { type: 'ec', blur: 10, color: 75, refraction: 28, edge: 50, edgeBlur: 4, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'tx-marble', blur: 22, color: 55, refraction: 15, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'rgba(225, 220, 215, 0.5)', tintIntensity: 70, patternScale: 75, layerOpacity: 78 }
+      "id": "vidrio-bronce",
+      "code": "Vb",
+      "name": "Vb · Vidrio Bronce",
+      "sub": "Colores · tintado masa",
+      "dot": "#7a5520",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vb",
+          "blur": 20,
+          "color": 80,
+          "refraction": 30,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(180,110,30,0.85)",
+          "tintIntensity": 55,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'va-bronce',
-      name: 'Vab · Acanalado Bronce',
-      sub: 'Colores · reed bronce',
-      dot: 'linear-gradient(135deg,#7a5520 0%,#c9a84c 100%)',
-      layers: [
-        { type: 'vb', blur: 20, color: 80, refraction: 30, edge: 40, edgeBlur: 0, edgeBd: 0, tint: 'rgba(180, 110, 30, 0.85)', tintIntensity: 55, layerOpacity: 100 },
-        { type: 'va', blur: 10, color: 60, refraction: 22, edge: 35, edgeBlur: 0, edgeBd: 0, tint: 'rgba(218, 168, 78, 1)', tintIntensity: 70, patternScale: 60, patternRotation: 0, patternThickness: 55, patternDepth: 14, patternShine: 60, patternShineAngle: 30, layerOpacity: 95 }
+      "id": "vidrio-gris",
+      "code": "Vg",
+      "name": "Vg · Vidrio Gris",
+      "sub": "Colores · tintado neutro",
+      "dot": "#4a5058",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vg",
+          "blur": 20,
+          "color": 75,
+          "refraction": 28,
+          "edge": 36,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(74,80,88,0.72)",
+          "tintIntensity": 48,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'es-esmerilado',
-      name: 'Ee · Espejo Esmerilado',
-      sub: 'Reflectivo · acid-etched',
-      dot: 'linear-gradient(135deg,#c0d2e0 0%,#98afc0 100%)',
-      layers: [
-        { type: 'ec', blur: 8, color: 80, refraction: 25, edge: 45, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 've', blur: 60, color: 55, refraction: 35, edge: 50, edgeBlur: 8, edgeBd: 0, tint: 'rgba(238, 248, 255, 0.5)', tintIntensity: 40, layerOpacity: 90 }
+      "id": "vidrio-acanalado",
+      "code": "Va",
+      "name": "Va · Vidrio Acanalado",
+      "sub": "Colores · reed",
+      "dot": "#a8bece",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 12,
+          "color": 45,
+          "refraction": 20,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 16,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 15,
+          "color": 55,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 28,
+          "patternScale": 58,
+          "patternRotation": 0,
+          "patternThickness": 58,
+          "patternDepth": 14,
+          "patternShine": 62,
+          "patternShineAngle": 30,
+          "layerOpacity": 94,
+          "reeded": true
+        }
       ]
     },
     {
-      id: 'es-diamante',
-      name: 'Ed · Espejo Diamante',
-      sub: 'Reflectivo · facetas',
-      dot: 'linear-gradient(135deg,#98b0c4 0%,#dae8f5 100%)',
-      layers: [
-        { type: 'ec', blur: 10, color: 80, refraction: 28, edge: 55, edgeBlur: 4, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'vd', blur: 18, color: 55, refraction: 28, edge: 35, edgeBlur: 0, edgeBd: 0, tint: 'rgba(225, 240, 255, 0.55)', tintIntensity: 35, patternScale: 60, patternRotation: 0, patternThickness: 55, patternDepth: 18, layerOpacity: 88 }
+      "id": "vidrio-acanalado-lite",
+      "code": "Val",
+      "name": "Val · Vidrio Acanalado Lite",
+      "sub": "Colores · reed fino",
+      "dot": "#a8bece",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 10,
+          "color": 42,
+          "refraction": 20,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 15,
+          "color": 55,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 24,
+          "patternScale": 38,
+          "patternRotation": 0,
+          "patternThickness": 46,
+          "patternDepth": 10,
+          "patternShine": 55,
+          "patternShineAngle": 30,
+          "layerOpacity": 94,
+          "reeded": true
+        }
       ]
     },
     {
-      id: 'sa-tejida-indigo',
-      name: 'Tejida Índigo',
-      sub: 'Creativo · At + índigo',
-      dot: 'linear-gradient(135deg,#121a5e 0%,#3a4a8c 100%)',
-      layers: [
-        { type: 'vi', blur: 25, color: 80, refraction: 30, edge: 35, edgeBlur: 0, edgeBd: 0, tint: 'rgba(20, 30, 130, 0.7)', tintIntensity: 55, layerOpacity: 100 },
-        { type: 'at', blur: 8, color: 55, refraction: 18, edge: 28, edgeBlur: 0, edgeBd: 0, tint: 'rgba(85, 105, 200, 1)', tintIntensity: 80, patternScale: 55, patternRotation: 0, patternThickness: 60, patternDepth: 14, patternShine: 58, patternShineAngle: 22, layerOpacity: 95 }
+      "id": "vidrio-esmerilado",
+      "code": "Ve",
+      "name": "Ve · Vidrio Esmerilado",
+      "sub": "Colores · acid-etched",
+      "dot": "#c0d2e0",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "ve",
+          "blur": 60,
+          "color": 58,
+          "refraction": 32,
+          "edge": 50,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(238,248,255,0.50)",
+          "tintIntensity": 40,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'int-acidado',
-      name: 'Ina · Interlayer Acidado',
-      sub: 'Inserción · film + esmerilado',
-      dot: 'linear-gradient(135deg,#3a7abf 0%,#c0d2e0 100%)',
-      layers: [
-        { type: 'in', blur: 8, color: 80, refraction: 28, edge: 40, edgeBlur: 0, edgeBd: 0, tint: 'rgba(38, 118, 208, 0.65)', tintIntensity: 60, layerOpacity: 100 },
-        { type: 've', blur: 55, color: 60, refraction: 32, edge: 50, edgeBlur: 6, edgeBd: 0, tint: 'rgba(228, 240, 252, 0.45)', tintIntensity: 35, layerOpacity: 92 }
+      "id": "vidrio-texturizado",
+      "code": "Vt",
+      "name": "Vt · Vidrio Texturizado",
+      "sub": "Colores · textura embebida",
+      "dot": "#b8c4cc",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 8,
+          "color": 40,
+          "refraction": 18,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 16,
+          "layerOpacity": 100
+        },
+        {
+          "type": "tx-noise",
+          "blur": 24,
+          "color": 55,
+          "refraction": 15,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 18,
+          "patternScale": 55,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 90
+        }
       ]
     },
     {
-      id: 'eva-blanca',
-      name: 'Veb · Eva Blanca',
-      sub: 'Colores · EVA opaco claro',
-      dot: 'linear-gradient(135deg,#ebe6dc 0%,#ffffff 100%)',
-      layers: [
-        { type: 'vu', blur: 0,  color: 30, refraction: 20, edge: 25, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'tx-eva-w', blur: 28, color: 35, refraction: 18, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'rgba(245, 240, 230, 0.7)', tintIntensity: 75, patternScale: 50, layerOpacity: 100 }
+      "id": "vidrio-diamante",
+      "code": "Vd",
+      "name": "Vd · Vidrio Diamante",
+      "sub": "Colores · facetas",
+      "dot": "#98b0c4",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 10,
+          "color": 45,
+          "refraction": 20,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 16,
+          "layerOpacity": 100
+        },
+        {
+          "type": "vd",
+          "blur": 25,
+          "color": 55,
+          "refraction": 28,
+          "edge": 35,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(225,240,255,0.55)",
+          "tintIntensity": 36,
+          "patternScale": 58,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 18,
+          "patternShine": 40,
+          "patternShineAngle": 30,
+          "layerOpacity": 90
+        }
       ]
     },
     {
-      id: 'eva-negra',
-      name: 'Ven · Eva Negra',
-      sub: 'Colores · EVA opaco oscuro',
-      dot: 'linear-gradient(135deg,#0b0b0b 0%,#3a3a3a 100%)',
-      layers: [
-        { type: 'vc', blur: 0,  color: 30, refraction: 18, edge: 22, edgeBlur: 0, edgeBd: 0, tint: 'none', tintIntensity: 0, layerOpacity: 100 },
-        { type: 'tx-eva-k', blur: 28, color: 70, refraction: 18, edge: 30, edgeBlur: 0, edgeBd: 0, tint: 'rgba(15, 14, 13, 0.8)', tintIntensity: 80, patternScale: 50, layerOpacity: 100 }
+      "id": "eva-blanca",
+      "code": "Veb",
+      "name": "Veb · Vidrio Eva Blanca",
+      "sub": "Colores · EVA opaco claro",
+      "dot": "linear-gradient(135deg,#ebe6dc,#ffffff)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 0,
+          "color": 30,
+          "refraction": 20,
+          "edge": 25,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "tx-eva-w",
+          "blur": 28,
+          "color": 35,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(245,240,230,0.7)",
+          "tintIntensity": 75,
+          "patternScale": 50,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      id: 'sh-pacifica',
-      name: 'Herringbone Pacífica',
-      sub: 'Creativo · Ah + pacifica',
-      dot: 'linear-gradient(135deg,#1a3f68 0%,#7d8c9c 100%)',
-      layers: [
-        { type: 'vp', blur: 22, color: 78, refraction: 30, edge: 38, edgeBlur: 0, edgeBd: 0, tint: 'rgba(14, 52, 130, 0.7)', tintIntensity: 50, layerOpacity: 100 },
-        { type: 'sh', blur: 10, color: 55, refraction: 18, edge: 28, edgeBlur: 0, edgeBd: 0, tint: 'rgba(110, 140, 195, 1)', tintIntensity: 78, patternScale: 50, patternRotation: 0, patternThickness: 50, patternDepth: 16, patternShine: 62, patternShineAngle: 35, layerOpacity: 92 }
+      "id": "eva-negra",
+      "code": "Ven",
+      "name": "Ven · Vidrio Eva Negra",
+      "sub": "Colores · EVA opaco oscuro",
+      "dot": "linear-gradient(135deg,#0b0b0b,#3a3a3a)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 0,
+          "color": 30,
+          "refraction": 18,
+          "edge": 22,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "tx-eva-k",
+          "blur": 28,
+          "color": 70,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(15,14,13,0.8)",
+          "tintIntensity": 80,
+          "patternScale": 50,
+          "layerOpacity": 100
+        }
       ]
     },
     {
-      /* At · Tejida (gold finish) — fine WOVEN gold wire mesh laminated between
-         clear glass layers. Matches the real client sample (Qo.jpg / Qo_2.jpg):
-         a tight over-under woven brass cloth, not a square welded grid. This is
-         catalog product At (Malla Serie A · Tejida) in a gold/brass finish.
-         (Formerly mislabeled "Quarzo Oro" — that name is not in the client
-         source sheet; the id is kept stable to avoid breaking saved presets.)
-         Three-layer composition:
-         (1) Ultra-clear substrate with a faint warm gold ambient.
-         (2) Tejida (at) — fine woven mesh with strong gold tint at small
-             patternScale (~30) so the weave reads dense across a 400px lens.
-         (3) Ultra-clear top cap at reduced opacity so the weave shows
-             through the lamination with a subtle warm bias on the surface. */
-      id: 'quarzo-oro',
-      name: 'At · Tejida (oro)',
-      sub: 'Malla Serie A · acabado oro',
-      dot: 'linear-gradient(135deg,#7a5520 0%,#c9a84c 50%,#f0d68c 100%)',
-      layers: [
-        { type: 'vu', blur: 5,  color: 32, refraction: 22, edge: 26, edgeBlur: 0, edgeBd: 0, tint: 'rgba(220, 188, 110, 0.3)',  tintIntensity: 16, layerOpacity: 100 },
-        { type: 'at', blur: 9,  color: 55, refraction: 26, edge: 32, edgeBlur: 0, edgeBd: 0, tint: 'rgba(218, 178, 92, 1)',     tintIntensity: 88, patternScale: 32, patternRotation: 0, patternThickness: 50, patternDepth: 14, patternShine: 75, patternShineAngle: 28, layerOpacity: 96 },
-        { type: 'vu', blur: 4,  color: 28, refraction: 22, edge: 38, edgeBlur: 3, edgeBd: 0, tint: 'rgba(245, 225, 175, 0.35)', tintIntensity: 18, layerOpacity: 62 }
+      "id": "acanalado-bronce",
+      "code": "Vab",
+      "name": "Vab · Vidrio Acanalado Bronce",
+      "sub": "Colores · reed bronce",
+      "dot": "linear-gradient(135deg,#7a5520,#c9a84c)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vb",
+          "blur": 20,
+          "color": 80,
+          "refraction": 30,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(180,110,30,0.85)",
+          "tintIntensity": 55,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 10,
+          "color": 60,
+          "refraction": 22,
+          "edge": 35,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(218,168,78,1)",
+          "tintIntensity": 70,
+          "patternScale": 60,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 14,
+          "patternShine": 60,
+          "patternShineAngle": 30,
+          "layerOpacity": 95,
+          "reeded": true
+        }
+      ]
+    },
+    {
+      "id": "acanalado-gris",
+      "code": "Vag",
+      "name": "Vag · Vidrio Acanalado Gris",
+      "sub": "Colores · reed gris",
+      "dot": "linear-gradient(135deg,#4a5058,#9aa4ac)",
+      "category": "colores",
+      "layers": [
+        {
+          "type": "vg",
+          "blur": 18,
+          "color": 75,
+          "refraction": 28,
+          "edge": 36,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(74,80,88,0.72)",
+          "tintIntensity": 50,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 15,
+          "color": 55,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(74,80,88,0.72)",
+          "tintIntensity": 60,
+          "patternScale": 58,
+          "patternRotation": 0,
+          "patternThickness": 58,
+          "patternDepth": 14,
+          "patternShine": 62,
+          "patternShineAngle": 30,
+          "layerOpacity": 94,
+          "reeded": true
+        }
+      ]
+    },
+    {
+      "id": "gradient",
+      "code": "Gr",
+      "name": "Gr · Gradient",
+      "sub": "Inserción · clear→color",
+      "dot": "linear-gradient(90deg,#c0d2e0,rgba(210,235,248,0))",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "gra",
+          "blur": 55,
+          "color": 60,
+          "refraction": 30,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "linear-gradient(90deg,rgba(200,214,224,0.60),rgba(210,235,248,0))",
+          "tintIntensity": 40,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "gradient-acidado",
+      "code": "Gra",
+      "name": "Gra · Gradient Acidado",
+      "sub": "Inserción · grad + frost",
+      "dot": "linear-gradient(135deg,#c0d2e0,#e8f2fa)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "gra",
+          "blur": 55,
+          "color": 60,
+          "refraction": 30,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "linear-gradient(90deg,rgba(200,214,224,0.60),rgba(210,235,248,0))",
+          "tintIntensity": 40,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ve",
+          "blur": 60,
+          "color": 58,
+          "refraction": 32,
+          "edge": 50,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(238,248,255,0.50)",
+          "tintIntensity": 35,
+          "layerOpacity": 92
+        }
+      ]
+    },
+    {
+      "id": "dichroic-sunset",
+      "code": "Ds",
+      "name": "Ds · Dichroic Sunset",
+      "sub": "Inserción · dicroico",
+      "dot": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "ds",
+          "blur": 10,
+          "color": 88,
+          "refraction": 35,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+          "tintIntensity": 60,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "sunset-acidado",
+      "code": "Dsa",
+      "name": "Dsa · Dichroic Sunset Acidado",
+      "sub": "Inserción dicroica acidada",
+      "dot": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "ds",
+          "blur": 8,
+          "color": 88,
+          "refraction": 38,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ve",
+          "blur": 55,
+          "color": 60,
+          "refraction": 35,
+          "edge": 55,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(255, 220, 195, 0.45)",
+          "tintIntensity": 35,
+          "layerOpacity": 95
+        }
+      ]
+    },
+    {
+      "id": "interlayer",
+      "code": "In",
+      "name": "In · Interlayer",
+      "sub": "Inserción · film color",
+      "dot": "#3a7abf",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "in",
+          "blur": 8,
+          "color": 80,
+          "refraction": 28,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(38,118,208,0.65)",
+          "tintIntensity": 60,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "int-acidado",
+      "code": "Ina",
+      "name": "Ina · Interlayer Acidado",
+      "sub": "Inserción · film + frost",
+      "dot": "linear-gradient(135deg,#3a7abf,#c0d2e0)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "in",
+          "blur": 8,
+          "color": 80,
+          "refraction": 28,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(38, 118, 208, 0.65)",
+          "tintIntensity": 60,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ve",
+          "blur": 55,
+          "color": 60,
+          "refraction": 32,
+          "edge": 50,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(228, 240, 252, 0.45)",
+          "tintIntensity": 35,
+          "layerOpacity": 92
+        }
+      ]
+    },
+    {
+      "id": "impresion-cuadros",
+      "code": "Imc",
+      "name": "Imc · Impresión Cuadros",
+      "sub": "Inserción · serigrafía",
+      "dot": "#8b96a2",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 6,
+          "color": 40,
+          "refraction": 22,
+          "edge": 25,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ac",
+          "blur": 10,
+          "color": 55,
+          "refraction": 20,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(240,244,248,0.72)",
+          "tintIntensity": 52,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 45,
+          "patternDepth": 6,
+          "patternShine": 18,
+          "patternShineAngle": 25,
+          "layerOpacity": 96,
+          "skin": false
+        }
+      ]
+    },
+    {
+      "id": "impresion-lineas",
+      "code": "Iml",
+      "name": "Iml · Impresión Líneas",
+      "sub": "Inserción · serigrafía",
+      "dot": "#5a6878",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 6,
+          "color": 40,
+          "refraction": 22,
+          "edge": 25,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "iml",
+          "blur": 5,
+          "color": 55,
+          "refraction": 18,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(240,244,248,0.72)",
+          "tintIntensity": 55,
+          "patternScale": 45,
+          "patternRotation": 0,
+          "patternThickness": 40,
+          "patternDepth": 6,
+          "patternShine": 20,
+          "patternShineAngle": 25,
+          "layerOpacity": 96,
+          "skin": false
+        }
+      ]
+    },
+    {
+      "id": "tela-lino",
+      "code": "Tl",
+      "name": "Tl · Tela Lino",
+      "sub": "Inserción · textil",
+      "dot": "#bcb19a",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 4,
+          "color": 35,
+          "refraction": 20,
+          "edge": 25,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 12,
+          "layerOpacity": 100
+        },
+        {
+          "type": "tx-linen",
+          "blur": 25,
+          "color": 60,
+          "refraction": 15,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 22,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "layerOpacity": 96
+        }
+      ]
+    },
+    {
+      "id": "malla-a-entramado",
+      "code": "Ae",
+      "name": "Ae · Malla Serie A — Entramado",
+      "sub": "Malla A · gauze",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 60,
+          "patternRotation": 0,
+          "patternThickness": 40,
+          "patternDepth": 12,
+          "patternShine": 55,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true,
+          "mesh": "w-gauze"
+        }
+      ]
+    },
+    {
+      "id": "malla-a-pulida",
+      "code": "Ap",
+      "name": "Ap · Malla Serie A — Pulida",
+      "sub": "Malla A · polished",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ac",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 45,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 8,
+          "patternShine": 78,
+          "patternShineAngle": 25,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-a-fabric",
+      "code": "Af",
+      "name": "Af · Malla Serie A — Fabric",
+      "sub": "Malla A · fabric",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 45,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 16,
+          "patternShine": 55,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true,
+          "mesh": "w-twill"
+        }
+      ]
+    },
+    {
+      "id": "malla-a-lisa",
+      "code": "Al",
+      "name": "Al · Malla Serie A — Lisa",
+      "sub": "Malla A · plain",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 40,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 10,
+          "patternShine": 58,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true,
+          "mesh": "w-plain"
+        }
+      ]
+    },
+    {
+      "id": "malla-a-zigzag",
+      "code": "Az",
+      "name": "Az · Malla Serie A — Zigzag",
+      "sub": "Malla A · zigzag",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "sz",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 48,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 14,
+          "patternShine": 60,
+          "patternShineAngle": 35,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-a-qubo",
+      "code": "Aq",
+      "name": "Aq · Malla Serie A — Qubo",
+      "sub": "Malla A · cube",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "bq",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 18,
+          "patternShine": 58,
+          "patternShineAngle": 30,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-a-herringbone",
+      "code": "Ah",
+      "name": "Ah · Malla Serie A — Herringbone",
+      "sub": "Malla A · espiga",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "sh",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 40,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 16,
+          "patternShine": 62,
+          "patternShineAngle": 35,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-a-bilineal",
+      "code": "Ab",
+      "name": "Ab · Malla Serie A — Bilineal",
+      "sub": "Malla A · bilinear",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "sbl",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 45,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 12,
+          "patternShine": 58,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-a-tejida",
+      "code": "At",
+      "name": "At · Malla Serie A — Tejida",
+      "sub": "Malla A · woven",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 32,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 9,
+          "color": 55,
+          "refraction": 26,
+          "edge": 32,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 42,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 16,
+          "patternShine": 62,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true
+        },
+        {
+          "type": "vu",
+          "blur": 4,
+          "color": 28,
+          "refraction": 22,
+          "edge": 38,
+          "edgeBlur": 3,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 62
+        }
+      ]
+    },
+    {
+      "id": "malla-a-cuadros",
+      "code": "Ac",
+      "name": "Ac · Malla Serie A — Cuadros",
+      "sub": "Malla A · grid",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ac",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 16,
+          "patternShine": 55,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-b-qubo",
+      "code": "Bq",
+      "name": "Bq · Malla Serie B — Qubo",
+      "sub": "Malla B · cube (≡Aq)",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "bq",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 18,
+          "patternShine": 58,
+          "patternShineAngle": 30,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-b-entramado",
+      "code": "Be",
+      "name": "Be · Malla Serie B — Entramado",
+      "sub": "Malla B · gauze (≈Ae)",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 60,
+          "patternRotation": 0,
+          "patternThickness": 40,
+          "patternDepth": 12,
+          "patternShine": 55,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true,
+          "mesh": "w-gauze"
+        }
+      ]
+    },
+    {
+      "id": "malla-b-lisa",
+      "code": "Bl",
+      "name": "Bl · Malla Serie B — Lisa",
+      "sub": "Malla B · plain (≈Al)",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "at",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 84,
+          "patternScale": 40,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 10,
+          "patternShine": 58,
+          "patternShineAngle": 28,
+          "layerOpacity": 96,
+          "skin": true,
+          "mesh": "w-plain"
+        }
+      ]
+    },
+    {
+      "id": "malla-c-mosquitera",
+      "code": "Cm",
+      "name": "Cm · Malla Serie C — Mosquitera",
+      "sub": "Malla C · screen",
+      "dot": "linear-gradient(135deg,#8a97a4,#c6d0d8)",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vu",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(232,246,255,0.30)",
+          "tintIntensity": 14,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ac",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(150,165,180,1)",
+          "tintIntensity": 80,
+          "patternScale": 30,
+          "patternRotation": 0,
+          "patternThickness": 35,
+          "patternDepth": 8,
+          "patternShine": 50,
+          "patternShineAngle": 25,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "malla-c-negra",
+      "code": "Cn",
+      "name": "Cn · Malla Serie C — Negra",
+      "sub": "Malla C · black screen",
+      "dot": "#1c1b1a",
+      "category": "inserciones",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 5,
+          "color": 30,
+          "refraction": 22,
+          "edge": 26,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 12,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ac",
+          "blur": 8,
+          "color": 55,
+          "refraction": 22,
+          "edge": 28,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(28,28,28,1)",
+          "tintIntensity": 90,
+          "patternScale": 30,
+          "patternRotation": 0,
+          "patternThickness": 35,
+          "patternDepth": 8,
+          "patternShine": 45,
+          "patternShineAngle": 25,
+          "layerOpacity": 96,
+          "skin": true
+        }
+      ]
+    },
+    {
+      "id": "espejo-claro",
+      "code": "Ec",
+      "name": "Ec · Espejo Claro",
+      "sub": "Reflectivo · silver",
+      "dot": "linear-gradient(135deg,#98afc0,#dae8f5)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 45,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "espejo-bronce",
+      "code": "Eb",
+      "name": "Eb · Espejo Bronce",
+      "sub": "Reflectivo · bronce",
+      "dot": "linear-gradient(135deg,#70481a,#b88028)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "eb",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 62,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,110,55,0.60)",
+          "tintIntensity": 50,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "espejo-gris",
+      "code": "Eg",
+      "name": "Eg · Espejo Gris",
+      "sub": "Reflectivo · gris",
+      "dot": "linear-gradient(135deg,#4a5058,#aab4bc)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 62,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(80,88,96,0.58)",
+          "tintIntensity": 47,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        }
+      ]
+    },
+    {
+      "id": "espejo-interlayer",
+      "code": "Ei",
+      "name": "Ei · Espejo Interlayer",
+      "sub": "Reflectivo · film 300 col",
+      "dot": "linear-gradient(135deg,#3a7abf,#dae8f5)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 42,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "in",
+          "blur": 8,
+          "color": 80,
+          "refraction": 28,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(38,118,208,0.65)",
+          "tintIntensity": 55,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 90
+        }
+      ]
+    },
+    {
+      "id": "espejo-polychromatico",
+      "code": "Ep",
+      "name": "Ep · Espejo Polychromático",
+      "sub": "Reflectivo · dicroico · CUSTOM",
+      "dot": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 42,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ds",
+          "blur": 10,
+          "color": 88,
+          "refraction": 35,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+          "tintIntensity": 55,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 90
+        }
+      ]
+    },
+    {
+      "id": "es-acanalado",
+      "code": "Ea",
+      "name": "Ea · Espejo Acanalado",
+      "sub": "Reflectivo + reed",
+      "dot": "linear-gradient(135deg,#98afc0 0%,#a8bece 50%,#dae8f5 100%)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "vc",
+          "blur": 40,
+          "color": 45,
+          "refraction": 30,
+          "edge": 35,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 12,
+          "color": 55,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 26,
+          "patternScale": 55,
+          "patternRotation": 0,
+          "patternThickness": 60,
+          "patternDepth": 12,
+          "patternShine": 65,
+          "patternShineAngle": 32,
+          "layerOpacity": 92,
+          "reeded": true
+        },
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 70,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 88
+        }
+      ]
+    },
+    {
+      "id": "es-acanalado-lite",
+      "code": "Eal",
+      "name": "Eal · Espejo Acanalado Lite",
+      "sub": "Reflectivo · reed fino",
+      "dot": "linear-gradient(135deg,#98afc0,#c8dcec)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 44,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "va",
+          "blur": 12,
+          "color": 55,
+          "refraction": 18,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 24,
+          "patternScale": 38,
+          "patternRotation": 0,
+          "patternThickness": 46,
+          "patternDepth": 10,
+          "patternShine": 55,
+          "patternShineAngle": 30,
+          "layerOpacity": 90,
+          "reeded": true
+        }
+      ]
+    },
+    {
+      "id": "es-diamante",
+      "code": "Ed",
+      "name": "Ed · Espejo Diamante",
+      "sub": "Reflectivo · facetas",
+      "dot": "linear-gradient(135deg,#98b0c4,#dae8f5)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 10,
+          "color": 80,
+          "refraction": 28,
+          "edge": 55,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "vd",
+          "blur": 18,
+          "color": 55,
+          "refraction": 28,
+          "edge": 35,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(225,240,255,0.55)",
+          "tintIntensity": 35,
+          "patternScale": 60,
+          "patternRotation": 0,
+          "patternThickness": 55,
+          "patternDepth": 18,
+          "layerOpacity": 88
+        }
+      ]
+    },
+    {
+      "id": "es-esmerilado",
+      "code": "Ee",
+      "name": "Ee · Espejo Esmerilado",
+      "sub": "Reflectivo · acid-etched",
+      "dot": "linear-gradient(135deg,#c0d2e0,#98afc0)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 8,
+          "color": 80,
+          "refraction": 25,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "none",
+          "tintIntensity": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ve",
+          "blur": 60,
+          "color": 55,
+          "refraction": 35,
+          "edge": 50,
+          "edgeBlur": 8,
+          "edgeBd": 0,
+          "tint": "rgba(238,248,255,0.5)",
+          "tintIntensity": 40,
+          "layerOpacity": 90
+        }
+      ]
+    },
+    {
+      "id": "es-esmerilado-film",
+      "code": "Eef",
+      "name": "Eef · Espejo Esmerilado Film",
+      "sub": "Reflectivo · frost + film 300col",
+      "dot": "linear-gradient(135deg,#c0d2e0,#dae8f5)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 44,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "in",
+          "blur": 8,
+          "color": 80,
+          "refraction": 28,
+          "edge": 40,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(38,118,208,0.65)",
+          "tintIntensity": 45,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 90
+        },
+        {
+          "type": "ve",
+          "blur": 60,
+          "color": 58,
+          "refraction": 32,
+          "edge": 50,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(238,248,255,0.50)",
+          "tintIntensity": 35,
+          "layerOpacity": 90
+        }
+      ]
+    },
+    {
+      "id": "es-esmerilado-poly",
+      "code": "Eep",
+      "name": "Eep · Espejo Esmerilado Poly",
+      "sub": "Reflectivo · dicroico · CUSTOM",
+      "dot": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 42,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "ds",
+          "blur": 10,
+          "color": 88,
+          "refraction": 35,
+          "edge": 45,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "conic-gradient(#f05,#f80,#0f8,#08f,#80f,#f05)",
+          "tintIntensity": 50,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 90
+        },
+        {
+          "type": "ve",
+          "blur": 60,
+          "color": 58,
+          "refraction": 32,
+          "edge": 50,
+          "edgeBlur": 6,
+          "edgeBd": 0,
+          "tint": "rgba(238,248,255,0.50)",
+          "tintIntensity": 35,
+          "layerOpacity": 90
+        }
+      ]
+    },
+    {
+      "id": "es-texturizado",
+      "code": "Et",
+      "name": "Et · Espejo Texturizado",
+      "sub": "Reflectivo · textura",
+      "dot": "linear-gradient(135deg,#98afc0,#b8c4cc)",
+      "category": "reflectivos",
+      "layers": [
+        {
+          "type": "ec",
+          "blur": 6,
+          "color": 90,
+          "refraction": 28,
+          "edge": 68,
+          "edgeBlur": 4,
+          "edgeBd": 0,
+          "tint": "rgba(150,175,195,0.55)",
+          "tintIntensity": 44,
+          "patternScale": 50,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 100
+        },
+        {
+          "type": "tx-noise",
+          "blur": 24,
+          "color": 55,
+          "refraction": 15,
+          "edge": 30,
+          "edgeBlur": 0,
+          "edgeBd": 0,
+          "tint": "rgba(205,228,242,0.35)",
+          "tintIntensity": 18,
+          "patternScale": 55,
+          "patternRotation": 0,
+          "patternThickness": 50,
+          "patternDepth": 0,
+          "layerOpacity": 85
+        }
       ]
     }
   ];
@@ -279,6 +2005,46 @@
   svgEl.innerHTML='<defs><filter id="gl-lente-texture" x="-40%" y="-40%" width="180%" height="180%"><feTurbulence type="turbulence" baseFrequency="0.022 0.018" numOctaves="3" result="turbulence" seed="4"/><feDisplacementMap id="gl-lente-texture-dm" in="SourceGraphic" in2="turbulence" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs>';
   document.body.appendChild(svgEl);
   var textureDM = svgEl.querySelector('#gl-lente-texture-dm');
+
+  /* ─── Reeded / fluted glass filter ───────────────────────────────────
+     Real acanalado optics: each vertical flute acts like a cylindrical
+     lens, so the backdrop is displaced horizontally in a periodic wave →
+     whatever is behind the glass smears into vertical bands. Built as an
+     SVG feDisplacementMap driven by a vertical-stripe map (RED channel =
+     horizontal triangle wave for the x-shift; GREEN held at 128 so there
+     is NO vertical shift). Applied to a layer's backdrop-filter when the
+     layer sets `reeded:true`. */
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var reededMap = 'data:image/svg+xml,' + encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'>" +
+    "<defs><linearGradient id='rg' x1='0' y1='0' x2='1' y2='0'>" +
+    "<stop offset='0' stop-color='rgb(0,128,128)'/>" +
+    "<stop offset='0.5' stop-color='rgb(255,128,128)'/>" +
+    "<stop offset='1' stop-color='rgb(0,128,128)'/></linearGradient>" +
+    "<pattern id='rp' width='13' height='1200' patternUnits='userSpaceOnUse'>" +
+    "<rect width='13' height='1200' fill='url(#rg)'/></pattern></defs>" +
+    "<rect width='1200' height='1200' fill='url(#rp)'/></svg>"
+  );
+  (function () {
+    var f = document.createElementNS(SVGNS, 'filter');
+    f.setAttribute('id', 'gl-reeded');
+    f.setAttribute('x', '0'); f.setAttribute('y', '0');
+    f.setAttribute('width', '100%'); f.setAttribute('height', '100%');
+    f.setAttribute('color-interpolation-filters', 'sRGB');
+    var img = document.createElementNS(SVGNS, 'feImage');
+    img.setAttribute('x', '0'); img.setAttribute('y', '0');
+    img.setAttribute('width', '1200'); img.setAttribute('height', '1200');
+    img.setAttribute('preserveAspectRatio', 'none');
+    img.setAttribute('result', 'rmap');
+    img.setAttribute('href', reededMap);
+    img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', reededMap);
+    var dm = document.createElementNS(SVGNS, 'feDisplacementMap');
+    dm.setAttribute('in', 'SourceGraphic'); dm.setAttribute('in2', 'rmap');
+    dm.setAttribute('scale', '26');
+    dm.setAttribute('xChannelSelector', 'R'); dm.setAttribute('yChannelSelector', 'G');
+    f.appendChild(img); f.appendChild(dm);
+    svgEl.querySelector('defs').appendChild(f);
+  })();
 
   function n(v){return parseFloat(v.toFixed(3));}
 
@@ -333,13 +2099,35 @@
       case 'tx-eva-k':  bf='blur('+n(px*.7)+'px) brightness('+n(0.3-c*.1)+') saturate('+n(0.3)+')'; break;
       case 'tx-velvet': bf='blur('+n(px*.6)+'px) brightness('+n(0.7+c*.2)+') saturate('+n(1.2+c*.5)+')'; break;
     }
+    /* Reeded / fluted glass. Two modes:
+       - reeded (default): GPU-cheap — a native frost blur; the flute look
+         comes entirely from the .is-reeded rib overlay. Stays at ~60fps with
+         several lenses on screen.
+       - reededDeep (opt-in): the true lenticular smear via the #gl-reeded SVG
+         feDisplacementMap. Gorgeous, but SOFTWARE-rendered (~18fps for ONE;
+         two freeze the page) — reserve it for a SINGLE showcase lens.
+       Both drop the flat wire class and tag .is-reeded for the rib overlay. */
+    if (settings.reeded || settings.reededDeep) {
+      glassEl.className = 'gl-lente-glass';
+      bf = settings.reededDeep
+        ? 'url(#gl-reeded) ' + (bf || 'blur(1px)')
+        : 'blur(2.4px) brightness(1.05)';
+    }
+    el.classList.toggle('is-reeded', !!(settings.reeded || settings.reededDeep));
+    /* Deep/Realista mode restores the ORIGINAL specular rib brillo (the cheap
+       default keeps the toned-matte ribs) so Realista === the beautiful build. */
+    el.classList.toggle('is-reeded-deep', !!settings.reededDeep);
     if(bf){ el.style.backdropFilter=bf; el.style.webkitBackdropFilter=bf; }
   }
 
   /* Pattern transform vars — read by .gl-lente-glass--*::after rules.
      Scale, rotation, wire-thickness multiplier, drop-shadow depth. */
   function applyPatternTransformToEl(el, s) {
-    var scale = 0.4 + ((s.patternScale == null ? 50 : s.patternScale)/100) * 1.6; /* 0.4×–2.0× */
+    /* Escala → flat-mesh/texture scale. Eased curve (quadratic top) so the
+       default stays fine and the high end still reaches larger patterns.
+       0.3×–1.6× (was 0.4-4.0, which rendered patterns/textures far too big). */
+    var ps = (s.patternScale == null ? 50 : s.patternScale) / 100;
+    var scale = 0.2 + ps * 0.5 + ps * ps * 0.45;
     el.style.setProperty('--lente-scale', scale.toFixed(2));
     if (getCategoryForType(s.type) === 'patron') {
       el.style.setProperty('--lente-pattern-rotation', (s.patternRotation || 0) + 'deg');
@@ -408,8 +2196,11 @@
   var PATTERN_MASKS = {
     /* Acanalado — vertical reed lines, pitch 7px, wire 2px×mult */
     va:  'repeating-linear-gradient(90deg, transparent 0, transparent calc((7px - 2px * var(--lente-pattern-thickness-mult, 1)) * var(--lente-scale, 1)), black calc((7px - 2px * var(--lente-pattern-thickness-mult, 1)) * var(--lente-scale, 1)), black calc(7px * var(--lente-scale, 1)), transparent calc(7px * var(--lente-scale, 1)))',
-    /* Diamante — diagonal facets (thickness-fixed approximation) */
-    vd:  'linear-gradient(45deg, black 0 25%, transparent 25.5% 74.5%, black 75% 100%)',
+    /* Diamante — argyle diamond lattice: two crossing reeds (45° + -45°) that
+       tile the FULL surface so all four corners are covered (the old single
+       45° gradient only painted the two diagonal-end corners and left the other
+       two transparent). Pitch ← Escala, line width ← Grosor. */
+    vd:  'repeating-linear-gradient(45deg, black 0, black calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(14px * var(--lente-scale, 1))), repeating-linear-gradient(-45deg, black 0, black calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(14px * var(--lente-scale, 1)))',
     /* Imp-Líneas — fine horizontal printed lines, pitch 10px, wire 2px×mult */
     iml: 'repeating-linear-gradient(0deg, black 0, black calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(2px * var(--lente-pattern-thickness-mult, 1) * var(--lente-scale, 1)), transparent calc(10px * var(--lente-scale, 1)))',
     /* SA-Cuadros — square mesh, pitch 15px, wire 2px×mult */
@@ -455,7 +2246,14 @@
     sz:  { families: [ { a: 60, p: 8 }, { a: -60, p: 8 } ] },                    /* Az · Zigzag — ±60° diamond */
     bq:  { families: [ { a: 30, p: 13 }, { a: 150, p: 13 }, { a: 90, p: 13 } ] },/* Bq · Qubo — isometric cube */
     sh:  { families: [ { a: 45, p: 6 } ] },                                      /* Ah · Herringbone — 45° */
-    sbl: { families: [ { a: 0, p: 12, paired: true } ] }                         /* Ab · Bilineal — paired 0° */
+    sbl: { families: [ { a: 0, p: 12, paired: true } ] },                        /* Ab · Bilineal — paired 0° */
+    va:  { wireBias: 1.7, families: [ { a: 90, p: 7 } ] },                       /* Va · Acanalado — vertical reed flutes (wider ribs) */
+    /* Weave geometries selectable via a layer's `mesh` override (mesh:'w-*')
+       so catalog weaves that share a base type id still render as visually
+       distinct cloth instead of collapsing onto one square grid. */
+    'w-gauze': { kind: 'woven', families: [ { a: 0, p: 3.5 }, { a: 90, p: 8 } ] }, /* entramado — open Dutch/leno weave (horizontal-dominant) */
+    'w-plain': { kind: 'woven', families: [ { a: 0, p: 4 }, { a: 90, p: 4 } ] },   /* lisa — tight balanced plain weave */
+    'w-twill': { families: [ { a: 63, p: 4.5 }, { a: 153, p: 9 } ] }               /* fabric — diagonal twill */
   };
 
   /* First rgb/rgba/hex color out of a tint string → {r,g,b}. */
@@ -505,21 +2303,24 @@
      interlace. Recolored from the picker ramp; scales with the uniform pitch. */
   function meshWovenDefs(pitchPx, wireW, r, depth) {
     var P = pitchPx, w = wireW, O = w, tile = 2 * P, cs = [P * 0.5, P * 1.5];
-    var shOp = (0.32 + 0.45 * depth).toFixed(2); /* interlace shadow; Profundidad deepens it */
-    var verts = '', horiz = '', patch = '';
+    var shOp = (0.16 + 0.28 * depth).toFixed(2); /* soft interlace shadow; Profundidad deepens it */
+    var verts = '', horiz = '', cut = '';
     cs.forEach(function (cx) { verts += '<rect x="' + rd(cx - w/2) + '" y="' + rd(-O) + '" width="' + rd(w) + '" height="' + rd(tile + 2*O) + '" rx="' + rd(w/2) + '" fill="url(#gWv)"/>'; });
     cs.forEach(function (cy) { horiz += '<rect x="' + rd(-O) + '" y="' + rd(cy - w/2) + '" width="' + rd(tile + 2*O) + '" height="' + rd(w) + '" rx="' + rd(w/2) + '" fill="url(#gWh)"/>'; });
+    /* Over/under via MASK: hide the horizontal exactly where the vertical
+       passes over (odd crossings). Each wire stays one continuous strand that
+       dips under — no stub pills, no T-junctions. */
     cs.forEach(function (cx, i) { cs.forEach(function (cy, j) {
-      if ((i + j) % 2 === 1) patch += '<rect x="' + rd(cx - w/2) + '" y="' + rd(cy - w*0.95) + '" width="' + rd(w) + '" height="' + rd(w*1.9) + '" rx="' + rd(w/2) + '" fill="url(#gWv)"/>';
+      if ((i + j) % 2 === 1) cut += '<rect x="' + rd(cx - w*0.6) + '" y="' + rd(cy - w*0.6) + '" width="' + rd(w*1.2) + '" height="' + rd(w*1.2) + '" rx="' + rd(w*0.3) + '" fill="#000"/>';
     }); });
     var defs =
       '<linearGradient id="gWv" x1="0" y1="0" x2="1" y2="0">' + rampStops(r) + '</linearGradient>' +
       '<linearGradient id="gWh" x1="0" y1="0" x2="0" y2="1">' + rampStops(r) + '</linearGradient>' +
-      '<filter id="sw" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="' + rd(w*0.16) + '" dy="' + rd(w*0.24) + '" stdDeviation="' + rd(w*0.2) + '" flood-color="#000" flood-opacity="' + shOp + '"/></filter>' +
+      '<filter id="sw" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="' + rd(w*0.09) + '" dy="' + rd(w*0.13) + '" stdDeviation="' + rd(w*0.12) + '" flood-color="#000" flood-opacity="' + shOp + '"/></filter>' +
+      '<mask id="hm" maskUnits="userSpaceOnUse" x="' + rd(-O) + '" y="' + rd(-O) + '" width="' + rd(tile + 2*O) + '" height="' + rd(tile + 2*O) + '"><rect x="' + rd(-O) + '" y="' + rd(-O) + '" width="' + rd(tile + 2*O) + '" height="' + rd(tile + 2*O) + '" fill="#fff"/>' + cut + '</mask>' +
       '<pattern id="pw" patternUnits="userSpaceOnUse" width="' + rd(tile) + '" height="' + rd(tile) + '">' +
         '<g filter="url(#sw)">' + verts + '</g>' +
-        '<g filter="url(#sw)">' + horiz + '</g>' +
-        '<g filter="url(#sw)">' + patch + '</g>' +
+        '<g filter="url(#sw)" mask="url(#hm)">' + horiz + '</g>' +
       '</pattern>';
     return defs;
   }
@@ -544,13 +2345,14 @@
        of each being tied to its intrinsic flat-CSS pitch (which left fine meshes
        like Tejida stuck small). Intra-mesh family ratios are preserved. */
     var ps = (s.patternScale == null ? 50 : s.patternScale) / 100; /* 0..1 */
-    var pitch0 = 6 + ps * 34;            /* 6px … 40px, uniform across all meshes */
+    var pitch0 = 2 + ps * 8;             /* 2px … 10px on-screen — fine wire mesh */
     var depth = (s.patternDepth == null ? 0 : s.patternDepth) / 100;
     var defs, fills, wrapped;
 
     if (meta.kind === 'woven') {
-      /* Tejida — over/under interlace (its own layered shadow lives in the tile). */
-      var wW = Math.max(0.8, pitch0 * r.wireFrac);
+      /* Tejida — over/under interlace (its own layered shadow lives in the tile).
+         Cap the thread fraction so the weave keeps open gaps (never blobby). */
+      var wW = Math.max(0.8, pitch0 * Math.min(r.wireFrac, 0.4));
       defs = meshWovenDefs(pitch0, wW, r, depth);
       fills = '<rect width="' + rd(sizePx) + '" height="' + rd(sizePx) + '" fill="url(#pw)"/>';
       wrapped = fills;
@@ -559,7 +2361,7 @@
       defs = meshWireGrad(r); fills = '';
       meta.families.forEach(function (f, i) {
         var pitchPx = pitch0 * (f.p / baseP);
-        var wireW   = Math.max(0.6, pitchPx * r.wireFrac);
+        var wireW   = Math.max(0.6, pitchPx * Math.min(0.85, r.wireFrac * (meta.wireBias || 1)));
         defs  += meshFamilyPattern('p' + i, f.a, pitchPx, wireW, f.paired);
         fills += '<rect width="' + rd(sizePx) + '" height="' + rd(sizePx) + '" fill="url(#p' + i + ')"/>';
       });
@@ -576,12 +2378,13 @@
   function applySkinToEl(el, s) {
     var skinEl = el.querySelector('.gl-lente-skin');
     if (!skinEl) return;
-    var meta = MESH_SKINS[s.type];
+    var meshKey = (s && s.mesh) || (s && s.type);   /* `mesh` overrides geometry, keeps type for the flat fallback */
+    var meta = MESH_SKINS[meshKey];
     var on = !!(s && s.skin && meta);
     if (on) {
       var layerW = parseFloat(el.style.width) || el.getBoundingClientRect().width || 300;
       var sizePx = layerW * 1.42; /* skin element is inset -21% → 1.42× the layer */
-      skinEl.style.backgroundImage  = 'url("' + buildMeshSkinSVG(s.type, s, sizePx) + '")';
+      skinEl.style.backgroundImage  = 'url("' + buildMeshSkinSVG(meshKey, s, sizePx) + '")';
       skinEl.style.backgroundSize   = '100% 100%';
       skinEl.style.backgroundRepeat = 'no-repeat';
       skinEl.style.opacity = '1';
@@ -597,7 +2400,7 @@
   function reapplySkins(lens) {
     if (!lens) return;
     lens.layers.forEach(function (layer) {
-      if (layer.settings && layer.settings.skin && MESH_SKINS[layer.settings.type]) {
+      if (layer.settings && layer.settings.skin && MESH_SKINS[layer.settings.mesh || layer.settings.type]) {
         applySkinToEl(layer.layerEl, layer.settings);
       }
     });
@@ -837,13 +2640,23 @@
     /* Clamp anchor in case section was resized smaller. */
     lens.anchorX = Math.max(0, Math.min(br.width  - size, lens.anchorX));
     lens.anchorY = Math.max(0, Math.min(br.height - size, lens.anchorY));
-    var nx = br.left + lens.anchorX, ny = br.top + lens.anchorY;
+    /* Static/touch mode: anchor the decorative samples in DOCUMENT space
+       (position:absolute + scroll offset baked in) so native scrolling moves
+       them and NO per-frame JS sync is needed — this removes the single
+       biggest lens scroll-time cost on mobile. Desktop keeps viewport-space
+       position:fixed, re-synced on scroll for the draggable free lenses. */
+    var pos = GL_LENTE_STATIC ? 'absolute' : 'fixed';
+    var ox  = GL_LENTE_STATIC ? window.pageXOffset : 0;
+    var oy  = GL_LENTE_STATIC ? window.pageYOffset : 0;
+    var nx = br.left + ox + lens.anchorX, ny = br.top + oy + lens.anchorY;
+    lens.el.style.position = pos;
     lens.el.style.left = nx + 'px';
     lens.el.style.top  = ny + 'px';
     /* Inline position sync for each layer — only left/top, since
        width/height don't change on scroll. Avoids a separate function
        call that'd do redundant reads. */
     lens.layers.forEach(function (layer) {
+      layer.layerEl.style.position = pos;
       layer.layerEl.style.left = nx + 'px';
       layer.layerEl.style.top  = ny + 'px';
     });
@@ -886,7 +2699,14 @@
       syncAllBoundedLenses();
     });
   }
-  window.addEventListener('scroll',  scheduleSyncBounded, { passive: true });
+  /* In static/touch mode bounded lenses are anchored in document space
+     (position:absolute), so they ride native scroll and there is nothing to
+     re-sync per scroll frame — skip the scroll listener entirely. Resize still
+     re-anchors them (orientation change / dynamic toolbar reflow). */
+  window.addEventListener('scroll', function () {
+    if (GL_LENTE_STATIC) return;
+    scheduleSyncBounded();
+  }, { passive: true });
   window.addEventListener('resize', scheduleSyncBounded);
 
   /* All DOM elements that animate together as one lens (layers + the circle). */
@@ -910,6 +2730,10 @@
     le.style.top    = lens.el.style.top;
     le.style.width  = lens.el.style.width;
     le.style.height = lens.el.style.height;
+    /* Static bounded lenses live in document space (position:absolute) so
+       they scroll natively — match that here so layers added after the
+       initial anchor inherit the same positioning scheme as the shell. */
+    if (GL_LENTE_STATIC && lens.bounds) le.style.position = 'absolute';
     /* If the parent lens is pre-hidden (suppressSpawnAnim), inherit that
        state so this layer doesn't pop in before the lens is revealed. */
     if (lens.preHidden) { le.style.opacity = '0'; le.style.visibility = 'hidden'; }
@@ -919,15 +2743,14 @@
     lens.layers.push(layer);
     lens.activeLayerIdx = lens.layers.length - 1;
     applyAllToEl(le, s);
-    /* Section-anchored lenses pay no backdrop-filter cost. With 7
-       lenses × 3-4 layers each on screen at once, the GPU
-       backdrop-filter compositing was the biggest scroll-time bottleneck
-       (each filtered element forces a 200×200 pixel re-composite of the
-       page behind it on every paint). Pattern + tint + shine carry
-       the visual identity for the decorative samples; the only thing
-       lost is real-time transparency, which the section bg is dark
-       and uniform anyway so it doesn't read as different. */
-    if (lens.bounds) {
+    /* Section-anchored lenses keep their glass backdrop-filter (blur) on
+       DESKTOP — it's what gives the samples real frosted-glass depth.
+       On touch/mobile (GL_LENTE_STATIC) we strip it: backdrop-filter
+       compositing is the biggest scroll-time cost and weak mobile GPUs
+       choke on 3-4 filtered layers × several lenses. There the pattern +
+       tint + shine carry the identity instead (section bg is dark/uniform
+       so the lost real-time transparency doesn't read as different). */
+    if (lens.bounds && GL_LENTE_STATIC) {
       le.style.backdropFilter = 'none';
       le.style.webkitBackdropFilter = 'none';
     }
@@ -1010,6 +2833,10 @@
       if (!lenses[li].bounds) unboundedCount++;
     }
     var isBounded = !!(overrides && overrides.bounds);
+    /* Static mode: only the section-anchored decorative samples are
+       allowed. Block every free-floating (dock logo / preset / empty)
+       spawn so no editable lens can ever appear on touch/small screens. */
+    if (GL_LENTE_STATIC && !isBounded) return null;
     if (!isBounded && unboundedCount >= MAX_LENSES) return null;
 
     /* Bounds (optional) — when present, the lens is "section-anchored":
@@ -1072,6 +2899,12 @@
     addLayer(lens, layerOpts); /* creates the first layer */
     initLensEvents(lens);
 
+    /* Static bounded lenses get one document-space anchor now; with the
+       scroll listener disabled in static mode this is their only placement
+       (resize re-anchors). Desktop lenses are placed viewport-relative at
+       spawn above and corrected by the scroll sync. */
+    if (GL_LENTE_STATIC && lens.bounds) syncBoundedLensPosition(lens);
+
     /* Suppress the back.out spawn animation when the caller wants to
        handle reveal themselves (e.g. interlude samples pre-spawned on
        idle and revealed later on scroll). Leaves the lens at opacity 0
@@ -1084,7 +2917,8 @@
     } else {
       gsap.fromTo(lensMembers(lens),
         { scale: 0.5, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)', clearProps: 'scale,opacity' }
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)', clearProps: 'scale',
+          onComplete: function () { lens.layers.forEach(function (l) { applyLayerOpacityToEl(l.layerEl, l.settings); }); } }
       );
     }
 
@@ -1107,7 +2941,8 @@
     members.forEach(function (m) { m.style.visibility = ''; });
     gsap.fromTo(members,
       { opacity: 0 },
-      { opacity: 1, duration: 0.7, ease: 'power2.out', clearProps: 'opacity' }
+      { opacity: 1, duration: 0.7, ease: 'power2.out', clearProps: 'opacity',
+        onComplete: function () { lens.layers.forEach(function (l) { applyLayerOpacityToEl(l.layerEl, l.settings); }); } }
     );
   }
 
@@ -1138,7 +2973,14 @@
 
   function lensGoFull(lens) {
     if (lens.standbyTimer) { clearTimeout(lens.standbyTimer); lens.standbyTimer = null; }
-    gsap.to(lensMembers(lens), { opacity: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+    /* Circle goes fully opaque; each LAYER returns to its own Opacidad-capa
+       value (settings.layerOpacity) instead of a forced 1, which used to
+       clobber the per-layer opacity on every edit. */
+    gsap.to(lens.el, { opacity: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+    lens.layers.forEach(function (layer) {
+      var o = (layer.settings.layerOpacity == null ? 100 : layer.settings.layerOpacity) / 100;
+      gsap.to(layer.layerEl, { opacity: o, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+    });
   }
 
   function lensStandby(lens) {
@@ -1151,6 +2993,16 @@
 
   function initLensEvents(lens) {
     var el = lens.el;
+
+    /* Static mode (touch / ≤991px): the lens is decorative only. Don't
+       wire any interaction, and let pointer events pass straight through
+       so a glass sample never blocks scrolling or taps on the content
+       beneath it. The reveal-on-scroll fade still runs. */
+    if (GL_LENTE_STATIC) {
+      el.style.pointerEvents = 'none';
+      el.style.cursor = 'default';
+      return;
+    }
 
     el.addEventListener('mouseenter', function () { lensGoFull(lens); });
     el.addEventListener('mouseleave', function () {
@@ -1315,7 +3167,7 @@
     /* Recompute backdrop-filter etc. for the freshly-stacked layers. */
     target.layers.forEach(function (layer) {
       applyAllToEl(layer.layerEl, layer.settings);
-      if (target.bounds) {
+      if (target.bounds && GL_LENTE_STATIC) {
         layer.layerEl.style.backdropFilter = 'none';
         layer.layerEl.style.webkitBackdropFilter = 'none';
       }
@@ -1365,7 +3217,7 @@
     },
     /* Open / close the editor panel programmatically (used by the dock vitrina
        after a preset/empty-lens spawn). */
-    openEditor: function () { if (activeLens) setTimeout(openEditor, 0); },
+    openEditor: function () { if (!GL_LENTE_STATIC && activeLens) setTimeout(openEditor, 0); },
     closeEditor: function () { closeEditorPanel(); },
     update:    function (s) {
       if (!activeLens) return;
@@ -1542,10 +3394,16 @@
         '<div class="gl-lente-editor_no-results" id="gl-le-no-results" style="display:none">Sin resultados</div>'+
       '</div></div>'+
       buildCpHtml()+
-      /* Realista skin toggle — only for patron types that have a MESH_SKINS entry */
-      (MESH_SKINS[s.type]
-        ? '<div class="gl-le-skin-row"><label class="gl-le-skin-label"><input type="checkbox" id="gl-le-skin"'+(s.skin?' checked':'')+'><span class="gl-le-skin-text">Realista</span><span class="gl-le-skin-switch" aria-hidden="true"></span></label></div>'
-        : '')+
+      /* "Realista" toggle. On a reeded-glass layer it switches the cheap
+         native frost blur to the true lenticular DISPLACEMENT smear
+         (reededDeep — heavy/software-rendered, so one lens at a time). On a
+         mesh (patron) layer it's the flat→SVG metal skin. (A reeded `va` layer
+         is also a mesh type, so the reeded branch must win.) */
+      ((s.reeded || s.reededDeep)
+        ? '<div class="gl-le-skin-row"><label class="gl-le-skin-label" title="Vidrio acanalado real (displacement) — más pesado, úsalo en una sola lente"><input type="checkbox" id="gl-le-reeded"'+(s.reededDeep?' checked':'')+'><span class="gl-le-skin-text">Realista</span><span class="gl-le-skin-switch" aria-hidden="true"></span></label></div>'
+        : MESH_SKINS[s.type]
+          ? '<div class="gl-le-skin-row"><label class="gl-le-skin-label"><input type="checkbox" id="gl-le-skin"'+(s.skin?' checked':'')+'><span class="gl-le-skin-text">Realista</span><span class="gl-le-skin-switch" aria-hidden="true"></span></label></div>'
+          : '')+
       /* Sliders — schema-driven by the active type's category */
       '<div id="gl-le-sliders" data-category="'+getCategoryForType(s.type)+'">'+buildSlidersHTML(s)+'</div>'
     );
@@ -1735,6 +3593,17 @@
       skinChk.addEventListener('change', function(e){
         e.stopPropagation();
         window.glLente.update({ skin: this.checked });
+      });
+    }
+
+    /* "Realista" reeded toggle — cheap native blur ↔ true displacement smear */
+    var reededChk = editor.querySelector('#gl-le-reeded');
+    if (reededChk) {
+      reededChk.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+      reededChk.addEventListener('click', function(e){ e.stopPropagation(); });
+      reededChk.addEventListener('change', function(e){
+        e.stopPropagation();
+        window.glLente.update({ reededDeep: this.checked });
       });
     }
 

@@ -1,0 +1,403 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-07-08",
+  "brand": "pernia-glass",
+  "family": {
+    "name": {
+      "es": "Mobiliario de vidrio Pernia",
+      "en": "Pernia Glass Furniture"
+    },
+    "comment": "Colección de mobiliario en vidrio templado / laminado de color sólido. Cada pieza se fabrica a medida — color, dimensión y acabado. Comparten el mismo vidrio de los sistemas arquitectónicos Pernia, llevado del umbral al interior.",
+    "universal": {
+      "vidrio": {
+        "es": "Vidrio templado / laminado de color en masa",
+        "en": "Tempered / laminated glass, mass-tinted"
+      },
+      "cantos": {
+        "es": "Pulido brillante",
+        "en": "Polished bright edge"
+      },
+      "union": {
+        "es": "Adhesivo UV invisible",
+        "en": "Invisible UV adhesive"
+      },
+      "aMedida": {
+        "es": "Color y dimensión a elección",
+        "en": "Custom color and dimension"
+      }
+    },
+    "categoryFilters": [
+      { "id": "todos",   "name": { "es": "Todos",    "en": "All" } },
+      { "id": "mesa",    "name": { "es": "Mesas",    "en": "Tables" } },
+      { "id": "consola", "name": { "es": "Consolas", "en": "Consoles" } },
+      { "id": "centro",  "name": { "es": "Centro",   "en": "Coffee" } },
+      { "id": "mesita",  "name": { "es": "Mesitas",  "en": "Nightstands" } },
+      { "id": "serie",   "name": { "es": "Series",   "en": "Series" } }
+    ]
+  },
+  "pieces": [
+    {
+      "code": "PERFORATA",
+      "slug": "perforata",
+      "name": { "es": "Perforata", "en": "Perforata" },
+      "category": "mesa",
+      "categoryLabel": { "es": "Mesa", "en": "Table" },
+      "tagline": {
+        "es": "El color multiplicado por la profundidad.",
+        "en": "Color multiplied by depth."
+      },
+      "description": {
+        "es": "Capas de vidrio teñido que se superponen y multiplican el color con la profundidad. Un volumen sólido que, a contraluz, se vuelve translúcido — la mesa cambia de densidad con la hora del día.",
+        "en": "Layers of tinted glass that overlap and multiply color with depth. A solid volume that turns translucent against the light — the table changes density with the hour."
+      },
+      "specs": {
+        "material": { "es": "Vidrio laminado teñido", "en": "Tinted laminated glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Translúcido a contraluz", "en": "Translucent backlit" },
+        "personalizacion": { "es": "Color y dimensión a medida", "en": "Custom color and size" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Ámbar profundo", "en": "Deep amber" }, "hex": "#b8791f" },
+        { "name": { "es": "Verde botella", "en": "Bottle green" }, "hex": "#2f5e42" },
+        { "name": { "es": "Azul cobalto", "en": "Cobalt blue" }, "hex": "#1a3a5c" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/PERFORATA1.jpg",
+        "detailRender": "../assets/media/pernia/renders/PERFORATA 2.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/TDM-1.jpg",
+          "../assets/media/pernia/sesiones/TDM-5.jpg"
+        ]
+      }
+    },
+    {
+      "code": "BIPLANAR",
+      "slug": "biplanar",
+      "name": { "es": "Biplanar", "en": "Biplanar" },
+      "category": "consola",
+      "categoryLabel": { "es": "Consola", "en": "Console" },
+      "tagline": {
+        "es": "Dos planos que se cruzan en voladizo.",
+        "en": "Two planes crossing in cantilever."
+      },
+      "description": {
+        "es": "Dos planos de vidrio que se cruzan en voladizo. Una consola que parece sostener su propio reflejo — estructura y superficie en el mismo gesto, sin herrajes visibles.",
+        "en": "Two glass planes that cross in cantilever. A console that seems to hold its own reflection — structure and surface in a single gesture, with no visible hardware."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado, color en masa", "en": "Tempered glass, mass-tinted" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "union": { "es": "Adhesivo UV invisible", "en": "Invisible UV adhesive" },
+        "acabado": { "es": "Tornasol opcional", "en": "Optional iridescent" },
+        "personalizacion": { "es": "Color y dimensión a medida", "en": "Custom color and size" }
+      },
+      "colorways": [
+        { "name": { "es": "Tornasol", "en": "Iridescent" }, "hex": "#7a6ca8" },
+        { "name": { "es": "Bronce", "en": "Bronze" }, "hex": "#b08d6e" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/sesiones/BIPLANAR_5.jpg",
+        "detailRender": "../assets/media/pernia/sesiones/BIPLANAR_6.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/Lantana-1.jpg",
+          "../assets/media/pernia/sesiones/Lantana-7.jpg"
+        ]
+      }
+    },
+    {
+      "code": "CONSOLE",
+      "slug": "console-table",
+      "name": { "es": "Console Table", "en": "Console Table" },
+      "category": "consola",
+      "categoryLabel": { "es": "Consola", "en": "Console" },
+      "tagline": {
+        "es": "Una consola sostenida por la luz.",
+        "en": "A console held up by light."
+      },
+      "description": {
+        "es": "Planos limpios, cantos pulidos y un perfil que casi desaparece contra la pared. La pieza de recibidor por excelencia — presente sin ocupar, disponible en diez acabados de color.",
+        "en": "Clean planes, polished edges and a profile that nearly vanishes against the wall. The entryway piece par excellence — present without intruding, in ten color finishes."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado de color", "en": "Colored tempered glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "formato": { "es": "Recibidor · pasillo", "en": "Entryway · hallway" },
+        "acabado": { "es": "10 acabados de color", "en": "10 color finishes" },
+        "personalizacion": { "es": "Dimensión a medida", "en": "Custom dimension" }
+      },
+      "colorways": [
+        { "name": { "es": "Porcelana", "en": "Porcelain" }, "hex": "#f5f5f0" },
+        { "name": { "es": "Ámbar", "en": "Amber" }, "hex": "#8a5a2a" },
+        { "name": { "es": "Verde oliva", "en": "Olive green" }, "hex": "#3a4a2a" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/CONSOLE TABLE_1.jpg",
+        "detailRender": "../assets/media/pernia/renders/CONSOLE TABLE_2.jpg",
+        "gallery": [
+          "../assets/media/pernia/renders/CONSOLE TABLE_2.1.jpg",
+          "../assets/media/pernia/sesiones/TDM-8.jpg"
+        ]
+      }
+    },
+    {
+      "code": "ARLECCHINO",
+      "slug": "arlecchino",
+      "name": { "es": "Arlecchino", "en": "Arlecchino" },
+      "category": "mesa",
+      "categoryLabel": { "es": "Mesa", "en": "Table" },
+      "tagline": {
+        "es": "Un mosaico de color — homenaje al arlequín.",
+        "en": "A mosaic of color — a tribute to the harlequin."
+      },
+      "description": {
+        "es": "Un mosaico de color en vidrio templado. Cada cara enfrenta un tono distinto y la pieza cambia con cada paso alrededor — nunca se ve dos veces igual. Composición de paleta a elección.",
+        "en": "A mosaic of color in tempered glass. Each face meets a different tone and the piece shifts with every step around it — never the same twice. Palette composed to order."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado multicolor", "en": "Multicolor tempered glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "composicion": { "es": "Paleta a elección", "en": "Palette to order" },
+        "acabado": { "es": "Mosaico policromo", "en": "Polychrome mosaic" },
+        "pieza": { "es": "Edición limitada", "en": "Limited edition" }
+      },
+      "colorways": [
+        { "name": { "es": "Arlequín clásico", "en": "Classic harlequin" }, "hex": "#c0392b" },
+        { "name": { "es": "Espectro frío", "en": "Cool spectrum" }, "hex": "#2980b9" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/ARLECCHINO.jpg",
+        "detailRender": "../assets/media/pernia/renders/ARLECCHINO.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/Pradera-2.jpg",
+          "../assets/media/pernia/sesiones/Pradera-5.jpg"
+        ]
+      }
+    },
+    {
+      "code": "COFFEE-DEKTON",
+      "slug": "coffee-table-dekton",
+      "name": { "es": "Coffee Table Dekton", "en": "Coffee Table Dekton" },
+      "category": "centro",
+      "categoryLabel": { "es": "Mesa de centro", "en": "Coffee table" },
+      "tagline": {
+        "es": "Vidrio de color sobre base Dekton.",
+        "en": "Colored glass over a Dekton base."
+      },
+      "description": {
+        "es": "Una mesa de centro que combina la superficie mineral del Dekton con un cuerpo de vidrio de color. Materia y transparencia en una sola pieza — el punto de reposo de la sala.",
+        "en": "A coffee table pairing Dekton's mineral surface with a body of colored glass. Matter and transparency in one piece — the resting point of the living room."
+      },
+      "specs": {
+        "material": { "es": "Vidrio de color + Dekton", "en": "Colored glass + Dekton" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Superficie mineral mate", "en": "Matte mineral surface" },
+        "personalizacion": { "es": "Color de vidrio a medida", "en": "Custom glass color" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Humo", "en": "Smoke" }, "hex": "#5c5654" },
+        { "name": { "es": "Ámbar", "en": "Amber" }, "hex": "#8a5a2a" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/COFFEE TABLE DEKTON.jpg",
+        "detailRender": "../assets/media/pernia/renders/COFFEE TABLE DEKTON_2.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/TDM-5.jpg"
+        ]
+      }
+    },
+    {
+      "code": "COMEDOR",
+      "slug": "mesa-comedor",
+      "name": { "es": "Mesa de Comedor", "en": "Dining Table" },
+      "category": "mesa",
+      "categoryLabel": { "es": "Comedor", "en": "Dining" },
+      "tagline": {
+        "es": "El vidrio de color a la escala del comedor.",
+        "en": "Colored glass at the scale of the dining room."
+      },
+      "description": {
+        "es": "Una mesa de comedor en vidrio templado de color sólido. La superficie más generosa de la colección — reúne a la mesa la misma luz teñida que define los sistemas Pernia.",
+        "en": "A dining table in solid-color tempered glass. The most generous surface in the collection — bringing to the table the same tinted light that defines the Pernia systems."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado de color", "en": "Colored tempered glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Color en masa", "en": "Mass-tinted" },
+        "personalizacion": { "es": "Dimensión y color a medida", "en": "Custom size and color" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Verde botella", "en": "Bottle green" }, "hex": "#2f5e42" },
+        { "name": { "es": "Azul cobalto", "en": "Cobalt blue" }, "hex": "#1a3a5c" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/COMEDOR_3.jpg",
+        "detailRender": "../assets/media/pernia/renders/COMEDOR_3.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/TDM-1.jpg"
+        ]
+      }
+    },
+    {
+      "code": "MESITA-AA",
+      "slug": "mesita-azul-amarilla",
+      "name": { "es": "Mesita Azul · Amarilla", "en": "Nightstand Blue · Yellow" },
+      "category": "mesita",
+      "categoryLabel": { "es": "Mesita de noche", "en": "Nightstand" },
+      "tagline": {
+        "es": "Dos tonos que se cruzan a contraluz.",
+        "en": "Two tones that cross in backlight."
+      },
+      "description": {
+        "es": "Mesita de noche en vidrio teñido: azul y amarillo que, al superponerse, generan un verde inesperado en la zona de solape. El color como acontecimiento, no como acabado.",
+        "en": "A nightstand in tinted glass: blue and yellow that, overlapping, generate an unexpected green in the overlap zone. Color as an event, not a finish."
+      },
+      "specs": {
+        "material": { "es": "Vidrio laminado teñido", "en": "Tinted laminated glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Dos tonos superpuestos", "en": "Two overlaid tones" },
+        "personalizacion": { "es": "Par de tonos a elección", "en": "Custom tone pairing" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Azul", "en": "Blue" }, "hex": "#1a3a5c" },
+        { "name": { "es": "Amarillo", "en": "Yellow" }, "hex": "#e0b021" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/MESITA DE NOCHE AZUL AMARILLA.jpg",
+        "detailRender": "../assets/media/pernia/renders/MESITA DE NOCHE AZUL AMARILLA_2.jpg",
+        "gallery": []
+      }
+    },
+    {
+      "code": "MESITA-AR",
+      "slug": "mesita-azul-roja",
+      "name": { "es": "Mesita Azul · Roja", "en": "Nightstand Blue · Red" },
+      "category": "mesita",
+      "categoryLabel": { "es": "Mesita de noche", "en": "Nightstand" },
+      "tagline": {
+        "es": "Contraste cálido y frío en una pieza.",
+        "en": "Warm and cool contrast in one piece."
+      },
+      "description": {
+        "es": "Mesita de noche en vidrio teñido azul y rojo. El encuentro de un tono frío y uno cálido produce violetas profundos donde los planos se cruzan — la pieza más dramática de la serie.",
+        "en": "A nightstand in blue and red tinted glass. The meeting of a cool and a warm tone yields deep violets where the planes cross — the most dramatic piece of the series."
+      },
+      "specs": {
+        "material": { "es": "Vidrio laminado teñido", "en": "Tinted laminated glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Dos tonos superpuestos", "en": "Two overlaid tones" },
+        "personalizacion": { "es": "Par de tonos a elección", "en": "Custom tone pairing" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Azul", "en": "Blue" }, "hex": "#1a3a5c" },
+        { "name": { "es": "Rojo", "en": "Red" }, "hex": "#a8271f" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/MESITA DE NOCHE AZUL ROJA.jpg",
+        "detailRender": "../assets/media/pernia/renders/MESITA DE NOCHE AZUL ROJA_2.jpg",
+        "gallery": []
+      }
+    },
+    {
+      "code": "MESITA-MN",
+      "slug": "mesita-morada-naranja",
+      "name": { "es": "Mesita Morada · Naranja", "en": "Nightstand Purple · Orange" },
+      "category": "mesita",
+      "categoryLabel": { "es": "Mesita de noche", "en": "Nightstand" },
+      "tagline": {
+        "es": "Complementarios que vibran juntos.",
+        "en": "Complementaries that vibrate together."
+      },
+      "description": {
+        "es": "Mesita de noche en vidrio teñido morado y naranja — dos complementarios que vibran cuando la luz los atraviesa. La opción más expresiva para un dormitorio con carácter.",
+        "en": "A nightstand in purple and orange tinted glass — two complementaries that vibrate as light passes through. The most expressive option for a bedroom with character."
+      },
+      "specs": {
+        "material": { "es": "Vidrio laminado teñido", "en": "Tinted laminated glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Dos tonos superpuestos", "en": "Two overlaid tones" },
+        "personalizacion": { "es": "Par de tonos a elección", "en": "Custom tone pairing" },
+        "pieza": { "es": "Fabricación bajo pedido", "en": "Made to order" }
+      },
+      "colorways": [
+        { "name": { "es": "Morado", "en": "Purple" }, "hex": "#6a3a8a" },
+        { "name": { "es": "Naranja", "en": "Orange" }, "hex": "#d1691f" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/renders/MESITA DE NOCHE MORADA NARANJA_3.jpg",
+        "detailRender": "../assets/media/pernia/renders/MESITA DE NOCHE MORADA NARANJA_4.jpg",
+        "gallery": []
+      }
+    },
+    {
+      "code": "LANTANA",
+      "slug": "lantana",
+      "name": { "es": "Lantana", "en": "Lantana" },
+      "category": "serie",
+      "categoryLabel": { "es": "Serie", "en": "Series" },
+      "tagline": {
+        "es": "Una serie de piezas en clave floral.",
+        "en": "A series of pieces in a floral key."
+      },
+      "description": {
+        "es": "Lantana es una serie de piezas de vidrio de color inspirada en la flor del mismo nombre — racimos de tonos cálidos que cambian a medida que abren. Objetos que habitan el espacio como un ramo.",
+        "en": "Lantana is a series of colored-glass pieces inspired by the flower of the same name — clusters of warm tones that shift as they open. Objects that inhabit a space like a bouquet."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado de color", "en": "Colored tempered glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Racimo de tonos cálidos", "en": "Warm-tone cluster" },
+        "personalizacion": { "es": "Composición a medida", "en": "Custom composition" },
+        "pieza": { "es": "Serie curada", "en": "Curated series" }
+      },
+      "colorways": [
+        { "name": { "es": "Coral", "en": "Coral" }, "hex": "#e0623e" },
+        { "name": { "es": "Ámbar", "en": "Amber" }, "hex": "#c9932c" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/sesiones/Lantana-1.jpg",
+        "detailRender": "../assets/media/pernia/sesiones/Lantana-3.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/Lantana-7.jpg"
+        ]
+      }
+    },
+    {
+      "code": "PRADERA",
+      "slug": "pradera",
+      "name": { "es": "Pradera", "en": "Pradera" },
+      "category": "serie",
+      "categoryLabel": { "es": "Serie", "en": "Series" },
+      "tagline": {
+        "es": "El campo abierto, traducido en vidrio.",
+        "en": "The open field, translated into glass."
+      },
+      "description": {
+        "es": "Pradera traduce la paleta del campo abierto — verdes, ocres y azules de horizonte — en una serie de piezas de vidrio de color que se leen juntas como un paisaje.",
+        "en": "Pradera translates the palette of the open field — greens, ochres and horizon blues — into a series of colored-glass pieces that read together like a landscape."
+      },
+      "specs": {
+        "material": { "es": "Vidrio templado de color", "en": "Colored tempered glass" },
+        "cantos": { "es": "Pulido brillante", "en": "Polished bright" },
+        "acabado": { "es": "Paleta de paisaje", "en": "Landscape palette" },
+        "personalizacion": { "es": "Composición a medida", "en": "Custom composition" },
+        "pieza": { "es": "Serie curada", "en": "Curated series" }
+      },
+      "colorways": [
+        { "name": { "es": "Verde pradera", "en": "Meadow green" }, "hex": "#4a6b3a" },
+        { "name": { "es": "Ocre", "en": "Ochre" }, "hex": "#b58a3c" }
+      ],
+      "media": {
+        "render": "../assets/media/pernia/sesiones/Pradera-2.jpg",
+        "detailRender": "../assets/media/pernia/sesiones/Pradera-5.jpg",
+        "gallery": [
+          "../assets/media/pernia/sesiones/TDM-8.jpg"
+        ]
+      }
+    }
+  ]
+}

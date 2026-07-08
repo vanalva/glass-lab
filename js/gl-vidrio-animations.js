@@ -9,9 +9,11 @@
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: 'power2.out', duration: 0.75 });
 
-  /* SYNCHRONOUS: hide static nav before first paint */
+  /* SYNCHRONOUS: hide static nav before first paint — only when the reveal
+     will run (under prefers-reduced-motion the reveal never fires, so hiding
+     here would leave the navbar invisible). */
   var nav = document.querySelector('.gl-home_nav-edge');
-  if (nav) gsap.set(nav, { autoAlpha: 0, y: -18 });
+  if (nav && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) gsap.set(nav, { autoAlpha: 0, y: -18 });
 
   var mm = gsap.matchMedia();
 

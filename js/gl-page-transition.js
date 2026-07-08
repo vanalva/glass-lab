@@ -454,6 +454,18 @@
       .catch(function () {});
   }
 
+  /* Cross-brand jumps (pg- ↔ gl-) can't ride the in-place SPA swap: the two
+     brands differ in theme, head assets, and hero (spline vs none), so the
+     swap throws mid-flight — the click appears to do nothing AND leaves the
+     navigation lock (inFlight) stuck, blocking every later link (logo
+     included). Detect the brand switch from the pg-/gl- filename prefix and
+     let the browser do a normal full page load instead. */
+  function isCrossBrand(href) {
+    var cur = /(?:^|\/)(pg|gl)-/.exec(location.pathname);
+    var dst = /(?:^|\/)(pg|gl)-/.exec(href);
+    return !!(cur && dst && cur[1] !== dst[1]);
+  }
+
   document.addEventListener('mouseover', function (e) {
     var link = e.target.closest && e.target.closest('a[href]');
     if (!link) return;
@@ -461,6 +473,7 @@
     if (!href || href.charAt(0) === '#') return;
     if (/^(https?:|mailto:|tel:|javascript:)/i.test(href)) return;
     if (link.target === '_blank') return;
+    if (isCrossBrand(href)) return;
     prefetch(link.href);
   }, { passive: true });
 
@@ -497,6 +510,7 @@
     if (href.charAt(0) === '#') return;
     if (/^(https?:|mailto:|tel:|javascript:)/i.test(href)) return;
     if (link.target === '_blank') return;
+    if (isCrossBrand(href)) return;
     e.preventDefault();
     e.stopImmediatePropagation();
     navigate(link.href);

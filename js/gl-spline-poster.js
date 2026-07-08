@@ -22,6 +22,18 @@
 (function () {
   'use strict';
 
+  /* Touch / <=991px: the 3D viewer is never loaded (gated in the page head),
+     so any <spline-viewer> left in the markup is an inert, transparent box.
+     Strip it and bail — the static .gl-hero-poster behind it is the intended
+     mobile hero. Keeps the whole crossfade/failsafe machinery off on mobile. */
+  var STATIC = window.matchMedia('(max-width: 991px)').matches
+    || window.matchMedia('(hover: none)').matches
+    || window.matchMedia('(pointer: coarse)').matches;
+  if (STATIC) {
+    document.querySelectorAll('spline-viewer').forEach(function (el) { el.remove(); });
+    return;
+  }
+
   function arm(sv) {
     if (sv.__glPosterArmed) return;
     sv.__glPosterArmed = true;

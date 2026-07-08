@@ -8,99 +8,49 @@
    exactly like normal lenses (draggable, editable via the panel
    editor) but cannot be moved outside the section.
 
-   Each sample is kept SIMPLE: always two glass layers, with at most ONE
-   feature (a single pattern OR a single texture) sandwiched between them.
-   Never two patterns in one lens. ~25% are plain (just the two glasses)
-   so the section reads as a mix of "raw glass" and "patterned glass."
+   Each sample loads a REAL catalog preset from window.GL_LENTE_PRESETS
+   (one of the 51 Glass Lab products), picked fresh at random every load —
+   so the section reads as an actual shelf of the catalog rather than
+   procedurally-generated glass. Desktop and mobile both draw from the
+   same catalog pool; only the anchor positions/sizes differ.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
   function rand(min, max) { return min + Math.random() * (max - min); }
 
-  /* Vidrio glass types — for plain-glass layers / bases */
-  var GLASS_TYPES = ['vu', 'vc', 'vb', 'vg', 'vp', 'vi', 'gra', 'in'];
-  /* Wire-mesh + line patterns — used in patterned samples */
-  var PATTERN_TYPES = ['at', 'ac', 'va', 'sh', 'sz', 'sbl', 'iml', 'vmp'];
-
-  /* Tint palette — picks a coherent anchor hue per sample so layers
-     feel related but each sample looks different. RGB triplet + an
-     alpha range; layer alpha is randomised within range. */
-  var TINTS = [
-    { rgb: [218, 178, 92],  alpha: [0.7, 0.95] }, /* gold */
-    { rgb: [110, 140, 195], alpha: [0.6, 0.85] }, /* pacífica */
-    { rgb: [85, 105, 200],  alpha: [0.65, 0.9] }, /* indigo */
-    { rgb: [195, 145, 55],  alpha: [0.7, 0.95] }, /* bronze */
-    { rgb: [38, 50, 130],   alpha: [0.65, 0.9] }, /* deep indigo */
-    { rgb: [245, 225, 175], alpha: [0.4, 0.7]  }, /* cream */
-    { rgb: [180, 110, 30],  alpha: [0.7, 0.92] }, /* warm amber */
-    { rgb: [225, 240, 252], alpha: [0.35, 0.6] }, /* ice */
-    { rgb: [70, 80, 100],   alpha: [0.5, 0.8]  }, /* slate */
-    { rgb: [255, 75, 0],    alpha: [0.6, 0.85] }  /* sunset orange */
-  ];
-
-  function tintCss(hue, alpha) {
-    return 'rgba(' + hue.rgb[0] + ',' + hue.rgb[1] + ',' + hue.rgb[2] + ',' + alpha.toFixed(2) + ')';
+  /* ── Preset-driven composition ───────────────────────────────────────
+     Samples are REAL catalog glasses, not random layer soup. Each sample
+     loads one preset from window.GL_LENTE_PRESETS (built from the Glass Lab
+     catalog) so the scatter reads as an actual shelf of products. A fresh
+     random selection is drawn every load. */
+  function presetPool() {
+    var all = window.GL_LENTE_PRESETS || [];
+    /* Skip the near-invisible clear glasses so the scatter isn't dotted with
+       empty circles — every other catalog product is fair game. */
+    var EXCLUDE = { 'vidrio-claro': 1, 'vidrio-ultraclaro': 1 };
+    var pool = all.filter(function (p) { return p && p.layers && p.layers.length && !EXCLUDE[p.id]; });
+    return pool.length ? pool : all;
+  }
+  /* n distinct presets, shuffled fresh each call (wraps if n > pool size). */
+  function pickPresets(n) {
+    var pool = presetPool().slice();
+    for (var i = pool.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+    var out = [];
+    for (var k = 0; k < n; k++) out.push(pool[k % pool.length]);
+    return out;
   }
 
-  /* Textures — used at most once per sample, as the optional middle layer. */
-  var TEXTURE_TYPES = ['tx-linen', 'tx-marble', 'tx-concrete', 'tx-leather', 'tx-velvet', 'tx-noise'];
-
-  /* Common layer settings. Blur is capped low (2-8) for bounded samples —
-     backdrop-filter is the single biggest GPU cost in the lens render. */
-  function baseLayer(anchorHue, type, opts) {
-    opts = opts || {};
-    /* 60% chance to share the sample's anchor hue, 40% to drift. */
-    var hue = Math.random() < 0.6 ? anchorHue : pick(TINTS);
-    var alpha = rand(hue.alpha[0], hue.alpha[1]);
-    return {
-      type: type,
-      blur: Math.round(rand(2, 8)),
-      color: Math.round(rand(35, 75)),
-      refraction: Math.round(rand(5, 18)),
-      edge: Math.round(rand(15, 35)),
-      edgeBlur: Math.round(rand(0, 3)),
-      edgeBd: 0,
-      tint: tintCss(hue, alpha),
-      tintIntensity: Math.round(rand(opts.tintLo || 45, opts.tintHi || 90)),
-      layerOpacity: Math.round(rand(opts.opLo || 70, opts.opHi || 100))
-    };
-  }
-  function glassLayer(anchorHue, isCap) {
-    /* The cap glass is lighter + more transparent so the feature below it
-       reads through, like a real laminated interlayer. */
-    return baseLayer(anchorHue, pick(GLASS_TYPES),
-      isCap ? { tintLo: 18, tintHi: 50, opLo: 55, opHi: 80 } : {});
-  }
-  function patternLayer(anchorHue) {
-    var s = baseLayer(anchorHue, pick(PATTERN_TYPES), { tintLo: 55, tintHi: 95 });
-    s.patternScale      = Math.round(rand(35, 75));
-    s.patternRotation   = Math.random() < 0.7 ? 0 : Math.round(rand(0, 90));
-    s.patternThickness  = Math.round(rand(40, 75));
-    s.patternDepth      = Math.round(rand(0, 25));
-    s.patternShine      = Math.round(rand(40, 80));
-    s.patternShineAngle = Math.round(rand(10, 50));
-    return s;
-  }
-  function textureLayer(anchorHue) {
-    return baseLayer(anchorHue, pick(TEXTURE_TYPES), { tintLo: 50, tintHi: 85, opLo: 60, opHi: 90 });
-  }
-
-  /* Spawn one sample lens. Composition is deliberately SIMPLE: two glass
-     layers, with at most ONE feature (a single pattern OR a single texture)
-     sandwiched between them. Never two patterns. ~25% are plain glass-only.
-     With suppressSpawn=true the lens is created invisible and revealed later. */
-  function spawnSample(boundsEl, anchorPx, sizePx, suppressSpawn) {
-    var anchorHue = pick(TINTS);
-    var roll = Math.random();
-    var feature = roll < 0.25 ? null : (roll < 0.85 ? 'pattern' : 'texture');
-
-    var layers = [ glassLayer(anchorHue, false) ];               /* base glass */
-    if (feature === 'pattern')      layers.push(patternLayer(anchorHue));  /* the "intersection" */
-    else if (feature === 'texture') layers.push(textureLayer(anchorHue));
-    layers.push(glassLayer(anchorHue, true));                    /* cap glass (shows feature through) */
-
+  /* Spawn one sample lens from a catalog preset — loads the preset's exact
+     layer stack (glass + feature + cap, incl. mesh skins) so the decorative
+     sample IS the real product. With suppressSpawn=true the lens is created
+     invisible and revealed on scroll. */
+  function spawnSample(boundsEl, anchorPx, sizePx, suppressSpawn, preset) {
+    if (!preset || !preset.layers || !preset.layers.length) return null;
+    var layers = preset.layers;
     var spawnOpts = Object.assign({}, layers[0], {
       bounds: boundsEl,
       anchorX: anchorPx.x,
@@ -114,39 +64,21 @@
     for (var i = 1; i < layers.length; i++) {
       window.glLente.addLayer(layers[i]);
     }
+    /* Tag the lens with its catalog identity (for labels / analytics). */
+    lens.presetId = preset.id;
+    lens.presetCode = preset.code;
     return lens;
   }
 
-  /* Anchor positions — fractions of the section width/height.
-
-     The wide desktop scatter (7 samples, 170-260px) buries the centered
-     heading once the section narrows. So the layout is viewport-aware:
-     on tablet/phone we drop to fewer, smaller samples pinned to the TOP
-     and BOTTOM bands, leaving the vertical centre clear for the heading.
-     Sizes are clamped so a sample + its -21% skin bleed never crosses the
-     viewport edge (the samples are position:fixed, so they aren't clipped
-     by the section's overflow:hidden). */
-  /* Touch devices (incl. a wide iPad Pro that reports desktop width in
-     Chrome) get a LIGHTER scatter: backdrop-filter is the dominant GPU
-     cost and tablet GPUs choke on the full 7-lens desktop set, so touch
-     wide screens use ~5 smaller samples. Only a real mouse desktop gets
-     the full scatter. */
   var IS_TOUCH = window.matchMedia('(hover: none)').matches
     || window.matchMedia('(pointer: coarse)').matches;
   var VW = window.innerWidth;
-  /* Mobile/touch: 3 samples only (down from 4-5). They keep their frosted
-     backdrop, but fewer fixed backdrop-filter layers = far less per-scroll
-     recompositing. The dichroic shimmer animations are also stopped via CSS
-     (≤991px) so nothing repaints continuously off-screen. */
-  var ANCHORS = VW <= 478 ? [
-    { fx: 0.24, fy: 0.12, size: 112 },
-    { fx: 0.78, fy: 0.16, size: 104 },
-    { fx: 0.30, fy: 0.87, size: 116 }
-  ] : VW <= 991 ? [
-    { fx: 0.18, fy: 0.13, size: 160 },
-    { fx: 0.82, fy: 0.18, size: 140 },
-    { fx: 0.50, fy: 0.88, size: 150 }
-  ] : IS_TOUCH ? [
+
+  /* Wide layouts (real-mouse desktop + wide-touch/iPad) keep their
+     hand-tuned scatter — the positions were art-directed around the
+     centered heading, so they stay fixed. Sizes clamped so a sample +
+     its -21% skin bleed never crosses the viewport edge. */
+  var STATIC_ANCHORS = IS_TOUCH ? [
     { fx: 0.14, fy: 0.28, size: 188 },
     { fx: 0.50, fy: 0.15, size: 148 },
     { fx: 0.86, fy: 0.32, size: 172 },
@@ -162,6 +94,65 @@
     { fx: 0.92, fy: 0.76, size: 190 }
   ];
 
+  /* Mobile / small-tablet (<=991px): positions are GENERATED FRESH each
+     load — stratified-random, so the scatter is well spread yet never the
+     same twice. Samples sit in a TOP band and a BOTTOM band, leaving the
+     vertical centre clear for the heading. Within each band they're split
+     into equal horizontal columns (one sample per column → they can't
+     clump), then jittered inside the column with a randomised size. Every
+     placement is padded by the sample's ~21% skin bleed (half-extent
+     ~0.72×size) so nothing clips the viewport edge. Now that mobile lenses
+     ride native scroll with no backdrop-filter, a few more samples are
+     cheap, so the count ticks up from the old flat 3. */
+  function randInt(lo, hi) { return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+
+  function buildMobileAnchors(rect) {
+    var W = rect.width, H = rect.height;
+    var isPhone = VW <= 478;
+    var count  = isPhone ? randInt(3, 4) : randInt(4, 5);
+    var sizeLo = isPhone ? 96  : 128;
+    var sizeHi = isPhone ? 132 : 184;
+    var bands  = [ [0.04, 0.27], [0.73, 0.96] ];   /* top / bottom, heading-safe */
+
+    /* Split `count` across the two bands as evenly as possible. */
+    var perBand = bands.map(function () { return 0; });
+    for (var i = 0; i < count; i++) perBand[i % bands.length]++;
+
+    var anchors = [];
+    for (var b = 0; b < bands.length; b++) {
+      var n = perBand[b];
+      if (!n) continue;
+      var band = bands[b];
+      /* Shuffle column order so the left/right ordering isn't predictable
+         between the top and bottom bands. */
+      var cols = [];
+      for (var c = 0; c < n; c++) cols.push(c);
+      for (var s = cols.length - 1; s > 0; s--) {
+        var j = Math.floor(Math.random() * (s + 1));
+        var tmp = cols[s]; cols[s] = cols[j]; cols[j] = tmp;
+      }
+      var cellW = W / n;
+      for (var k = 0; k < n; k++) {
+        var size  = randInt(sizeLo, sizeHi);
+        var bleed = size * 0.72;                 /* half-extent incl. skin bleed */
+        var col   = cols[k];
+        var cxMin = col * cellW + bleed;
+        var cxMax = (col + 1) * cellW - bleed;
+        var cx = cxMax > cxMin ? rand(cxMin, cxMax)
+                               : Math.min(Math.max(col * cellW + cellW / 2, bleed), W - bleed);
+        var byMin = band[0] * H + bleed;
+        var byMax = band[1] * H - bleed;
+        var cy = byMax > byMin ? rand(byMin, byMax) : (byMin + byMax) / 2;
+        anchors.push({ fx: cx / W, fy: cy / H, size: size });
+      }
+    }
+    return anchors;
+  }
+
+  /* Assigned in init() once the section rect is known: mobile widths
+     generate from the live rect; wider layouts use the static scatter. */
+  var ANCHORS = null;
+
   /* Pre-spawn every sample lens in the BACKGROUND via requestIdleCallback
      so the heavy backdrop-filter compositing happens off the critical
      path. Each lens is created invisible (opacity 0, visibility hidden)
@@ -170,14 +161,17 @@
      opacity tween — no spawn cost). */
   function preSpawnAllSamples(section, rect, onAllDone) {
     var spawned = [];
+    /* One catalog preset per anchor, freshly shuffled this load. */
+    var presets = pickPresets(ANCHORS.length);
     var i = 0;
     function next() {
       if (i >= ANCHORS.length) { onAllDone(spawned); return; }
-      var a = ANCHORS[i++];
+      var a = ANCHORS[i];
       var lens = spawnSample(section, {
         x: a.fx * rect.width  - a.size / 2,
         y: a.fy * rect.height - a.size / 2
-      }, a.size, /* suppressSpawn */ true);
+      }, a.size, /* suppressSpawn */ true, presets[i]);
+      i++;
       if (lens) spawned.push(lens);
       /* Yield to the browser between spawns. requestIdleCallback is
          best — runs in spare frame time so we don't compete with
@@ -210,6 +204,10 @@
       requestAnimationFrame(init);
       return;
     }
+
+    /* Mobile/tablet generate a fresh stratified-random scatter from the
+       live section box; wider layouts use the art-directed static set. */
+    ANCHORS = (VW <= 991) ? buildMobileAnchors(rect) : STATIC_ANCHORS;
 
     /* If we get here AFTER the user has already scrolled past the
        trigger point (e.g. page loaded with a hash deep-link), don't

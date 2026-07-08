@@ -212,13 +212,19 @@
         "personalizacionColor": "color-unico"
       },
       "media": {
-        "hero": "../assets/glass-types/Vc.png",
+        "hero": "../assets/media/glass-samples-opt/vc/vc-01-stand-a.webp",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/vc-slot.png",
-          "../assets/media/glass-samples/vc-display.png",
-          "../assets/media/glass-samples/vc-float.png",
-          "../assets/glass-types/Vc.png"
+          "../assets/media/glass-samples-opt/vc/vc-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vc/vc-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vc/vc-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vc/vc-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vc/vc-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/vc/vc-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/vc/vc-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vc/vc-08-app-shopfront.webp",
+          "../assets/media/glass-samples-opt/vc/vc-09-app-entry-door.webp",
+          "../assets/media/glass-samples-opt/vc/vc-10-app-museum-vitrine.webp"
         ]
       }
     },
@@ -247,8 +253,20 @@
         "personalizacionColor": "color-unico"
       },
       "media": {
-        "hero": "../assets/glass-types/Vu.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vu/vu-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vu/vu-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vu/vu-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vu/vu-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vu/vu-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vu/vu-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/vu/vu-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/vu/vu-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vu/vu-08-app-cabin-window.webp",
+          "../assets/media/glass-samples-opt/vu/vu-09-app-gallery-vitrine.webp",
+          "../assets/media/glass-samples-opt/vu/vu-10-app-restaurant-kitchen.webp"
+        ]
       }
     },
     {
@@ -275,8 +293,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Vp.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vp/vp-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vp/vp-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vp/vp-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vp/vp-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vp/vp-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vp/vp-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/vp/vp-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/vp/vp-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vp/vp-08-app-coastal-dining.webp",
+          "../assets/media/glass-samples-opt/vp/vp-09-app-boutique-storefront.webp",
+          "../assets/media/glass-samples-opt/vp/vp-10-app-restaurant-partition.webp"
+        ]
       }
     },
     {
@@ -303,8 +333,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Vi.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vi/vi-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vi/vi-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vi/vi-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vi/vi-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vi/vi-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vi/vi-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/vi/vi-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/vi/vi-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vi/vi-08-app-pernia-console.webp",
+          "../assets/media/glass-samples-opt/vi/vi-09-app-pernia-perforata.webp",
+          "../assets/media/glass-samples-opt/vi/vi-10-app-pernia-biplanar.webp"
+        ]
       }
     },
     {
@@ -331,8 +373,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Vb.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vb/vb-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vb/vb-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vb/vb-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vb/vb-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vb/vb-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vb/vb-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/vb/vb-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/vb/vb-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vb/vb-08-app-industrial-loft.webp",
+          "../assets/media/glass-samples-opt/vb/vb-09-app-warehouse-office.webp",
+          "../assets/media/glass-samples-opt/vb/vb-10-app-artist-workshop.webp"
+        ]
       }
     },
     {
@@ -359,8 +413,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Vg.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vg/vg-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vg/vg-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vg/vg-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vg/vg-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vg/vg-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vg/vg-05-env-walnut.webp",
+          "../assets/media/glass-samples-opt/vg/vg-06-env-concrete-olive.webp",
+          "../assets/media/glass-samples-opt/vg/vg-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vg/vg-08-app-pernia-glss03.webp",
+          "../assets/media/glass-samples-opt/vg/vg-09-app-gallery.webp",
+          "../assets/media/glass-samples-opt/vg/vg-10-app-corridor.webp"
+        ]
       }
     },
     {
@@ -394,8 +460,20 @@
         ]
       },
       "media": {
-        "hero": "../assets/glass-types/Va.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/va/va-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/va/va-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/va/va-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/va/va-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/va/va-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/va/va-05-env-teak-ottoman.webp",
+          "../assets/media/glass-samples-opt/va/va-06-env-limestone-sisal.webp",
+          "../assets/media/glass-samples-opt/va/va-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/va/va-08-app-pernia-glss02.webp",
+          "../assets/media/glass-samples-opt/va/va-09-app-dressing-room.webp",
+          "../assets/media/glass-samples-opt/va/va-10-app-restaurant-vest.webp"
+        ]
       }
     },
     {
@@ -423,8 +501,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Val.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/val/val-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/val/val-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/val/val-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/val/val-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/val/val-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/val/val-05-env-maple-wool.webp",
+          "../assets/media/glass-samples-opt/val/val-06-env-terrazzo-sisal.webp",
+          "../assets/media/glass-samples-opt/val/val-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/val/val-08-app-pernia-glss01.webp",
+          "../assets/media/glass-samples-opt/val/val-09-app-bedroom-ensuite.webp",
+          "../assets/media/glass-samples-opt/val/val-10-app-restaurant-amenity.webp"
+        ]
       }
     },
     {
@@ -454,8 +544,20 @@
         "esVersionEspejoDe": "Ee"
       },
       "media": {
-        "hero": "../assets/glass-types/Ve.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/ve/ve-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/ve/ve-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/ve/ve-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/ve/ve-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/ve/ve-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/ve/ve-05-env-oak-linen.webp",
+          "../assets/media/glass-samples-opt/ve/ve-06-env-marble.webp",
+          "../assets/media/glass-samples-opt/ve/ve-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/ve/ve-08-app-pernia-bathroom.webp",
+          "../assets/media/glass-samples-opt/ve/ve-09-app-bathroom-shower.webp",
+          "../assets/media/glass-samples-opt/ve/ve-10-app-office-booth.webp"
+        ]
       }
     },
     {
@@ -486,8 +588,20 @@
       },
       "mediaQualityFlag": "low",
       "media": {
-        "hero": "../assets/glass-types/Vt.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vt/vt-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vt/vt-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vt/vt-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vt/vt-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vt/vt-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vt/vt-05-env-cherry-leather.webp",
+          "../assets/media/glass-samples-opt/vt/vt-06-env-basalt-brass.webp",
+          "../assets/media/glass-samples-opt/vt/vt-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vt/vt-08-app-spa.webp",
+          "../assets/media/glass-samples-opt/vt/vt-09-app-restaurant-vestibule.webp",
+          "../assets/media/glass-samples-opt/vt/vt-10-app-residential-entry.webp"
+        ]
       }
     },
     {
@@ -518,8 +632,20 @@
         "esVersionEspejoDe": "Ed"
       },
       "media": {
-        "hero": "../assets/glass-types/Vd.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vd/vd-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vd/vd-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vd/vd-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vd/vd-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vd/vd-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vd/vd-05-env-oak-velvet.webp",
+          "../assets/media/glass-samples-opt/vd/vd-06-env-marble-brass.webp",
+          "../assets/media/glass-samples-opt/vd/vd-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vd/vd-08-app-jewelry-boutique.webp",
+          "../assets/media/glass-samples-opt/vd/vd-09-app-hotel-bar-back.webp",
+          "../assets/media/glass-samples-opt/vd/vd-10-app-residential-entry.webp"
+        ]
       }
     },
     {
@@ -546,8 +672,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Veb.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/veb/veb-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/veb/veb-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/veb/veb-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/veb/veb-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/veb/veb-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/veb/veb-05-env-maple-linen.webp",
+          "../assets/media/glass-samples-opt/veb/veb-06-env-terrazzo-brass.webp",
+          "../assets/media/glass-samples-opt/veb/veb-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/veb/veb-08-app-kitchen-backsplash.webp",
+          "../assets/media/glass-samples-opt/veb/veb-09-app-office-writing-wall.webp",
+          "../assets/media/glass-samples-opt/veb/veb-10-app-library-nook.webp"
+        ]
       }
     },
     {
@@ -574,8 +712,20 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Ven.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/ven/ven-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/ven/ven-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/ven/ven-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/ven/ven-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/ven/ven-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/ven/ven-05-env-teak-wool.webp",
+          "../assets/media/glass-samples-opt/ven/ven-06-env-slate-brass.webp",
+          "../assets/media/glass-samples-opt/ven/ven-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/ven/ven-08-app-speakeasy-bar.webp",
+          "../assets/media/glass-samples-opt/ven/ven-09-app-executive-office.webp",
+          "../assets/media/glass-samples-opt/ven/ven-10-app-gallery-plinth.webp"
+        ]
       }
     },
     {
@@ -611,8 +761,20 @@
         ]
       },
       "media": {
-        "hero": "../assets/glass-types/Vab.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vab/vab-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vab/vab-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vab/vab-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vab/vab-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vab/vab-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vab/vab-05-env-walnut-wool.webp",
+          "../assets/media/glass-samples-opt/vab/vab-06-env-sandstone-brass.webp",
+          "../assets/media/glass-samples-opt/vab/vab-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vab/vab-08-app-pernia-glss02.webp",
+          "../assets/media/glass-samples-opt/vab/vab-09-app-boutique-changing.webp",
+          "../assets/media/glass-samples-opt/vab/vab-10-app-hotel-corridor.webp"
+        ]
       }
     },
     {
@@ -648,8 +810,20 @@
         ]
       },
       "media": {
-        "hero": "../assets/glass-types/Vag.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/vag/vag-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/vag/vag-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/vag/vag-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/vag/vag-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/vag/vag-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/vag/vag-05-env-oak-wool.webp",
+          "../assets/media/glass-samples-opt/vag/vag-06-env-concrete-jute.webp",
+          "../assets/media/glass-samples-opt/vag/vag-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/vag/vag-08-app-pernia-glss03.webp",
+          "../assets/media/glass-samples-opt/vag/vag-09-app-gallery.webp",
+          "../assets/media/glass-samples-opt/vag/vag-10-app-studio.webp"
+        ]
       }
     },
     {
@@ -675,13 +849,19 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Gr.png",
+        "hero": "../assets/media/glass-samples-opt/gr/gr-01-stand-a.webp",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/gr-slot.png",
-          "../assets/media/glass-samples/gr-display.png",
-          "../assets/media/glass-samples/gr-float.jpg",
-          "../assets/glass-types/Gr.png"
+          "../assets/media/glass-samples-opt/gr/gr-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/gr/gr-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/gr/gr-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/gr/gr-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/gr/gr-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/gr/gr-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/gr/gr-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/gr/gr-08-app-hotel.webp",
+          "../assets/media/glass-samples-opt/gr/gr-09-app-gallery.webp",
+          "../assets/media/glass-samples-opt/gr/gr-10-app-meditation.webp"
         ]
       }
     },
@@ -712,8 +892,20 @@
         "esVersionAcidadaDe": "Gr"
       },
       "media": {
-        "hero": "../assets/glass-types/Gra.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples-opt/gra/gra-01-stand-a.webp",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/gra/gra-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/gra/gra-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/gra/gra-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/gra/gra-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/gra/gra-05-env-concrete-linen.webp",
+          "../assets/media/glass-samples-opt/gra/gra-06-env-sandstone-pigment.webp",
+          "../assets/media/glass-samples-opt/gra/gra-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/gra/gra-08-app-gallery.webp",
+          "../assets/media/glass-samples-opt/gra/gra-09-app-boutique-fitting.webp",
+          "../assets/media/glass-samples-opt/gra/gra-10-app-restaurant-vestibule.webp"
+        ]
       }
     },
     {
@@ -739,13 +931,19 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Ds.png",
+        "hero": "../assets/media/glass-samples/ds/ds-01-stand-a.jpg",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/ds-slot.png",
-          "../assets/media/glass-samples/ds-display.png",
-          "../assets/media/glass-samples/ds-float.png",
-          "../assets/glass-types/Ds.png"
+          "../assets/media/glass-samples-opt/ds/ds-01-stand-a.jpg",
+          "../assets/media/glass-samples-opt/ds/ds-02-stand-b.jpg",
+          "../assets/media/glass-samples-opt/ds/ds-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/ds/ds-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/ds/ds-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/ds/ds-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/ds/ds-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/ds/ds-08-app-bathroom.webp",
+          "../assets/media/glass-samples-opt/ds/ds-09-app-office.webp",
+          "../assets/media/glass-samples-opt/ds/ds-10-app-boutique.webp"
         ]
       }
     },
@@ -776,8 +974,20 @@
         "esVersionAcidadaDe": "Ds"
       },
       "media": {
-        "hero": "../assets/glass-types/Dsa.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples/dsa/dsa-01-stand-a.png",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/dsa/dsa-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-05-env-oak-linen.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-06-env-sandstone-brass.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-08-app-pernia-glss02.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-09-app-pernia-perforata.webp",
+          "../assets/media/glass-samples-opt/dsa/dsa-10-app-library-facade.webp"
+        ]
       }
     },
     {
@@ -804,13 +1014,19 @@
         "personalizacionColor": "300-colores"
       },
       "media": {
-        "hero": "../assets/glass-types/In.png",
+        "hero": "../assets/media/glass-samples/in/in-01-stand-a.png",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/in-slot.png",
-          "../assets/media/glass-samples/in-display.png",
-          "../assets/media/glass-samples/in-float.png",
-          "../assets/glass-types/In.png"
+          "../assets/media/glass-samples-opt/in/in-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/in/in-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/in/in-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/in/in-05-env-linen.jpg",
+          "../assets/media/glass-samples-opt/in/in-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/in/in-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/in/in-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/in/in-08-app-dining.webp",
+          "../assets/media/glass-samples-opt/in/in-09-app-stairwell.webp",
+          "../assets/media/glass-samples-opt/in/in-10-app-kitchen.webp"
         ]
       }
     },
@@ -842,8 +1058,20 @@
         "esVersionAcidadaDe": "In"
       },
       "media": {
-        "hero": "../assets/glass-types/Ina.png",
-        "gallery": []
+        "hero": "../assets/media/glass-samples/ina/ina-01-stand-a.png",
+        "gallery": [],
+        "heroSlides": [
+          "../assets/media/glass-samples-opt/ina/ina-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/ina/ina-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/ina/ina-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/ina/ina-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/ina/ina-05-env-ash-boucle.webp",
+          "../assets/media/glass-samples-opt/ina/ina-06-env-travertine-steel.webp",
+          "../assets/media/glass-samples-opt/ina/ina-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/ina/ina-08-app-pernia-glss02.webp",
+          "../assets/media/glass-samples-opt/ina/ina-09-app-pernia-perforata.webp",
+          "../assets/media/glass-samples-opt/ina/ina-10-app-lab.webp"
+        ]
       }
     },
     {
@@ -870,13 +1098,13 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Imc.png",
+        "hero": "../assets/media/glass-samples/imc-slot.png",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/imc-slot.png",
-          "../assets/media/glass-samples/imc-display.png",
-          "../assets/media/glass-samples/imc-float.png",
-          "../assets/glass-types/Imc.png"
+          "../assets/media/glass-samples-opt/imc-slot.webp",
+          "../assets/media/glass-samples-opt/imc-display.webp",
+          "../assets/media/glass-samples-opt/imc-float.webp",
+          "../assets/glass-types/Imc.webp"
         ]
       }
     },
@@ -904,7 +1132,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Iml.png",
+        "hero": "../assets/media/glass-samples/iml-slot.png",
         "gallery": []
       }
     },
@@ -932,7 +1160,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Tl.png",
+        "hero": "../assets/media/glass-samples/tl-slot.png",
         "gallery": []
       }
     },
@@ -975,7 +1203,7 @@
         "tieneTierAlternativo": "Be"
       },
       "media": {
-        "hero": "../assets/glass-types/Ae.png",
+        "hero": "../assets/media/glass-samples/ae-slot.png",
         "gallery": []
       }
     },
@@ -1005,7 +1233,7 @@
       },
       "relations": {},
       "media": {
-        "hero": "../assets/glass-types/Ap.png",
+        "hero": "../assets/media/glass-samples/ap-slot.png",
         "gallery": []
       }
     },
@@ -1034,7 +1262,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Af.png",
+        "hero": "../assets/media/glass-samples/af-slot.png",
         "gallery": []
       }
     },
@@ -1066,7 +1294,7 @@
         "tieneTierAlternativo": "Bl"
       },
       "media": {
-        "hero": "../assets/glass-types/Al.png",
+        "hero": "../assets/media/glass-samples/al-slot.png",
         "gallery": []
       }
     },
@@ -1095,7 +1323,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Az.png",
+        "hero": "../assets/media/glass-samples/az-slot.png",
         "gallery": []
       }
     },
@@ -1127,13 +1355,19 @@
         "tieneTierAlternativo": "Bq"
       },
       "media": {
-        "hero": "../assets/glass-types/Aq.png",
+        "hero": "../assets/media/glass-samples-opt/aq/aq-01-stand-a.webp",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/aq-slot.png",
-          "../assets/media/glass-samples/aq-display.png",
-          "../assets/media/glass-samples/aq-float.png",
-          "../assets/glass-types/Aq.png"
+          "../assets/media/glass-samples-opt/aq/aq-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/aq/aq-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/aq/aq-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/aq/aq-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/aq/aq-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/aq/aq-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/aq/aq-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/aq/aq-08-app-coworking.webp",
+          "../assets/media/glass-samples-opt/aq/aq-09-app-bar-back.webp",
+          "../assets/media/glass-samples-opt/aq/aq-10-app-gallery-divider.webp"
         ]
       }
     },
@@ -1162,7 +1396,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Ah.png",
+        "hero": "../assets/media/glass-samples/ah-slot.png",
         "gallery": []
       }
     },
@@ -1191,7 +1425,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Ab.png",
+        "hero": "../assets/media/glass-samples/ab-slot.png",
         "gallery": []
       }
     },
@@ -1220,13 +1454,19 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/At.png",
+        "hero": "../assets/media/glass-samples/at/at-01-stand-a.png",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/at-slot.png",
-          "../assets/media/glass-samples/at-display.png",
-          "../assets/media/glass-samples/at-float.png",
-          "../assets/glass-types/At.png"
+          "../assets/media/glass-samples-opt/at/at-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/at/at-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/at/at-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/at/at-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/at/at-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/at/at-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/at/at-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/at/at-08-app-living.webp",
+          "../assets/media/glass-samples-opt/at/at-09-app-ceiling.webp",
+          "../assets/media/glass-samples-opt/at/at-10-app-library.webp"
         ]
       }
     },
@@ -1255,7 +1495,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Ac.png",
+        "hero": "../assets/media/glass-samples/ac-slot.png",
         "gallery": []
       }
     },
@@ -1288,7 +1528,7 @@
         "esEquivalenteIdenticoDe": "Aq"
       },
       "media": {
-        "hero": "../assets/glass-types/Bq.png",
+        "hero": "../assets/media/glass-samples/bq-slot.png",
         "gallery": []
       }
     },
@@ -1320,7 +1560,7 @@
         "esTierAlternativoDe": "Ae"
       },
       "media": {
-        "hero": "../assets/glass-types/Be.png",
+        "hero": "../assets/media/glass-samples/be-slot.png",
         "gallery": []
       }
     },
@@ -1352,7 +1592,7 @@
         "esTierAlternativoDe": "Al"
       },
       "media": {
-        "hero": "../assets/glass-types/Bl.png",
+        "hero": "../assets/media/glass-samples/bl-slot.png",
         "gallery": []
       }
     },
@@ -1380,7 +1620,7 @@
         "disponibilidad": "disponible"
       },
       "media": {
-        "hero": "../assets/glass-types/Cm.png",
+        "hero": "../assets/media/glass-samples/cm-slot.png",
         "gallery": []
       }
     },
@@ -1409,7 +1649,7 @@
         "colorBase": "negro"
       },
       "media": {
-        "hero": "../assets/glass-types/Cn.png",
+        "hero": "../assets/media/glass-samples/cn-slot.png",
         "gallery": []
       }
     },
@@ -1439,13 +1679,13 @@
         "esVersionEspejoDe": "Vc"
       },
       "media": {
-        "hero": "../assets/glass-types/Ec.png",
+        "hero": "../assets/media/glass-samples/ec-slot.png",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/ec-slot.png",
-          "../assets/media/glass-samples/ec-display.png",
-          "../assets/media/glass-samples/ec-float.png",
-          "../assets/glass-types/Ec.png"
+          "../assets/media/glass-samples-opt/ec-slot.webp",
+          "../assets/media/glass-samples-opt/ec-display.webp",
+          "../assets/media/glass-samples-opt/ec-float.webp",
+          "../assets/glass-types/Ec.webp"
         ]
       }
     },
@@ -1478,7 +1718,7 @@
         "esVarianteDeColorDe": "Ec"
       },
       "media": {
-        "hero": "../assets/glass-types/Eb.png",
+        "hero": "../assets/media/glass-samples/eb-slot.png",
         "gallery": []
       }
     },
@@ -1511,7 +1751,7 @@
         "esVarianteDeColorDe": "Ec"
       },
       "media": {
-        "hero": "../assets/glass-types/Eg.png",
+        "hero": "../assets/media/glass-samples/eg-slot.png",
         "gallery": []
       }
     },
@@ -1543,7 +1783,7 @@
         "esVersionEspejoDe": "In"
       },
       "media": {
-        "hero": "../assets/glass-types/Ei.png",
+        "hero": "../assets/media/glass-samples/ei-slot.png",
         "gallery": []
       }
     },
@@ -1571,7 +1811,7 @@
         "disponibilidad": "custom"
       },
       "media": {
-        "hero": "../assets/glass-types/Ep.png",
+        "hero": "../assets/media/glass-samples/ep-slot.png",
         "gallery": []
       }
     },
@@ -1603,7 +1843,7 @@
         "esVersionEspejoDe": "Va"
       },
       "media": {
-        "hero": "../assets/glass-types/Ea.png",
+        "hero": "../assets/media/glass-samples/ea-slot.png",
         "gallery": []
       }
     },
@@ -1635,7 +1875,7 @@
         "esVersionEspejoDe": "Val"
       },
       "media": {
-        "hero": "../assets/glass-types/Eal.png",
+        "hero": "../assets/media/glass-samples/eal-slot.png",
         "gallery": []
       }
     },
@@ -1667,7 +1907,7 @@
         "esVersionEspejoDe": "Vd"
       },
       "media": {
-        "hero": "../assets/glass-types/Ed.png",
+        "hero": "../assets/media/glass-samples/ed-slot.png",
         "gallery": []
       }
     },
@@ -1703,13 +1943,19 @@
         "esVersionEspejoDe": "Ve"
       },
       "media": {
-        "hero": "../assets/glass-types/Ee.png",
+        "hero": "../assets/media/glass-samples/ee/ee-01-stand-a.png",
         "gallery": [],
         "heroSlides": [
-          "../assets/media/glass-samples/ee-slot.png",
-          "../assets/media/glass-samples/ee-display.png",
-          "../assets/media/glass-samples/ee-float.png",
-          "../assets/glass-types/Ee.png"
+          "../assets/media/glass-samples-opt/ee/ee-01-stand-a.webp",
+          "../assets/media/glass-samples-opt/ee/ee-02-stand-b.webp",
+          "../assets/media/glass-samples-opt/ee/ee-06-env-travertine.webp",
+          "../assets/media/glass-samples-opt/ee/ee-05-env-linen.webp",
+          "../assets/media/glass-samples-opt/ee/ee-03-detail-edge.webp",
+          "../assets/media/glass-samples-opt/ee/ee-04-detail-surface.webp",
+          "../assets/media/glass-samples-opt/ee/ee-07-light-tungsten.webp",
+          "../assets/media/glass-samples-opt/ee/ee-08-app-bedroom.webp",
+          "../assets/media/glass-samples-opt/ee/ee-09-app-dressing.webp",
+          "../assets/media/glass-samples-opt/ee/ee-10-app-powder.webp"
         ]
       }
     },
@@ -1742,7 +1988,7 @@
         "esVersionConFilmDe": "Ee"
       },
       "media": {
-        "hero": "../assets/glass-types/Eef.png",
+        "hero": "../assets/media/glass-samples/eef-slot.png",
         "gallery": []
       }
     },
@@ -1770,7 +2016,7 @@
         "disponibilidad": "custom"
       },
       "media": {
-        "hero": "../assets/glass-types/Eep.png",
+        "hero": "../assets/media/glass-samples/eep-slot.png",
         "gallery": []
       }
     },
@@ -1801,7 +2047,7 @@
         "esVersionEspejoDe": "Vt"
       },
       "media": {
-        "hero": "../assets/glass-types/Et.png",
+        "hero": "../assets/media/glass-samples/et-slot.png",
         "gallery": []
       }
     },
@@ -1834,7 +2080,7 @@
       },
       "placeholder": "NO TENGO AÚN, DESARROLLARÉ",
       "media": {
-        "hero": "../assets/glass-types/Etf.png",
+        "hero": "../assets/media/glass-samples/etf-slot.png",
         "gallery": []
       }
     },
@@ -1864,7 +2110,7 @@
       },
       "placeholder": "NO TENGO AÚN, DESARROLLARÉ",
       "media": {
-        "hero": "../assets/glass-types/Etp.png",
+        "hero": "../assets/media/glass-samples/etp-slot.png",
         "gallery": []
       }
     }

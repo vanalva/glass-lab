@@ -13,8 +13,13 @@
      body is opacity:0 when this script runs (inline style on <body>)
      so this set() is completely invisible — no flash possible.
      clearProps after animation hands opacity back to CSS so the
-     filter system (.gl-cell_filtered-out) can work unobstructed. */
-  gsap.set('.gl-catalogo_grid .gl-cell', { autoAlpha: 0, y: 12 });
+     filter system (.gl-cell_filtered-out) can work unobstructed.
+     Only pre-hide when the entrance animation will actually run —
+     under prefers-reduced-motion the reveal never fires, so hiding
+     here would leave the whole grid invisible. */
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    gsap.set('.gl-catalogo_grid .gl-cell', { autoAlpha: 0, y: 12 });
+  }
 
   let animationsStarted = false;
   function startPageAnimations() {

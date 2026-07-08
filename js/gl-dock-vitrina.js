@@ -8,6 +8,16 @@
 
   if (typeof gsap === 'undefined') return;
 
+  /* The vitrina hover panels — including the "Lente" glass generator
+     (preset chips + spawn-empty + auto-open editor) — are entirely
+     pointer/hover driven. On any touch device (incl. an iPad Pro that
+     reports desktop width) or ≤991px they can't be reached and only add
+     clutter + perf cost, so skip building them. The dock's own nav links
+     keep working as ordinary links. */
+  if (window.matchMedia('(max-width: 991px)').matches
+      || window.matchMedia('(hover: none)').matches
+      || window.matchMedia('(pointer: coarse)').matches) return;
+
   var dock     = document.querySelector('.gl-dock');
   var dockInner = dock && dock.querySelector('.gl-dock_inner');
   if (!dock || !dockInner) return;
@@ -157,16 +167,31 @@
      visual changes to the editor propagate here automatically. */
   var lensPanel = anchor.querySelector('[data-vitrina="lente"]');
 
+  /* Category filters — derived from the presets' own `category` field, in
+     the catalog's canonical order, plus an "all" default. */
+  var LP_CATS = [
+    { id: 'all',         label: 'Todos' },
+    { id: 'colores',     label: 'Colores' },
+    { id: 'inserciones', label: 'Inserciones' },
+    { id: 'reflectivos', label: 'Reflectivos' }
+  ];
+
   function buildLentePanel() {
     var presets = window.GL_LENTE_PRESETS || [];
     var chips = presets.map(function (p) {
       var ds = p.dot && (p.dot.indexOf('gradient') !== -1 || p.dot.indexOf('conic') !== -1)
         ? 'background-image:' + p.dot
         : 'background-color:' + (p.dot || '#444');
-      return '<button class="gl-le-preset gl-lp-preset" data-preset-id="' + p.id + '" title="' + p.name + ' — ' + p.sub + '">' +
+      var hay = ((p.code || '') + ' ' + (p.name || '') + ' ' + (p.sub || '')).toLowerCase();
+      return '<button class="gl-le-preset gl-lp-preset" data-preset-id="' + p.id + '"' +
+        ' data-cat="' + (p.category || '') + '" data-search="' + hay.replace(/"/g, '') + '"' +
+        ' title="' + p.name + ' — ' + p.sub + '">' +
         '<span class="gl-le-preset-dot" style="' + ds + '"></span>' +
         '<span class="gl-le-preset-name">' + p.name + '</span>' +
         '</button>';
+    }).join('');
+    var catBtns = LP_CATS.map(function (c, i) {
+      return '<button type="button" class="gl-lp-cat' + (i === 0 ? ' is-active' : '') + '" data-cat="' + c.id + '">' + c.label + '</button>';
     }).join('');
 
     lensPanel.innerHTML =
@@ -182,13 +207,17 @@
           '</svg>' +
         '</button>' +
       '</div>' +
-      '<p class="gl-lp-intro">Compositor de vidrio en tiempo real. Elige un preset o lanza una lente vacía.</p>' +
-      '<div class="gl-lente-editor_section-label" style="margin-bottom:0.4rem">Presets</div>' +
-      '<div class="gl-lp-presets">' + chips + '</div>' +
+      '<p class="gl-lp-intro">Compositor de vidrio en tiempo real. Busca un vidrio del catálogo o lanza una lente vacía.</p>' +
+      '<div class="gl-lp-filterbar">' +
+        '<input type="text" class="gl-lp-search" id="gl-lp-search" placeholder="Buscar vidrio… (código o nombre)" autocomplete="off" spellcheck="false">' +
+        '<div class="gl-lp-cats">' + catBtns + '</div>' +
+      '</div>' +
+      '<div class="gl-lp-presets" id="gl-lp-presets">' + chips + '</div>' +
+      '<div class="gl-lp-empty" id="gl-lp-empty" hidden>Sin resultados</div>' +
       /* Brand skew CTA — same signature button used across the homepage */
       '<div class="gl-btn_skew_wrap gl-btn_skew_wrap_brand gl-lp-spawn-wrap">' +
         '<svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">' +
-          '<polygon points="16,1 239,1 239,42 224,55 1,55 1,14" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>' +
+          '<path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>' +
         '</svg>' +
         '<button type="button" class="gl-btn_skew_element gl-btn_skew_element_sm" id="gl-lp-spawn">' +
           '<span class="gl-btn_skew_text gl-btn_skew_text_sm">Lente vacía</span>' +
@@ -209,10 +238,44 @@
 
   function wireLentePanel() {
     /* Preset chip → spawn lens + load preset + open editor */
-    lensPanel.querySelectorAll('.gl-lp-preset').forEach(function (btn) {
+    var chipEls = lensPanel.querySelectorAll('.gl-lp-preset');
+    chipEls.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         spawnAndHide(btn.dataset.presetId);
+      });
+    });
+
+    /* ── Search + category filter ──────────────────────────────────── */
+    var searchEl = lensPanel.querySelector('#gl-lp-search');
+    var catEls   = lensPanel.querySelectorAll('.gl-lp-cat');
+    var emptyEl  = lensPanel.querySelector('#gl-lp-empty');
+    var listEl   = lensPanel.querySelector('#gl-lp-presets');
+    var curCat   = 'all';
+    function applyFilter() {
+      var q = (searchEl && searchEl.value || '').trim().toLowerCase();
+      var shown = 0;
+      chipEls.forEach(function (btn) {
+        var okCat = curCat === 'all' || btn.dataset.cat === curCat;
+        var okQ   = !q || (btn.dataset.search || '').indexOf(q) !== -1;
+        var show  = okCat && okQ;
+        btn.hidden = !show;
+        if (show) shown++;
+      });
+      if (emptyEl) emptyEl.hidden = shown > 0;
+      if (listEl)  listEl.scrollTop = 0;
+    }
+    if (searchEl) {
+      searchEl.addEventListener('input', applyFilter);
+      /* Keep clicks inside the field from bubbling to the panel/spawn. */
+      searchEl.addEventListener('click', function (e) { e.stopPropagation(); });
+    }
+    catEls.forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        curCat = b.dataset.cat;
+        catEls.forEach(function (x) { x.classList.toggle('is-active', x === b); });
+        applyFilter();
       });
     });
     /* Empty-lens button */

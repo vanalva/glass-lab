@@ -11,6 +11,15 @@
   'use strict';
   if (!window.gsap || !window.ScrollTrigger) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* Skip the per-heading WebGL wave on phones / tablets / any touch device
+     (incl. an iPad Pro reporting desktop width): rasterising every heading
+     to a GL texture is a real GPU cost on mobile, and the effect double-
+     renders when a heading wraps to multiple lines (the canvas overlay sits
+     on top of the still-visible DOM text). The crisp DOM heading is the
+     correct fallback. */
+  if (window.matchMedia('(max-width: 991px)').matches
+      || window.matchMedia('(hover: none)').matches
+      || window.matchMedia('(pointer: coarse)').matches) return;
 
   // Auto-apply to: any <h1>, any explicit .gl-wavy-bend, any display-class heading
   // by class-name pattern. Opt out per-element with .gl-no-wavy.
