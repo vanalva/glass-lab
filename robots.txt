@@ -1,0 +1,3 @@
+# Combined (both-brand) build — internal reference only.
+User-agent: *
+Disallow: /

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color:#ede7dd">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Lab | Pernia Glass</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       PG HERO LAB — 6 hero variants for the Pernia Glass home.
+       Positioning glue only: every color, size, space and type value
+       comes from variables.css + existing project.css classes.
+       Longhand CSS, 3 Webflow breakpoints, no new tokens.
+       Winner graduates to project.css.
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Lab chrome (page-only, not a shipping component) ── */
+    .pgh-bar {
+      display: flex; align-items: baseline; justify-content: space-between;
+      column-gap: var(--_spacing---space--4); row-gap: var(--_spacing---space--1); flex-wrap: wrap;
+      padding-top: var(--_spacing---space--4); padding-bottom: var(--_spacing---space--4);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+      border-bottom-width: var(--border-width--main); border-bottom-style: solid; border-bottom-color: var(--_border---divider-color);
+    }
+    .pgh-bar.is-first { padding-top: calc(var(--nav--height-total) + var(--_spacing---space--6)); border-top-width: 0px; }
+    .pgh-bar_num { color: var(--swatch--brand-500); }
+
+    /* ══════════════════════════════════════════════════════
+       V1 — OBRA
+       Full-bleed project photography with real provenance.
+       Headline sits on a cream gradient; a spec chip ties the
+       photo to the exact system installed.
+       ══════════════════════════════════════════════════════ */
+    .pgh-obra { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow-x: hidden; overflow-y: hidden; }
+    .pgh-obra_bg { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pgh-obra_scrim {
+      position: absolute; right: 0px; bottom: 0px; left: 0px; height: 72%; pointer-events: none;
+      background-image: linear-gradient(to top,
+        var(--swatch--light-100) 0%,
+        color-mix(in srgb, var(--swatch--light-100) 62%, transparent) 42%,
+        transparent 100%);
+    }
+    .pgh-obra_content {
+      position: relative; z-index: 2;
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      padding-bottom: var(--_spacing---space--7);
+    }
+    .pgh-obra_kicker { display: block; margin-bottom: var(--_spacing---space--3); }
+    .pgh-obra_title { max-width: 56rem; margin-bottom: var(--_spacing---space--5); }
+    .pgh-obra_meta {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--4);
+      padding-top: var(--_spacing---space--4);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+    }
+    .pgh-obra_meta-data { display: flex; align-items: baseline; column-gap: var(--_spacing---space--6); row-gap: var(--_spacing---space--2); flex-wrap: wrap; }
+    .pgh-obra_chip {
+      position: absolute; z-index: 2; top: calc(var(--nav--height-total) + var(--_spacing---space--4)); right: var(--site--margin);
+      display: flex; align-items: center; column-gap: var(--_spacing---space--3); max-width: 22rem;
+      padding-top: var(--_spacing---space--2); padding-right: var(--_spacing---space--3);
+      padding-bottom: var(--_spacing---space--2); padding-left: var(--_spacing---space--2);
+      background-color: color-mix(in srgb, var(--swatch--light-100) 92%, transparent);
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color-lg); border-right-color: var(--_border---divider-color-lg);
+      border-bottom-color: var(--_border---divider-color-lg); border-left-color: var(--_border---divider-color-lg);
+      color: inherit; text-decoration-line: none;
+      transition-property: border-color; transition-duration: 0.25s; transition-timing-function: ease;
+    }
+    .pgh-obra_chip:hover { border-top-color: var(--swatch--brand-500); border-right-color: var(--swatch--brand-500); border-bottom-color: var(--swatch--brand-500); border-left-color: var(--swatch--brand-500); }
+    .pgh-obra_chip-img { width: 5.5rem; aspect-ratio: 4 / 3; object-fit: contain; display: block; background-color: var(--swatch--light-200); }
+    .pgh-obra_chip-body { display: flex; flex-direction: column; row-gap: 0px; }
+    @media (max-width: 767px) {
+      .pgh-obra_chip { position: static; margin-top: 0px; margin-left: var(--site--margin); margin-right: var(--site--margin); margin-bottom: var(--_spacing---space--4); order: 2; align-self: flex-start; }
+      .pgh-obra { justify-content: flex-end; }
+      .pgh-obra_meta { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V2 — MARCO
+       Gallery mat: one photograph framed on cream, headline
+       crossing the frame's edge. Museum restraint — the
+       product is treated as a piece.
+       ══════════════════════════════════════════════════════ */
+    .pgh-marco {
+      position: relative; min-height: 100svh; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--5));
+      padding-bottom: var(--_spacing---space--8);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      overflow-x: hidden; overflow-y: hidden;
+    }
+    .pgh-marco_frame {
+      position: relative; width: min(48vw, 38rem);
+      padding-top: var(--_spacing---space--5); padding-right: var(--_spacing---space--5);
+      padding-bottom: var(--_spacing---space--5); padding-left: var(--_spacing---space--5);
+      background-color: var(--swatch--light-200);
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color-lg); border-right-color: var(--_border---divider-color-lg);
+      border-bottom-color: var(--_border---divider-color-lg); border-left-color: var(--_border---divider-color-lg);
+    }
+    .pgh-marco_img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+    .pgh-marco_plate { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--3); padding-top: var(--_spacing---space--3); }
+    .pgh-marco_title {
+      position: absolute; z-index: 2; top: 50%; left: var(--site--margin); transform: translateY(-50%);
+      max-width: 46rem; margin-top: 0px; margin-bottom: 0px; pointer-events: none;
+    }
+    .pgh-marco_title-line { display: block; }
+    .pgh-marco_title-line.is-indent { padding-left: clamp(3rem, 12vw, 12rem); }
+    .pgh-marco_corner { position: absolute; z-index: 1; }
+    .pgh-marco_corner.is-tl { top: calc(var(--nav--height-total) + var(--_spacing---space--4)); left: var(--site--margin); }
+    .pgh-marco_corner.is-tr { top: calc(var(--nav--height-total) + var(--_spacing---space--4)); right: var(--site--margin); }
+    .pgh-marco_corner.is-bl { bottom: var(--_spacing---space--5); left: var(--site--margin); }
+    .pgh-marco_corner.is-br { bottom: var(--_spacing---space--5); right: var(--site--margin); }
+    .pgh-marco_cta { position: absolute; z-index: 2; bottom: var(--_spacing---space--5); left: 50%; transform: translateX(-50%); }
+    @media (max-width: 991px) {
+      .pgh-marco_frame { width: min(72vw, 44rem); }
+    }
+    @media (max-width: 767px) {
+      .pgh-marco { flex-direction: column; justify-content: center; row-gap: var(--_spacing---space--6); }
+      .pgh-marco_frame { width: 100%; }
+      .pgh-marco_title { position: static; transform: none; pointer-events: auto; order: -1; }
+      .pgh-marco_title-line.is-indent { padding-left: 0px; }
+      .pgh-marco_corner { display: none; }
+      .pgh-marco_cta { position: static; transform: none; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V3 — INDICE DE SISTEMAS
+       The seven systems as the hero: a tactile index list on
+       the left, the product photograph on the right. Useful
+       from the first screen — every row is a door in.
+       ══════════════════════════════════════════════════════ */
+    .pgh-indice { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.1fr 1fr; }
+    .pgh-indice_panel {
+      display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--4));
+      padding-bottom: var(--_spacing---space--6);
+      padding-left: var(--site--margin); padding-right: var(--_spacing---space--8);
+    }
+    .pgh-indice_kicker { display: block; margin-bottom: var(--_spacing---space--3); }
+    .pgh-indice_title { font-size: var(--_typography---font-size--h1); max-width: 36rem; margin-bottom: var(--_spacing---space--6); }
+    .pgh-indice_list { display: flex; flex-direction: column; margin-bottom: var(--_spacing---space--5); }
+    .pgh-indice_row {
+      display: grid; grid-template-columns: 6.5rem 1fr auto; column-gap: var(--_spacing---space--4); align-items: baseline;
+      padding-top: var(--_spacing---space--2); padding-bottom: var(--_spacing---space--2);
+      padding-left: var(--_spacing---space--2); padding-right: var(--_spacing---space--2);
+      border-bottom-width: var(--border-width--main); border-bottom-style: solid; border-bottom-color: var(--_border---divider-color-md);
+      color: inherit; text-decoration-line: none;
+      transition-property: background-color, color, padding-left; transition-duration: 0.25s; transition-timing-function: ease;
+    }
+    .pgh-indice_row:first-child { border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-md); }
+    .pgh-indice_row:hover { background-color: var(--_theme---text); color: var(--_theme---background); padding-left: var(--_spacing---space--4); }
+    .pgh-indice_row-name { font-family: var(--_typography---font--primary-family); font-size: var(--_typography---font-size--h6); font-weight: 300; line-height: 1.3; margin-top: 0px; margin-bottom: 0px; }
+    .pgh-indice_row-arrow { opacity: 0; transition-property: opacity; transition-duration: 0.25s; transition-timing-function: ease; }
+    .pgh-indice_row:hover .pgh-indice_row-arrow { opacity: 1; }
+    .pgh-indice_media { position: relative; overflow-x: hidden; overflow-y: hidden; }
+    .pgh-indice_img { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pgh-indice_badge {
+      position: absolute; left: var(--_spacing---space--5); bottom: var(--_spacing---space--5);
+      display: flex; align-items: center; column-gap: var(--_spacing---space--3);
+      padding-top: var(--_spacing---space--2); padding-right: var(--_spacing---space--3);
+      padding-bottom: var(--_spacing---space--2); padding-left: var(--_spacing---space--2);
+      background-color: color-mix(in srgb, var(--swatch--light-100) 92%, transparent);
+    }
+    .pgh-indice_badge-img { width: 5rem; aspect-ratio: 4 / 3; object-fit: contain; display: block; background-color: var(--swatch--light-200); }
+    @media (max-width: 991px) {
+      .pgh-indice { grid-template-columns: 1fr; }
+      .pgh-indice_panel { padding-right: var(--site--margin); }
+      .pgh-indice_media { min-height: 55svh; }
+    }
+    @media (max-width: 478px) {
+      .pgh-indice_row { grid-template-columns: 4.5rem 1fr auto; column-gap: var(--_spacing---space--2); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V4 — DIPTICO
+       Print composition: typographic band above, two paired
+       photographs below — obra + detalle. The pairing tells
+       the whole story: espacio y precision.
+       ══════════════════════════════════════════════════════ */
+    .pgh-diptico {
+      position: relative; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--5));
+    }
+    .pgh-diptico_head {
+      display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--6); row-gap: var(--_spacing---space--4);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      padding-bottom: var(--_spacing---space--5);
+    }
+    .pgh-diptico_title { font-size: var(--_typography---font-size--h1); max-width: 52rem; margin-bottom: 0px; }
+    .pgh-diptico_head-side { display: flex; flex-direction: column; align-items: flex-end; row-gap: var(--_spacing---space--3); }
+    .pgh-diptico_panels {
+      display: grid; grid-template-columns: 1.35fr 1fr; column-gap: var(--_gap---size); row-gap: var(--_gap---size);
+      flex-grow: 1; align-items: stretch;
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      padding-bottom: var(--_spacing---space--6);
+    }
+    .pgh-diptico_fig { position: relative; display: flex; flex-direction: column; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; min-height: 44svh; }
+    .pgh-diptico_img { width: 100%; height: 100%; flex-grow: 1; object-fit: cover; display: block; }
+    .pgh-diptico_cap {
+      display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--3);
+      padding-top: var(--_spacing---space--2);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+      margin-top: var(--_spacing---space--2);
+    }
+    @media (max-width: 767px) {
+      .pgh-diptico_panels { grid-template-columns: 1fr; }
+      .pgh-diptico_fig { min-height: 42svh; }
+      .pgh-diptico_fig.is-detail { min-height: 32svh; }
+      .pgh-diptico_head-side { align-items: flex-start; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V5 — PERFILES
+       The anodized finish palette as hero: nine tall swatch
+       columns, hover to expand (CSS only). Material seduction
+       first, headline second.
+       ══════════════════════════════════════════════════════ */
+    .pgh-perfiles { position: relative; min-height: 100svh; display: flex; flex-direction: column; }
+    .pgh-perfiles_head {
+      display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--2);
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--5));
+      padding-bottom: var(--_spacing---space--5);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+    }
+    .pgh-perfiles_title { font-size: var(--_typography---font-size--h1); margin-bottom: 0px; }
+    .pgh-perfiles_strip { display: flex; flex-grow: 1; min-height: 44svh; }
+    .pgh-perfiles_col {
+      position: relative; flex-grow: 1; flex-shrink: 1; flex-basis: 0%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow-x: hidden; overflow-y: hidden;
+      padding-top: var(--_spacing---space--3); padding-right: var(--_spacing---space--3);
+      padding-bottom: var(--_spacing---space--4); padding-left: var(--_spacing---space--3);
+      color: inherit; text-decoration-line: none;
+      border-left-width: var(--border-width--main); border-left-style: solid; border-left-color: var(--swatch--light-100);
+      transition-property: flex-grow; transition-duration: 0.45s; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pgh-perfiles_col:first-child { border-left-width: 0px; }
+    .pgh-perfiles_col:hover { flex-grow: 2.4; }
+    .pgh-perfiles_col-img {
+      position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition-property: transform; transition-duration: 0.45s; transition-timing-function: ease;
+    }
+    .pgh-perfiles_col:hover .pgh-perfiles_col-img { transform: scale(1.04); }
+    .pgh-perfiles_col-scrim {
+      position: absolute; right: 0px; bottom: 0px; left: 0px; height: 45%; pointer-events: none;
+      background-image: linear-gradient(to top, color-mix(in srgb, var(--swatch--dark-900) 62%, transparent), transparent);
+    }
+    .pgh-perfiles_col-meta { position: relative; z-index: 1; display: flex; flex-direction: column; row-gap: 0px; color: var(--swatch--light-100); }
+    .pgh-perfiles_col-meta .gl-mono_muted { color: color-mix(in srgb, var(--swatch--light-100) 60%, transparent); }
+    .pgh-perfiles_foot {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--4);
+      padding-top: var(--_spacing---space--4); padding-bottom: var(--_spacing---space--4);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+    }
+    @media (max-width: 767px) {
+      .pgh-perfiles_strip { flex-wrap: wrap; }
+      .pgh-perfiles_col { flex-basis: 33.333%; min-height: 9rem; border-left-width: 0px; }
+      .pgh-perfiles_col:hover { flex-grow: 1; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V6 — REEL
+       Cinematic masthead: brand set flush to both edges, the
+       door system in motion inside a letterboxed band, three
+       proof columns underneath.
+       ══════════════════════════════════════════════════════ */
+    .pgh-reel {
+      position: relative; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--4));
+      padding-bottom: var(--_spacing---space--5);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+    }
+    .pgh-reel_masthead { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--4); margin-bottom: var(--_spacing---space--4); }
+    .pgh-reel_word {
+      font-family: var(--_typography---font--primary-family);
+      font-size: clamp(3rem, 10.5vw, 8rem); font-weight: 200;
+      line-height: var(--_typography---line-height--tightest);
+      letter-spacing: var(--_typography---letter-spacing--negative-md);
+      margin-top: 0px; margin-bottom: 0px;
+    }
+    .pgh-reel_word.is-accent { color: var(--swatch--brand-500); }
+    .pgh-reel_band { position: relative; }
+    .pgh-reel_video {
+      width: 100%; height: 42svh; object-fit: cover; display: block;
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color-lg); border-right-color: var(--_border---divider-color-lg);
+      border-bottom-color: var(--_border---divider-color-lg); border-left-color: var(--_border---divider-color-lg);
+    }
+    .pgh-reel_band-caption {
+      position: absolute; left: var(--_spacing---space--4); bottom: var(--_spacing---space--4); z-index: 1;
+      display: inline-flex; align-items: baseline; column-gap: var(--_spacing---space--3);
+      padding-top: var(--_spacing---space--1); padding-right: var(--_spacing---space--3);
+      padding-bottom: var(--_spacing---space--1); padding-left: var(--_spacing---space--3);
+      background-color: color-mix(in srgb, var(--swatch--light-100) 90%, transparent);
+    }
+    .pgh-reel_foot {
+      display: grid; grid-template-columns: 1fr 1fr 1fr auto; column-gap: var(--_gap---size); row-gap: var(--_spacing---space--4);
+      align-items: start; margin-top: var(--_spacing---space--4);
+      padding-top: var(--_spacing---space--4);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+    }
+    .pgh-reel_proof { display: flex; flex-direction: column; row-gap: var(--_spacing---space--1); max-width: 16rem; }
+    .pgh-reel_foot-cta { align-self: center; justify-self: end; }
+    .pgh-reel_proof-text { margin-top: 0px; margin-bottom: 0px; }
+    @media (max-width: 991px) {
+      .pgh-reel_foot { grid-template-columns: 1fr 1fr; }
+      .pgh-reel_video { height: 36svh; }
+    }
+    @media (max-width: 478px) {
+      .pgh-reel_foot { grid-template-columns: 1fr; }
+      .pgh-reel_masthead { flex-direction: column; align-items: flex-start; }
+      .pgh-reel_word { font-size: clamp(3rem, 16vw, 5rem); }
+    }
+  </style>
+</head>
+<body class="u-theme-light">
+
+  <a href="#main-content" class="u-sr-only">Saltar al contenido principal</a>
+
+  <!-- Pernia navbar (same as pg-index) -->
+  <nav class="pg-nav-edge is-fixed" aria-label="Navegación principal">
+    <div class="pg-nav">
+      <a href="pg-index.html" class="pg-nav_logo">
+        <img src="assets/logos/pg-logo-black.svg" alt="Pernia Glass" class="pg-nav_logo-img">
+      </a>
+      <div class="pg-nav_links">
+        <a href="pg-sistemas.html" class="pg-nav_link">Sistemas</a>
+        <a href="pg-mobiliario.html" class="pg-nav_link">Mobiliario</a>
+        <a href="pg-proyectos.html" class="pg-nav_link">Proyectos</a>
+        <a href="pg-recursos.html" class="pg-nav_link">Recursos</a>
+        <a href="pg-nosotros.html" class="pg-nav_link">Nosotros</a>
+      </div>
+      <div class="pg-nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="pg-nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main" id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V1 // OBRA                                                  -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar is-first">
+      <span class="gl-mono"><span class="pgh-bar_num">V1</span> — Obra</span>
+      <span class="gl-mono gl-mono_muted">Fotografía de proyecto real con procedencia y sistema instalado</span>
+    </div>
+
+    <section class="pgh-obra u-theme-light">
+      <img src="assets/media/pernia/aplicaciones/fairways-1.webp" alt="Puertas corredizas de vidrio Pernia en el proyecto Fairways" class="pgh-obra_bg" loading="eager">
+      <div class="pgh-obra_scrim" aria-hidden="true"></div>
+
+      <a href="pg-sistemas.html" class="pgh-obra_chip">
+        <img src="assets/media/pernia/systems/pglass-2c/1.webp" alt="Elevación del sistema pglass-2c" class="pgh-obra_chip-img" loading="lazy">
+        <div class="pgh-obra_chip-body">
+          <span class="gl-mono">Sistema 2C</span>
+          <span class="gl-mono gl-mono_muted">Dos hojas corredizas</span>
+        </div>
+      </a>
+
+      <div class="pgh-obra_content">
+        <span class="gl-mono gl-mono_muted pgh-obra_kicker">Pernia Glass — Sistemas de vidrio corredizo</span>
+        <h1 class="u-text-style-display pgh-obra_title gl-no-wavy">El espacio continúa a través del vidrio.</h1>
+        <div class="pgh-obra_meta">
+          <div class="pgh-obra_meta-data">
+            <span class="gl-mono">Obra — Fairways</span>
+            <span class="gl-mono gl-mono_muted">Panamá · 2025</span>
+            <span class="gl-mono gl-mono_muted">Sistema pglass-2C</span>
+          </div>
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-sistemas.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver sistemas</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V2 // MARCO                                                 -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar">
+      <span class="gl-mono"><span class="pgh-bar_num">V2</span> — Marco</span>
+      <span class="gl-mono gl-mono_muted">Galería: una sola pieza enmarcada, titular cruzando el marco</span>
+    </div>
+
+    <section class="pgh-marco u-theme-light">
+      <span class="gl-mono gl-mono_muted pgh-marco_corner is-tl">Pernia Glass — MMXXVI</span>
+      <span class="gl-mono gl-mono_muted pgh-marco_corner is-tr">Sistemas corredizos</span>
+      <span class="gl-mono gl-mono_muted pgh-marco_corner is-bl">Panamá</span>
+      <span class="gl-mono gl-mono_muted pgh-marco_corner is-br">A medida</span>
+
+      <div class="pgh-marco_frame">
+        <img src="assets/media/pernia/renders/PUERTA 1.jpg" alt="Puerta corrediza de vidrio Pernia en interior arquitectónico" class="pgh-marco_img" loading="lazy">
+        <div class="pgh-marco_plate">
+          <span class="gl-mono">Puerta corrediza — vidrio laminado</span>
+          <span class="gl-mono gl-mono_muted">N.º 01</span>
+        </div>
+      </div>
+
+      <h1 class="u-text-style-display pgh-marco_title gl-no-wavy">
+        <span class="pgh-marco_title-line">Cada puerta,</span>
+        <span class="pgh-marco_title-line is-indent">una pieza única.</span>
+      </h1>
+
+      <div class="pgh-marco_cta">
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="pg-proyectos.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver proyectos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V3 // INDICE DE SISTEMAS                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar">
+      <span class="gl-mono"><span class="pgh-bar_num">V3</span> — Índice de sistemas</span>
+      <span class="gl-mono gl-mono_muted">La gama completa como hero: cada fila es una puerta de entrada</span>
+    </div>
+
+    <section class="pgh-indice u-theme-light">
+      <div class="pgh-indice_panel">
+        <span class="gl-mono gl-mono_muted pgh-indice_kicker">Sistemas Pernia — corredizos y pivotantes</span>
+        <h1 class="u-text-style-display pgh-indice_title gl-no-wavy">Siete formas de abrir un espacio</h1>
+        <div class="pgh-indice_list">
+          <a href="pg-sistema.html?code=pglass-1a" class="pgh-indice_row">
+            <span class="gl-mono">1A</span>
+            <p class="pgh-indice_row-name">Una hoja corrediza</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-2a" class="pgh-indice_row">
+            <span class="gl-mono">2A</span>
+            <p class="pgh-indice_row-name">Dos hojas — apertura lateral</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-2c" class="pgh-indice_row">
+            <span class="gl-mono">2C</span>
+            <p class="pgh-indice_row-name">Dos hojas — apertura central</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-3a" class="pgh-indice_row">
+            <span class="gl-mono">3A</span>
+            <p class="pgh-indice_row-name">Tres hojas telescópicas</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-4a" class="pgh-indice_row">
+            <span class="gl-mono">4A</span>
+            <p class="pgh-indice_row-name">Cuatro hojas — luz máxima</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-piv" class="pgh-indice_row">
+            <span class="gl-mono">PIV</span>
+            <p class="pgh-indice_row-name">Puerta pivotante</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+          <a href="pg-sistema.html?code=pglass-swi" class="pgh-indice_row">
+            <span class="gl-mono">SWI</span>
+            <p class="pgh-indice_row-name">Puerta batiente</p>
+            <span class="gl-mono pgh-indice_row-arrow">&rarr;</span>
+          </a>
+        </div>
+        <span class="gl-mono gl-mono_muted">Fabricación a medida · instalación propia</span>
+      </div>
+      <div class="pgh-indice_media">
+        <img src="assets/media/pernia/renders/PUERTA 2.jpg" alt="Sistema de vidrio corredizo Pernia en interior" class="pgh-indice_img" loading="lazy">
+        <div class="pgh-indice_badge">
+          <img src="assets/media/pernia/systems/pglass-2c/1.webp" alt="Elevación del sistema pglass-2c" class="pgh-indice_badge-img" loading="lazy">
+          <span class="gl-mono">En imagen — 2C</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V4 // DIPTICO                                               -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar">
+      <span class="gl-mono"><span class="pgh-bar_num">V4</span> — Díptico</span>
+      <span class="gl-mono gl-mono_muted">Composición editorial: obra + detalle, espacio y precisión</span>
+    </div>
+
+    <section class="pgh-diptico u-theme-light">
+      <div class="pgh-diptico_head">
+        <h1 class="u-text-style-display pgh-diptico_title gl-no-wavy">La transparencia, resuelta.</h1>
+        <div class="pgh-diptico_head-side">
+          <span class="gl-mono gl-mono_muted">Sistemas de vidrio corredizo · Panamá</span>
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="pg-sistemas.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver sistemas</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="pgh-diptico_panels">
+        <figure class="pgh-diptico_fig">
+          <img src="assets/media/pernia/aplicaciones/aqua-2.webp" alt="Puertas corredizas de vidrio Pernia en el proyecto Aqua" class="pgh-diptico_img" loading="lazy">
+          <figcaption class="pgh-diptico_cap">
+            <span class="gl-mono">Obra — Aqua</span>
+            <span class="gl-mono gl-mono_muted">Panamá · pglass-3A</span>
+          </figcaption>
+        </figure>
+        <figure class="pgh-diptico_fig is-detail">
+          <img src="assets/media/pernia/sesiones/zoom-burgundy.webp" alt="Detalle del perfil de aluminio anodizado Burgundy" class="pgh-diptico_img" loading="lazy">
+          <figcaption class="pgh-diptico_cap">
+            <span class="gl-mono">Detalle — perfil Burgundy</span>
+            <span class="gl-mono gl-mono_muted">RAL 3007</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V5 // PERFILES                                              -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar">
+      <span class="gl-mono"><span class="pgh-bar_num">V5</span> — Perfiles</span>
+      <span class="gl-mono gl-mono_muted">La paleta de anodizados como hero: nueve acabados expandibles</span>
+    </div>
+
+    <section class="pgh-perfiles u-theme-light">
+      <div class="pgh-perfiles_head">
+        <h1 class="u-text-style-display pgh-perfiles_title gl-no-wavy">Aluminio anodizado, nueve acabados</h1>
+        <span class="gl-mono gl-mono_muted">Perfilería propia · anodizado a medida</span>
+      </div>
+      <div class="pgh-perfiles_strip">
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/black.webp" alt="Perfil anodizado negro" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Negro</span><span class="gl-mono gl-mono_muted">Mate</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/blanco.webp" alt="Perfil anodizado blanco" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Blanco</span><span class="gl-mono gl-mono_muted">Mate</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/brass.webp" alt="Perfil anodizado latón" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Latón</span><span class="gl-mono gl-mono_muted">Cepillado</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/burgundy.webp" alt="Perfil anodizado burgundy" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Burgundy</span><span class="gl-mono gl-mono_muted">RAL 3007</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/cobalt-blue.webp" alt="Perfil anodizado azul cobalto" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Cobalto</span><span class="gl-mono gl-mono_muted">Anodizado</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/gold-rose.webp" alt="Perfil anodizado oro rosa" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Oro rosa</span><span class="gl-mono gl-mono_muted">Anodizado</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/marron.webp" alt="Perfil anodizado marrón" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Marrón</span><span class="gl-mono gl-mono_muted">Mate</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/olive.webp" alt="Perfil anodizado oliva" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Oliva</span><span class="gl-mono gl-mono_muted">Mate</span></div>
+        </a>
+        <a href="pg-sistemas.html" class="pgh-perfiles_col">
+          <img src="assets/media/pernia/perfiles/orange.webp" alt="Perfil anodizado naranja" class="pgh-perfiles_col-img" loading="lazy">
+          <div class="pgh-perfiles_col-scrim" aria-hidden="true"></div>
+          <div class="pgh-perfiles_col-meta"><span class="gl-mono">Naranja</span><span class="gl-mono gl-mono_muted">Anodizado</span></div>
+        </a>
+      </div>
+      <div class="pgh-perfiles_foot">
+        <span class="gl-mono gl-mono_muted">Cada sistema se fabrica en el acabado que el proyecto pide.</span>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Cotizar proyecto</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V6 // REEL                                                  -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="pgh-bar">
+      <span class="gl-mono"><span class="pgh-bar_num">V6</span> — Reel</span>
+      <span class="gl-mono gl-mono_muted">Cabecera cinematográfica: el sistema en movimiento</span>
+    </div>
+
+    <section class="pgh-reel u-theme-light">
+      <div>
+        <div class="pgh-reel_masthead">
+          <h1 class="pgh-reel_word gl-no-wavy">Pernia</h1>
+          <span class="pgh-reel_word is-accent gl-no-wavy" aria-hidden="true">Glass</span>
+        </div>
+        <div class="pgh-reel_band">
+          <video class="pgh-reel_video" src="assets/media/videos/door-color-corrected.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="pgh-reel_band-caption">
+            <span class="gl-mono">Sistema corredizo — apertura central</span>
+            <span class="gl-mono gl-mono_muted">Loop 00:06</span>
+          </div>
+        </div>
+      </div>
+      <div class="pgh-reel_foot">
+        <div class="pgh-reel_proof">
+          <span class="gl-mono">A medida</span>
+          <p class="u-text-style-small gl-mono_muted pgh-reel_proof-text">Cada sistema se dimensiona para su vano exacto.</p>
+        </div>
+        <div class="pgh-reel_proof">
+          <span class="gl-mono">Instalación propia</span>
+          <p class="u-text-style-small gl-mono_muted pgh-reel_proof-text">El mismo equipo fabrica, entrega e instala.</p>
+        </div>
+        <div class="pgh-reel_proof">
+          <span class="gl-mono">Vidrio laminado</span>
+          <p class="u-text-style-small gl-mono_muted pgh-reel_proof-text">Seguridad y silencio en cada hoja.</p>
+        </div>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled pgh-reel_foot-cta">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="pg-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="pgh-bar">
+      <span class="gl-mono gl-mono_muted">Fin — 6 variantes · Hero Lab</span>
+      <span class="gl-mono gl-mono_muted">La ganadora se gradúa a project.css</span>
+    </div>
+
+  </main>
+</body>
+</html>

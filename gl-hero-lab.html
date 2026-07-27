@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color:#0B0B0B">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Lab | Glass Lab</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/project.css">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       GL HERO LAB — 6 hero variants for the Glass Lab home.
+       Positioning glue only: every color, size, space and type value
+       comes from variables.css + existing project.css classes.
+       Longhand CSS, 3 Webflow breakpoints, no new tokens.
+       Winner graduates to project.css.
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Lab chrome (page-only, not a shipping component) ── */
+    .glh-bar {
+      display: flex; align-items: baseline; justify-content: space-between;
+      column-gap: var(--_spacing---space--4); row-gap: var(--_spacing---space--1); flex-wrap: wrap;
+      padding-top: var(--_spacing---space--4); padding-bottom: var(--_spacing---space--4);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+      border-bottom-width: var(--border-width--main); border-bottom-style: solid; border-bottom-color: var(--_border---divider-color);
+    }
+    .glh-bar.is-first { padding-top: calc(var(--nav--height-total) + var(--_spacing---space--6)); border-top-width: 0px; }
+    .glh-bar_num { color: var(--swatch--brand-400); }
+
+    /* ══════════════════════════════════════════════════════
+       V1 — RETICULA ESPECIMEN
+       Specimen wall: headline + CTA left, real sample cells
+       right on a faint lab grid. Fixes the current hero's
+       missing CTA and shows real product from second zero.
+       ══════════════════════════════════════════════════════ */
+    .glh-specimen {
+      position: relative; min-height: 100svh; box-sizing: border-box;
+      display: grid; grid-template-columns: 1.15fr 1fr; align-items: center;
+      column-gap: var(--_gap---size);
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--5));
+      padding-bottom: var(--_spacing---space--6);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      overflow-x: hidden; overflow-y: hidden;
+      background-image:
+        linear-gradient(to right, var(--_border---divider-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--_border---divider-color) 1px, transparent 1px);
+      background-size: clamp(4rem, 8vw, 7.5rem) clamp(4rem, 8vw, 7.5rem);
+      background-position: center center; background-repeat: repeat;
+    }
+    .glh-specimen_content { position: relative; z-index: 2; max-width: 38rem; }
+    .glh-specimen_kicker { display: block; margin-bottom: var(--_spacing---space--3); }
+    .glh-specimen_title { margin-bottom: var(--_spacing---space--4); }
+    .glh-specimen_title-accent { color: var(--swatch--brand-400); }
+    .glh-specimen_sub { max-width: 30rem; margin-bottom: var(--_spacing---space--5); }
+    .glh-specimen_actions { display: flex; align-items: center; column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--3); flex-wrap: wrap; }
+    .glh-specimen_link { color: var(--_theme---text); }
+
+    .glh-specimen_wall {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--_gap---size); column-gap: var(--_gap---size);
+      align-self: center;
+      max-width: 29rem; justify-self: end; width: 100%;
+    }
+    .glh-specimen_cell {
+      position: relative; display: flex; flex-direction: column; justify-content: space-between;
+      aspect-ratio: 1 / 1; overflow-x: hidden; overflow-y: hidden;
+      padding-top: var(--_spacing---space--2); padding-right: var(--_spacing---space--2);
+      padding-bottom: var(--_spacing---space--2); padding-left: var(--_spacing---space--2);
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color-lg); border-right-color: var(--_border---divider-color-lg);
+      border-bottom-color: var(--_border---divider-color-lg); border-left-color: var(--_border---divider-color-lg);
+      background-color: var(--_theme---background);
+      color: inherit; text-decoration-line: none;
+      transition-property: border-color, transform; transition-duration: 0.25s; transition-timing-function: ease;
+    }
+    .glh-specimen_cell:hover { border-top-color: var(--swatch--brand-400); border-right-color: var(--swatch--brand-400); border-bottom-color: var(--swatch--brand-400); border-left-color: var(--swatch--brand-400); }
+    .glh-specimen_cell-img {
+      position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;
+      width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85;
+      transition-property: opacity, transform; transition-duration: 0.4s; transition-timing-function: ease;
+    }
+    .glh-specimen_cell:hover .glh-specimen_cell-img { opacity: 1; transform: scale(1.03); }
+    .glh-specimen_cell-top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--2); }
+    .glh-specimen_cell-bottom { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; row-gap: 0px; }
+    .glh-specimen_cell-symbol {
+      position: relative; z-index: 1;
+      font-family: var(--_typography---font--primary-family);
+      font-size: var(--_typography---font-size--h3); font-weight: 200; line-height: 1;
+    }
+    .glh-specimen_cell.is-index {
+      justify-content: center; align-items: center; row-gap: var(--_spacing---space--2);
+      border-top-color: var(--swatch--brand-500); border-right-color: var(--swatch--brand-500);
+      border-bottom-color: var(--swatch--brand-500); border-left-color: var(--swatch--brand-500);
+      background-color: color-mix(in srgb, var(--swatch--brand-500) 12%, transparent);
+      text-align: center;
+    }
+    .glh-specimen_cell.is-index:hover { background-color: color-mix(in srgb, var(--swatch--brand-500) 22%, transparent); }
+    .glh-specimen_cell.is-index .glh-specimen_cell-symbol { color: var(--swatch--brand-300); }
+    .glh-specimen_corner { position: absolute; z-index: 2; }
+    .glh-specimen_corner.is-tl { top: calc(var(--nav--height-total) + var(--_spacing---space--3)); left: var(--site--margin); }
+    .glh-specimen_corner.is-br { bottom: var(--_spacing---space--4); right: var(--site--margin); }
+    .glh-specimen_corner.is-bl { bottom: var(--_spacing---space--4); left: var(--site--margin); }
+
+    @media (max-width: 991px) {
+      .glh-specimen { grid-template-columns: 1fr; align-content: center; row-gap: var(--_spacing---space--7); }
+      .glh-specimen_wall { justify-self: start; max-width: 30rem; }
+      .glh-specimen_corner.is-bl { display: none; }
+    }
+    @media (max-width: 767px) {
+      .glh-specimen_corner.is-tl { display: none; }
+      .glh-specimen_wall { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+    }
+    @media (max-width: 478px) {
+      .glh-specimen_cell-symbol { font-size: var(--_typography---font-size--h4); }
+      .glh-specimen_corner.is-br { display: none; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V2 — FICHA TECNICA
+       Datasheet split: spec table as hero content, macro
+       specimen photo under a blue measurement reticle.
+       The brand's "datos objetivos" claim, made literal.
+       ══════════════════════════════════════════════════════ */
+    .glh-ficha { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; }
+    .glh-ficha_panel {
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--6));
+      padding-bottom: var(--_spacing---section-space--small);
+      padding-left: var(--site--margin); padding-right: var(--_spacing---space--8);
+    }
+    .glh-ficha_kicker { display: block; margin-bottom: var(--_spacing---space--4); color: var(--swatch--brand-400); }
+    .glh-ficha_title { font-size: var(--_typography---font-size--h1); margin-bottom: var(--_spacing---space--6); max-width: 34rem; }
+    .glh-ficha_table { margin-bottom: var(--_spacing---space--6); }
+    .glh-ficha_row {
+      display: grid; grid-template-columns: 1fr 1.2fr; column-gap: var(--_spacing---space--4); align-items: baseline;
+      padding-top: var(--_spacing---space--2); padding-bottom: var(--_spacing---space--2);
+      border-bottom-width: var(--border-width--main); border-bottom-style: solid; border-bottom-color: var(--_border---divider-color-md);
+    }
+    .glh-ficha_row.is-head { border-bottom-color: var(--_border---divider-color-lg); }
+    .glh-ficha_value { font-family: var(--_typography---font--primary-family); font-size: var(--_typography---font-size--h6); font-weight: 300; line-height: 1.3; margin-top: 0px; margin-bottom: 0px; }
+    .glh-ficha_actions { display: flex; align-items: center; column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--3); flex-wrap: wrap; }
+    .glh-ficha_link { color: var(--_theme---text); }
+
+    .glh-ficha_media { position: relative; overflow-x: hidden; overflow-y: hidden; }
+    .glh-ficha_img { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .glh-ficha_reticle { position: absolute; top: var(--_spacing---space--6); right: var(--_spacing---space--6); bottom: var(--_spacing---space--6); left: var(--_spacing---space--6); pointer-events: none; }
+    .glh-ficha_reticle-corner { position: absolute; width: var(--_spacing---space--6); height: var(--_spacing---space--6); border-top-color: var(--swatch--brand-400); border-right-color: var(--swatch--brand-400); border-bottom-color: var(--swatch--brand-400); border-left-color: var(--swatch--brand-400); }
+    .glh-ficha_reticle-corner.is-tl { top: 0px; left: 0px; border-top-width: var(--border-width--main); border-left-width: var(--border-width--main); border-top-style: solid; border-left-style: solid; }
+    .glh-ficha_reticle-corner.is-tr { top: 0px; right: 0px; border-top-width: var(--border-width--main); border-right-width: var(--border-width--main); border-top-style: solid; border-right-style: solid; }
+    .glh-ficha_reticle-corner.is-bl { bottom: 0px; left: 0px; border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main); border-bottom-style: solid; border-left-style: solid; }
+    .glh-ficha_reticle-corner.is-br { bottom: 0px; right: 0px; border-bottom-width: var(--border-width--main); border-right-width: var(--border-width--main); border-bottom-style: solid; border-right-style: solid; }
+    .glh-ficha_reticle-cross { position: absolute; top: 50%; left: 50%; width: var(--_spacing---space--6); height: var(--_spacing---space--6); transform: translate(-50%, -50%); color: var(--swatch--brand-400); }
+    .glh-ficha_tag {
+      position: absolute; left: var(--_spacing---space--6); bottom: var(--_spacing---space--6);
+      display: inline-flex; align-items: center; column-gap: var(--_spacing---space--2);
+      padding-top: var(--_spacing---space--1); padding-right: var(--_spacing---space--3);
+      padding-bottom: var(--_spacing---space--1); padding-left: var(--_spacing---space--3);
+      background-color: color-mix(in srgb, var(--swatch--dark-900) 80%, transparent);
+      backdrop-filter: blur(6px);
+    }
+    @media (max-width: 991px) {
+      .glh-ficha { grid-template-columns: 1fr; }
+      .glh-ficha_panel { padding-right: var(--site--margin); }
+      .glh-ficha_media { min-height: 60svh; }
+    }
+    @media (max-width: 478px) {
+      .glh-ficha_row { grid-template-columns: 1fr; row-gap: var(--_spacing---space--1); }
+      .glh-ficha_media { min-height: 70svh; }
+      .glh-ficha_reticle { top: var(--_spacing---space--4); right: var(--_spacing---space--4); bottom: var(--_spacing---space--4); left: var(--_spacing---space--4); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V3 — CAMARA DE LUZ
+       Immersive lightbox: one macro image under tungsten
+       light, framed like a viewing chamber. Image does the
+       talking; type is minimal and centered.
+       ══════════════════════════════════════════════════════ */
+    .glh-camara { position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; overflow-y: hidden; }
+    .glh-camara_bg { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .glh-camara_scrim {
+      position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; pointer-events: none;
+      background-image: radial-gradient(ellipse at center,
+        color-mix(in srgb, var(--swatch--dark-900) 30%, transparent) 0%,
+        color-mix(in srgb, var(--swatch--dark-900) 62%, transparent) 78%,
+        color-mix(in srgb, var(--swatch--dark-900) 78%, transparent) 100%);
+    }
+    .glh-camara_frame {
+      position: absolute; z-index: 2; pointer-events: none;
+      top: calc(var(--nav--height-total) + var(--_spacing---space--3));
+      right: var(--_spacing---space--6); bottom: var(--_spacing---space--6); left: var(--_spacing---space--6);
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--swatch--brand-text-o20); border-right-color: var(--swatch--brand-text-o20);
+      border-bottom-color: var(--swatch--brand-text-o20); border-left-color: var(--swatch--brand-text-o20);
+    }
+    .glh-camara_center { position: relative; z-index: 3; text-align: center; max-width: 60rem; padding-left: var(--site--margin); padding-right: var(--site--margin); }
+    .glh-camara_kicker { display: block; margin-bottom: var(--_spacing---space--5); }
+    .glh-camara_title {
+      font-family: var(--_typography---font--primary-family);
+      font-size: var(--_typography---font-size--hero); font-weight: 200;
+      line-height: var(--_typography---line-height--tighter);
+      letter-spacing: var(--_typography---letter-spacing--negative-md);
+      margin-top: 0px; margin-bottom: var(--_spacing---space--4);
+    }
+    .glh-camara_sub { display: block; }
+    .glh-camara_meta { position: absolute; z-index: 3; }
+    .glh-camara_meta.is-tl { top: calc(var(--nav--height-total) + var(--_spacing---space--5)); left: var(--_spacing---space--8); }
+    .glh-camara_meta.is-tr { top: calc(var(--nav--height-total) + var(--_spacing---space--5)); right: var(--_spacing---space--8); }
+    .glh-camara_meta.is-bl { bottom: var(--_spacing---space--8); left: var(--_spacing---space--8); }
+    .glh-camara_meta.is-br { bottom: var(--_spacing---space--8); right: var(--_spacing---space--8); }
+    .glh-camara_cue { position: absolute; z-index: 3; bottom: var(--_spacing---space--8); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; row-gap: var(--_spacing---space--2); }
+    .glh-camara_cue-line { width: var(--border-width--main); height: var(--_spacing---space--7); background-color: var(--swatch--brand-400); }
+    @media (max-width: 767px) {
+      .glh-camara_meta.is-tl, .glh-camara_meta.is-tr { display: none; }
+      .glh-camara_meta.is-bl, .glh-camara_meta.is-br { display: none; }
+      .glh-camara_frame { right: var(--_spacing---space--3); bottom: var(--_spacing---space--3); left: var(--_spacing---space--3); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V4 — ESPECTRO
+       Five vertical specimen panels, hover-expand (CSS only).
+       The catalog IS the hero: each panel links to its glass.
+       ══════════════════════════════════════════════════════ */
+    .glh-espectro { position: relative; min-height: 100svh; display: flex; flex-direction: column; }
+    .glh-espectro_head {
+      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--2);
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--6));
+      padding-bottom: var(--_spacing---space--6);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+    }
+    .glh-espectro_title { margin-bottom: 0px; }
+    .glh-espectro_panels { display: flex; flex-grow: 1; min-height: 60svh; }
+    .glh-espectro_panel {
+      position: relative; flex-grow: 1; flex-shrink: 1; flex-basis: 0%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow-x: hidden; overflow-y: hidden;
+      padding-top: var(--_spacing---space--4); padding-right: var(--_spacing---space--4);
+      padding-bottom: var(--_spacing---space--5); padding-left: var(--_spacing---space--4);
+      color: inherit; text-decoration-line: none;
+      border-left-width: var(--border-width--main); border-left-style: solid; border-left-color: var(--swatch--dark-900);
+      transition-property: flex-grow; transition-duration: 0.5s; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glh-espectro_panel:first-child { border-left-width: 0px; }
+    .glh-espectro_panel:hover { flex-grow: 2.6; }
+    .glh-espectro_panel-img {
+      position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;
+      width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.75;
+      transition-property: opacity; transition-duration: 0.5s; transition-timing-function: ease;
+    }
+    .glh-espectro_panel:hover .glh-espectro_panel-img { opacity: 1; }
+    .glh-espectro_panel-scrim {
+      position: absolute; right: 0px; bottom: 0px; left: 0px; height: 55%; pointer-events: none;
+      background-image: linear-gradient(to top, color-mix(in srgb, var(--swatch--dark-900) 85%, transparent), transparent);
+    }
+    .glh-espectro_panel-accent {
+      position: absolute; top: 0px; left: 0px; right: 0px; height: 3px; background-color: var(--swatch--brand-500);
+      transform: scaleX(0); transform-origin: 0% 50%;
+      transition-property: transform; transition-duration: 0.5s; transition-timing-function: ease;
+    }
+    .glh-espectro_panel:hover .glh-espectro_panel-accent { transform: scaleX(1); }
+    .glh-espectro_panel-code {
+      position: relative; z-index: 1;
+      font-family: var(--_typography---font--primary-family);
+      font-size: var(--_typography---font-size--h4); font-weight: 200; line-height: 1;
+      margin-bottom: var(--_spacing---space--2);
+    }
+    .glh-espectro_panel-meta { position: relative; z-index: 1; display: flex; flex-direction: column; row-gap: 0px; opacity: 0; transform: translateY(0.5rem); transition-property: opacity, transform; transition-duration: 0.4s; transition-timing-function: ease; }
+    .glh-espectro_panel:hover .glh-espectro_panel-meta { opacity: 1; transform: translateY(0px); }
+    @media (max-width: 991px) {
+      .glh-espectro_panel-meta { opacity: 1; transform: translateY(0px); }
+    }
+    @media (max-width: 767px) {
+      .glh-espectro_panels { flex-direction: column; }
+      .glh-espectro_panel { flex-basis: auto; min-height: 5.5rem; flex-direction: row; align-items: flex-end; justify-content: space-between; column-gap: var(--_spacing---space--3); border-left-width: 0px; border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--swatch--dark-900); }
+      .glh-espectro_panel:hover { flex-grow: 3; }
+      .glh-espectro_panel-code { margin-bottom: 0px; }
+      .glh-espectro_panel-accent { right: auto; bottom: 0px; width: 3px; height: auto; transform: scaleY(0); transform-origin: 50% 0%; }
+      .glh-espectro_panel:hover .glh-espectro_panel-accent { transform: scaleY(1); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V5 — EDITORIAL 01
+       Manifesto cover: ghost numeral, two-beat headline with
+       the accent word in brand blue, offset application photo
+       with caption rail. The current manifesto, promoted from
+       footnote to protagonist.
+       ══════════════════════════════════════════════════════ */
+    .glh-editorial {
+      position: relative; min-height: 100svh; box-sizing: border-box;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--6));
+      padding-bottom: var(--_spacing---space--7);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      overflow-x: hidden; overflow-y: hidden;
+    }
+    .glh-editorial_ghost {
+      position: absolute; top: 50%; right: calc(var(--site--margin) * -0.5); transform: translateY(-50%);
+      font-family: var(--_typography---font--secondary-family);
+      font-size: clamp(16rem, 42vw, 38rem); font-weight: 400; line-height: 1;
+      color: color-mix(in srgb, var(--_theme---text) 4%, transparent);
+      pointer-events: none; user-select: none;
+    }
+    .glh-editorial_top { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--4); margin-bottom: var(--_spacing---space--4); }
+    .glh-editorial_title { position: relative; z-index: 1; max-width: 74rem; margin-bottom: var(--_spacing---space--5); }
+    .glh-editorial_title-accent { color: var(--swatch--brand-400); }
+    .glh-editorial_bottom { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--_gap---size); row-gap: var(--_spacing---space--6); align-items: end; }
+    .glh-editorial_col { display: flex; flex-direction: column; align-items: flex-start; row-gap: var(--_spacing---space--5); max-width: 34rem; }
+    .glh-editorial_text { margin-top: 0px; margin-bottom: 0px; }
+    .glh-editorial_figure { position: relative; justify-self: end; width: min(100%, 30rem); margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; }
+    .glh-editorial_img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+    .glh-editorial_caption {
+      display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--3);
+      padding-top: var(--_spacing---space--2);
+      border-top-width: var(--border-width--main); border-top-style: solid; border-top-color: var(--_border---divider-color-lg);
+    }
+    @media (max-width: 991px) {
+      .glh-editorial_bottom { grid-template-columns: 1fr; }
+      .glh-editorial_figure { justify-self: start; }
+      .glh-editorial_ghost { top: 30%; }
+    }
+    @media (max-width: 478px) {
+      .glh-editorial_top { flex-direction: column; row-gap: var(--_spacing---space--1); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       V6 — CINETICO
+       Kinetic type: the three brand words as counter-scrolling
+       marquee rows, process video inset at center. Motion as
+       identity; respects prefers-reduced-motion.
+       ══════════════════════════════════════════════════════ */
+    .glh-cinetico {
+      position: relative; min-height: 100svh; box-sizing: border-box;
+      display: flex; flex-direction: column; justify-content: center; row-gap: var(--_spacing---space--4);
+      padding-top: calc(var(--nav--height-total) + var(--_spacing---space--5));
+      padding-bottom: var(--_spacing---space--6);
+      overflow-x: hidden; overflow-y: hidden;
+    }
+    .glh-cinetico_row { display: flex; white-space: nowrap; }
+    .glh-cinetico_track { display: flex; flex-shrink: 0; align-items: baseline; animation-name: glh-marquee-left; animation-duration: 42s; animation-timing-function: linear; animation-iteration-count: infinite; }
+    .glh-cinetico_row.is-reverse .glh-cinetico_track { animation-name: glh-marquee-right; animation-duration: 56s; }
+    .glh-cinetico_word {
+      font-family: var(--_typography---font--primary-family);
+      font-size: var(--_typography---font-size--jumbo); font-weight: 200;
+      line-height: var(--_typography---line-height--tightest);
+      letter-spacing: var(--_typography---letter-spacing--negative-md);
+      padding-right: var(--_spacing---space--8);
+      color: color-mix(in srgb, var(--_theme---text) 22%, transparent);
+    }
+    .glh-cinetico_row.is-accent .glh-cinetico_word { color: var(--swatch--brand-500); }
+    .glh-cinetico_row.is-solid .glh-cinetico_word { color: var(--_theme---text); }
+    .glh-cinetico_stage { display: flex; justify-content: center; padding-left: var(--site--margin); padding-right: var(--site--margin); }
+    .glh-cinetico_media { position: relative; width: min(100%, 30rem); }
+    .glh-cinetico_video {
+      width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block;
+      border-top-width: var(--border-width--main); border-right-width: var(--border-width--main);
+      border-bottom-width: var(--border-width--main); border-left-width: var(--border-width--main);
+      border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+      border-top-color: var(--_border---divider-color-lg); border-right-color: var(--_border---divider-color-lg);
+      border-bottom-color: var(--_border---divider-color-lg); border-left-color: var(--_border---divider-color-lg);
+    }
+    .glh-cinetico_media-caption { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--3); padding-top: var(--_spacing---space--2); }
+    .glh-cinetico_foot {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+      column-gap: var(--_spacing---space--5); row-gap: var(--_spacing---space--4);
+      padding-left: var(--site--margin); padding-right: var(--site--margin);
+      margin-top: 0px;
+    }
+    @keyframes glh-marquee-left { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+    @keyframes glh-marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .glh-cinetico_track { animation-play-state: paused; }
+    }
+    @media (max-width: 478px) {
+      .glh-cinetico_word { padding-right: var(--_spacing---space--6); }
+    }
+  </style>
+</head>
+<body class="u-theme-dark">
+
+  <a href="#main-content" class="u-sr-only">Saltar al contenido principal</a>
+
+  <!-- GL navbar (same as gl-index) -->
+  <nav class="gl-home_nav-edge is-fixed">
+    <div class="gl-home_nav">
+      <a href="gl-index.html" class="gl-home_nav_logo">
+        <img src="assets/logos/gl-logotipo-h-white.svg" alt="Glass Lab" class="gl-home_nav_logo-img">
+      </a>
+      <div class="gl-home_nav_links">
+        <div class="gl-home_nav_group">
+          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false">Laboratorio</button>
+          <div class="gl-home_nav_popover" role="menu">
+            <a href="gl-catalogo.html" class="gl-home_nav_popover_link" role="menuitem">Catálogo</a>
+            <a href="gl-visor.html" class="gl-home_nav_popover_link" role="menuitem">Visor</a>
+            <a href="pg-index.html" class="gl-home_nav_popover_link" role="menuitem">Pernia Glass</a>
+          </div>
+        </div>
+        <a href="gl-laboratorio.html" class="gl-home_nav_link">Estudio</a>
+        <div class="gl-home_nav_group">
+          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false">Bitácora</button>
+          <div class="gl-home_nav_popover" role="menu">
+            <a href="gl-instalaciones.html" class="gl-home_nav_popover_link" role="menuitem">Instalaciones</a>
+            <a href="gl-blog.html" class="gl-home_nav_popover_link" role="menuitem">Diario</a>
+          </div>
+        </div>
+      </div>
+      <div class="gl-home_nav_right">
+        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <div class="gl-btn_skew_wrap">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+            <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+          </a>
+        </div>
+        <div class="gl-home_nav_burger"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main" id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V1 // RETICULA ESPECIMEN                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar is-first">
+      <span class="gl-mono"><span class="glh-bar_num">V1</span> — Reticula especimen</span>
+      <span class="gl-mono gl-mono_muted">Muro de especimenes reales + CTA directo al catalogo</span>
+    </div>
+
+    <section class="glh-specimen u-theme-dark">
+      <span class="gl-mono gl-mono_muted glh-specimen_corner is-tl">Lab — 08°59′N 79°31′W</span>
+      <span class="gl-mono gl-mono_muted glh-specimen_corner is-br">MMXXVI</span>
+      <span class="gl-mono gl-mono_muted glh-specimen_corner is-bl">Formulas №001—053</span>
+
+      <div class="glh-specimen_content">
+        <span class="gl-mono gl-mono_muted glh-specimen_kicker">Glass Lab — Laboratorio de vidrio · Panama</span>
+        <h1 class="u-text-style-display glh-specimen_title">Cada vidrio es un <span class="glh-specimen_title-accent">especimen</span>.</h1>
+        <p class="u-text-style-large gl-mono_muted glh-specimen_sub">53 formulas catalogadas — colores, inserciones, texturas y reflectivos, laminados a medida.</p>
+        <div class="glh-specimen_actions">
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="gl-catalogo.html" class="gl-btn_skew_element"><span class="gl-btn_skew_text">Explorar catalogo</span></a>
+          </div>
+          <a href="gl-laboratorio.html" class="gl-mono glh-specimen_link">Ver el proceso &rarr;</a>
+        </div>
+      </div>
+
+      <div class="glh-specimen_wall" aria-label="Especimenes destacados">
+        <a href="gl-vidrio.html?code=Aq" class="glh-specimen_cell">
+          <img src="assets/media/glass-samples-opt/aq/aq-11-float-cream.webp" alt="Aq — SA-Qubo, vidrio laminado con malla dorada" class="glh-specimen_cell-img" loading="eager">
+          <div class="glh-specimen_cell-top"><span class="gl-mono">004</span><span class="gl-mono gl-mono_muted">AR-0033</span></div>
+          <span class="glh-specimen_cell-symbol">Aq</span>
+          <div class="glh-specimen_cell-bottom"><span class="gl-mono">SA-Qubo</span><span class="gl-mono gl-mono_muted">Inserciones</span></div>
+        </a>
+        <a href="gl-vidrio.html?code=Ds" class="glh-specimen_cell">
+          <img src="assets/media/glass-samples-opt/ds/ds-04-detail-surface.webp" alt="Ds — Sunset, superficie en detalle" class="glh-specimen_cell-img" loading="eager">
+          <div class="glh-specimen_cell-top"><span class="gl-mono">003</span><span class="gl-mono gl-mono_muted">AR-0082</span></div>
+          <span class="glh-specimen_cell-symbol">Ds</span>
+          <div class="glh-specimen_cell-bottom"><span class="gl-mono">Sunset</span><span class="gl-mono gl-mono_muted">Inserciones</span></div>
+        </a>
+        <a href="gl-vidrio.html?code=Tl" class="glh-specimen_cell">
+          <img src="assets/media/glass-samples-opt/tl/tl-04-detail-surface.webp" alt="Tl — Tela Lino, textura en detalle" class="glh-specimen_cell-img" loading="eager">
+          <div class="glh-specimen_cell-top"><span class="gl-mono">027</span><span class="gl-mono gl-mono_muted">AR-0101</span></div>
+          <span class="glh-specimen_cell-symbol">Tl</span>
+          <div class="glh-specimen_cell-bottom"><span class="gl-mono">Tela Lino</span><span class="gl-mono gl-mono_muted">Inserciones</span></div>
+        </a>
+        <a href="gl-catalogo.html" class="glh-specimen_cell is-index">
+          <span class="glh-specimen_cell-symbol">53</span>
+          <span class="gl-mono">Formulas &rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V2 // FICHA TECNICA                                         -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar">
+      <span class="gl-mono"><span class="glh-bar_num">V2</span> — Ficha tecnica</span>
+      <span class="gl-mono gl-mono_muted">El hero como hoja de datos: especificacion + macro con reticula</span>
+    </div>
+
+    <section class="glh-ficha u-theme-dark">
+      <div class="glh-ficha_panel">
+        <span class="gl-mono glh-ficha_kicker">Ficha tecnica — AR-0033 · SA-Qubo</span>
+        <h1 class="u-text-style-display glh-ficha_title">Datos objetivos, intuicion material.</h1>
+        <div class="glh-ficha_table" role="table" aria-label="Especificaciones del vidrio SA-Qubo">
+          <div class="glh-ficha_row is-head" role="row">
+            <span class="gl-mono gl-mono_muted" role="columnheader">Parametro</span>
+            <span class="gl-mono gl-mono_muted" role="columnheader">Valor</span>
+          </div>
+          <div class="glh-ficha_row" role="row">
+            <span class="gl-mono" role="rowheader">Composicion</span>
+            <p class="glh-ficha_value" role="cell">Laminado 6 + 6 mm</p>
+          </div>
+          <div class="glh-ficha_row" role="row">
+            <span class="gl-mono" role="rowheader">Insercion</span>
+            <p class="glh-ficha_value" role="cell">Malla dorada SA-Qubo</p>
+          </div>
+          <div class="glh-ficha_row" role="row">
+            <span class="gl-mono" role="rowheader">Transmision de luz</span>
+            <p class="glh-ficha_value" role="cell">78%</p>
+          </div>
+          <div class="glh-ficha_row" role="row">
+            <span class="gl-mono" role="rowheader">Formato maximo</span>
+            <p class="glh-ficha_value" role="cell">2.40 &times; 3.60 m</p>
+          </div>
+        </div>
+        <div class="glh-ficha_actions">
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar muestra</span></a>
+          </div>
+          <a href="gl-catalogo.html" class="gl-mono glh-ficha_link">Todas las fichas &rarr;</a>
+        </div>
+      </div>
+      <div class="glh-ficha_media">
+        <img src="assets/media/glass-samples-opt/aq/aq-04-detail-surface.webp" alt="Superficie del vidrio SA-Qubo en vista macro" class="glh-ficha_img" loading="lazy">
+        <div class="glh-ficha_reticle" aria-hidden="true">
+          <div class="glh-ficha_reticle-corner is-tl"></div>
+          <div class="glh-ficha_reticle-corner is-tr"></div>
+          <div class="glh-ficha_reticle-corner is-bl"></div>
+          <div class="glh-ficha_reticle-corner is-br"></div>
+          <svg class="glh-ficha_reticle-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <line x1="12" y1="0" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="24"/>
+            <line x1="0" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="24" y2="12"/>
+            <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="glh-ficha_tag">
+          <span class="gl-mono">Muestra №004</span>
+          <span class="gl-mono gl-mono_muted">Vista macro ×2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V3 // CAMARA DE LUZ                                         -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar">
+      <span class="gl-mono"><span class="glh-bar_num">V3</span> — Camara de luz</span>
+      <span class="gl-mono gl-mono_muted">Inmersivo: una sola imagen macro, tipografia minima centrada</span>
+    </div>
+
+    <section class="glh-camara u-theme-dark">
+      <img src="assets/media/glass-samples-opt/at/at-07-light-tungsten.webp" alt="Vidrio SA-Tejida bajo luz de tungsteno" class="glh-camara_bg" loading="lazy">
+      <div class="glh-camara_scrim" aria-hidden="true"></div>
+      <div class="glh-camara_frame" aria-hidden="true"></div>
+
+      <span class="gl-mono gl-mono_muted glh-camara_meta is-tl">GL — MMXXVI</span>
+      <span class="gl-mono gl-mono_muted glh-camara_meta is-tr">Tungsteno 2700K</span>
+      <span class="gl-mono gl-mono_muted glh-camara_meta is-bl">08°59′N 79°31′W</span>
+      <span class="gl-mono gl-mono_muted glh-camara_meta is-br">Ensayo №07</span>
+
+      <div class="glh-camara_center">
+        <span class="gl-mono glh-camara_kicker">Camara de luz — ensayo №07</span>
+        <h1 class="glh-camara_title">La luz es el instrumento. El vidrio solo la conduce.</h1>
+        <span class="gl-mono gl-mono_muted glh-camara_sub">Vidrio decorativo y arquitectonico — laminado en Panama</span>
+      </div>
+
+      <div class="glh-camara_cue" aria-hidden="true">
+        <div class="glh-camara_cue-line"></div>
+        <span class="gl-mono gl-mono_muted">Desplazar</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V4 // ESPECTRO                                              -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar">
+      <span class="gl-mono"><span class="glh-bar_num">V4</span> — Espectro</span>
+      <span class="gl-mono gl-mono_muted">Cinco paneles-especimen expandibles; el catalogo es el hero</span>
+    </div>
+
+    <section class="glh-espectro u-theme-dark">
+      <div class="glh-espectro_head">
+        <h1 class="u-text-style-display glh-espectro_title">Un espectro de materia</h1>
+        <span class="gl-mono gl-mono_muted">Cinco familias · 53 formulas · laminado a medida</span>
+      </div>
+      <div class="glh-espectro_panels">
+        <a href="gl-vidrio.html?code=Vc" class="glh-espectro_panel">
+          <img src="assets/media/glass-samples-opt/vc/vc-09-app-entry-door.webp" alt="Vidrio claro en puerta de acceso" class="glh-espectro_panel-img" loading="lazy">
+          <div class="glh-espectro_panel-scrim" aria-hidden="true"></div>
+          <div class="glh-espectro_panel-accent" aria-hidden="true"></div>
+          <span class="glh-espectro_panel-code">Vc</span>
+          <div class="glh-espectro_panel-meta">
+            <span class="gl-mono">Claro</span>
+            <span class="gl-mono gl-mono_muted">Colores</span>
+          </div>
+        </a>
+        <a href="gl-vidrio.html?code=In" class="glh-espectro_panel">
+          <img src="assets/media/glass-samples-opt/in/in-04-detail-surface.webp" alt="Vidrio interlayer, superficie en detalle" class="glh-espectro_panel-img" loading="lazy">
+          <div class="glh-espectro_panel-scrim" aria-hidden="true"></div>
+          <div class="glh-espectro_panel-accent" aria-hidden="true"></div>
+          <span class="glh-espectro_panel-code">In</span>
+          <div class="glh-espectro_panel-meta">
+            <span class="gl-mono">Interlayer</span>
+            <span class="gl-mono gl-mono_muted">Inserciones</span>
+          </div>
+        </a>
+        <a href="gl-vidrio.html?code=Ds" class="glh-espectro_panel">
+          <img src="assets/media/glass-samples-opt/ds/ds-07-light-tungsten.webp" alt="Vidrio Sunset bajo luz de tungsteno" class="glh-espectro_panel-img" loading="lazy">
+          <div class="glh-espectro_panel-scrim" aria-hidden="true"></div>
+          <div class="glh-espectro_panel-accent" aria-hidden="true"></div>
+          <span class="glh-espectro_panel-code">Ds</span>
+          <div class="glh-espectro_panel-meta">
+            <span class="gl-mono">Sunset</span>
+            <span class="gl-mono gl-mono_muted">Inserciones</span>
+          </div>
+        </a>
+        <a href="gl-vidrio.html?code=Aq" class="glh-espectro_panel">
+          <img src="assets/media/glass-samples-opt/aq/aq-05-env-linen.webp" alt="Vidrio SA-Qubo sobre lino" class="glh-espectro_panel-img" loading="lazy">
+          <div class="glh-espectro_panel-scrim" aria-hidden="true"></div>
+          <div class="glh-espectro_panel-accent" aria-hidden="true"></div>
+          <span class="glh-espectro_panel-code">Aq</span>
+          <div class="glh-espectro_panel-meta">
+            <span class="gl-mono">SA-Qubo</span>
+            <span class="gl-mono gl-mono_muted">Inserciones</span>
+          </div>
+        </a>
+        <a href="gl-vidrio.html?code=Gr" class="glh-espectro_panel">
+          <img src="assets/media/glass-samples-opt/gr/gr-04-detail-surface.webp" alt="Vidrio Gradient, superficie en detalle" class="glh-espectro_panel-img" loading="lazy">
+          <div class="glh-espectro_panel-scrim" aria-hidden="true"></div>
+          <div class="glh-espectro_panel-accent" aria-hidden="true"></div>
+          <span class="glh-espectro_panel-code">Gr</span>
+          <div class="glh-espectro_panel-meta">
+            <span class="gl-mono">Gradient</span>
+            <span class="gl-mono gl-mono_muted">Inserciones</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V5 // EDITORIAL 01                                          -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar">
+      <span class="gl-mono"><span class="glh-bar_num">V5</span> — Editorial 01</span>
+      <span class="gl-mono gl-mono_muted">Portada-manifiesto: numeral fantasma, palabra acento, foto offset</span>
+    </div>
+
+    <section class="glh-editorial u-theme-dark">
+      <span class="glh-editorial_ghost" aria-hidden="true">01</span>
+      <div>
+        <div class="glh-editorial_top">
+          <span class="gl-mono">Manifiesto · 01/06</span>
+          <span class="gl-mono gl-mono_muted">Glass Lab — Panama</span>
+        </div>
+        <h1 class="u-text-style-display glh-editorial_title">El vidrio no es un producto. Es un <span class="glh-editorial_title-accent">sistema</span>.</h1>
+      </div>
+      <div class="glh-editorial_bottom">
+        <div class="glh-editorial_col">
+          <p class="u-text-style-small gl-mono_muted glh-editorial_text">Profundidad, textura y luz: cada tipo se rige por datos objetivos y se evalua mediante criterios sensoriales. Lo que no puede verse se estudia, se estructura y se hace materia.</p>
+          <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+            <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+            <a href="gl-catalogo.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver catalogo</span></a>
+          </div>
+        </div>
+        <figure class="glh-editorial_figure">
+          <img src="assets/media/glass-samples-opt/aq/aq-08-app-coworking.webp" alt="Divisoria de vidrio SA-Qubo en espacio de coworking" class="glh-editorial_img" loading="lazy">
+          <figcaption class="glh-editorial_caption">
+            <span class="gl-mono">Aplicacion — divisoria de coworking</span>
+            <span class="gl-mono gl-mono_muted">SA-Qubo №004</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- V6 // CINETICO                                              -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="glh-bar">
+      <span class="gl-mono"><span class="glh-bar_num">V6</span> — Cinetico</span>
+      <span class="gl-mono gl-mono_muted">Tipografia en movimiento + video de proceso al centro</span>
+    </div>
+
+    <section class="glh-cinetico u-theme-dark">
+      <div class="glh-cinetico_row" aria-hidden="true">
+        <div class="glh-cinetico_track">
+          <span class="glh-cinetico_word">Materia</span><span class="glh-cinetico_word">Luz</span><span class="glh-cinetico_word">Precision</span>
+          <span class="glh-cinetico_word">Materia</span><span class="glh-cinetico_word">Luz</span><span class="glh-cinetico_word">Precision</span>
+        </div>
+      </div>
+      <h1 class="u-sr-only">Materia. Luz. Precision. — Glass Lab</h1>
+
+      <div class="glh-cinetico_stage">
+        <div class="glh-cinetico_media">
+          <video class="glh-cinetico_video" src="assets/media/videos/layers.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="glh-cinetico_media-caption">
+            <span class="gl-mono">Proceso — laminado por capas</span>
+            <span class="gl-mono gl-mono_muted">00:08 loop</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glh-cinetico_row is-accent is-reverse" aria-hidden="true">
+        <div class="glh-cinetico_track">
+          <span class="glh-cinetico_word">Luz</span><span class="glh-cinetico_word">Precision</span><span class="glh-cinetico_word">Materia</span>
+          <span class="glh-cinetico_word">Luz</span><span class="glh-cinetico_word">Precision</span><span class="glh-cinetico_word">Materia</span>
+        </div>
+      </div>
+
+      <div class="glh-cinetico_foot">
+        <span class="gl-mono gl-mono_muted">Fabricacion propia — Panama · estandar internacional</span>
+        <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+          <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+          <a href="gl-catalogo.html" class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Explorar catalogo</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="glh-bar">
+      <span class="gl-mono gl-mono_muted">Fin — 6 variantes · Hero Lab</span>
+      <span class="gl-mono gl-mono_muted">La ganadora se gradua a project.css</span>
+    </div>
+
+  </main>
+</body>
+</html>
