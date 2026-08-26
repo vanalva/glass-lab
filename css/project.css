@@ -432,7 +432,7 @@ input.gl-filter-input.is-invalid { border-top-color: var(--swatch--brand-500); b
 
 .gl-home_manifesto_corner-r { text-align: right; }
 
-.gl-home_catalog { display: grid; grid-template-columns: var(--site--column-split); min-height: 90vh; overflow: hidden; }
+.gl-home_catalog { display: grid; grid-template-columns: var(--site--column-split); min-height: min(90vh, 830px); overflow: hidden; }
 
 .gl-home_catalog_visual { position: relative; overflow: hidden; border-right-width: 1px; border-right-style: solid; border-right-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
@@ -470,6 +470,9 @@ input.gl-filter-input.is-invalid { border-top-color: var(--swatch--brand-500); b
 
 .gl-home_statement_quote { font-family: var(--_typography---font--secondary-family); font-size: clamp(0.625rem, 1vw, 0.8125rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--swatch--light-100) 70%, transparent); line-height: 2; }
 
+/* Stays 100vh on purpose: gl-theme-transition.js pins this section and scrubs
+   the bar wipe across the full viewport. Capping it makes the wipe fail to
+   cover the screen. */
 .gl-theme-transition { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
 .gl-theme-transition.is-to-light { background-color: var(--swatch--dark-900); }
@@ -790,8 +793,8 @@ input.gl-filter-input.is-invalid { border-top-color: var(--swatch--brand-500); b
   .gl-modal_banner { padding-left: var(--_spacing---space--3); padding-right: var(--_spacing---space--3); }
   .gl-modal_card { padding-top: var(--_spacing---space--3); padding-right: var(--_spacing---space--3); padding-bottom: var(--_spacing---space--3); padding-left: var(--_spacing---space--3); }
   .gl-home_catalog_grid { grid-template-columns: repeat(2, 1fr); }
-  .gl-home_statement { min-height: 60vh; }
-  .gl-theme-transition { min-height: 60vh; }
+  .gl-home_statement { min-height: 100svh; }
+  .gl-theme-transition { min-height: 100svh; }
   .gl-home_crossbrand_inner { grid-template-columns: 1fr; row-gap: var(--_spacing---space--5); }
   .gl-home_crossbrand { overflow-x: hidden; }
   .gl-home_projects_grid { grid-template-columns: 1fr; }
@@ -1445,7 +1448,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .gl-contacto_header_desc { margin-top: var(--_spacing---space--2); max-width: 32rem; }
 
-.gl-contacto_split { display: grid; grid-template-columns: 1.2fr 1fr; min-height: 70vh; padding-left: var(--site--margin); padding-right: var(--site--margin); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
+.gl-contacto_split { display: grid; grid-template-columns: 1.2fr 1fr; min-height: min(70vh, 650px); padding-left: var(--site--margin); padding-right: var(--site--margin); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
 .gl-contacto_form { padding-top: var(--_spacing---space--7); padding-bottom: var(--_spacing---space--7); padding-right: var(--_spacing---space--7); display: flex; flex-direction: column; row-gap: var(--_spacing---space--4); position: sticky; top: var(--_spacing---space--4); align-self: start; }
 
@@ -1808,7 +1811,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-index_systems_card-link { color: color-mix(in srgb, var(--_theme---text) 60%, transparent); }
 
-.pg-index_featured { display: grid; grid-template-columns: 1.2fr 1fr; min-height: 80vh; }
+.pg-index_featured { display: grid; grid-template-columns: 1.2fr 1fr; min-height: min(80vh, 740px); }
 
 .pg-index_featured_visual { position: relative; display: flex; align-items: center; justify-content: center; padding-top: var(--_spacing---space--7); padding-bottom: var(--_spacing---space--7); padding-left: var(--site--margin); padding-right: var(--_spacing---space--5); border-right-width: 1px; border-right-style: solid; border-right-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
@@ -1919,7 +1922,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
   .pg-sistema_hero_media { aspect-ratio: 4 / 3; }
 }
 
-.pg-sistema_overview { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+.pg-sistema_overview { display: grid; grid-template-columns: 1fr 1fr; min-height: min(80vh, 740px); }
 
 .pg-sistema_overview_text { padding-top: var(--_spacing---space--7); padding-bottom: var(--_spacing---space--7); padding-left: var(--site--margin); padding-right: var(--_spacing---space--5); display: flex; flex-direction: column; justify-content: center; row-gap: var(--_spacing---space--5); border-right-width: 1px; border-right-style: solid; border-right-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
@@ -2072,6 +2075,18 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyectos_card { display: flex; flex-direction: column; color: inherit; }
 
+/* Sticky rail — fixes the ragged whitespace in the projects grid.
+   Each grid row sizes to its tallest card, and cards stretch to fill it, so a
+   16/9 card sitting beside a 3/4 one left ~700px of empty space below itself
+   (2006px across the page, about a quarter of its height). The stretched card
+   is already the right length of track, so the fix is to let the content ride
+   down it instead of sitting at the top: the inner sticks under the nav and
+   travels until it reaches the bottom of its own card, then releases.
+
+   A card whose content already fills its row has zero travel room, so sticky
+   simply never engages there — the tall cards behave exactly as before. */
+.pg-proyectos_card_inner { position: sticky; top: calc(var(--nav--height) + var(--_spacing---space--5)); }
+
 .pg-proyectos_card-img-tall { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
 
 .pg-proyectos_card-img-wide { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
@@ -2136,7 +2151,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyecto_hero { padding-top: var(--_spacing---space--8); padding-bottom: var(--_spacing---space--7); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
-.pg-proyecto_hero_head { padding-left: var(--site--margin); padding-right: var(--site--margin); margin-bottom: var(--_spacing---space--6); }
+.pg-proyecto_hero_head { max-width: var(--max-width--main); margin-left: auto; margin-right: auto; padding-left: var(--site--margin); padding-right: var(--site--margin); margin-bottom: var(--_spacing---space--6); }
 
 .pg-proyecto_hero_breadcrumb { display: block; margin-bottom: var(--_spacing---space--4); color: color-mix(in srgb, var(--_theme---text) 45%, transparent); }
 
@@ -2152,7 +2167,11 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyecto_hero_location { color: color-mix(in srgb, var(--_theme---text) 55%, transparent); margin-top: 0px; margin-bottom: 0px; }
 
-.pg-proyecto_hero_media-wrap { margin-left: var(--site--margin); margin-right: var(--site--margin); overflow: hidden; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
+/* Capped like every other image container on the site (see .gl-contain and
+   .pg-mob_gallery_grid). This wrap is the rounded/clipped image box itself, so
+   it takes the page gutter as width rather than padding — otherwise the radius
+   and overflow would sit outside the photo. */
+.pg-proyecto_hero_media-wrap { width: calc(100% - 2 * var(--site--margin)); max-width: calc(var(--max-width--main) - 2 * var(--site--margin)); margin-left: auto; margin-right: auto; overflow: hidden; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
 
 .pg-proyecto_hero_media { width: 100%; aspect-ratio: 16 / 9; max-height: 68vh; object-fit: cover; display: block; }
 
@@ -2164,7 +2183,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyecto_description { padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); }
 
-.pg-proyecto_description_inner { padding-left: var(--site--margin); padding-right: var(--site--margin); }
+.pg-proyecto_description_inner { max-width: var(--max-width--main); margin-left: auto; margin-right: auto; padding-left: var(--site--margin); padding-right: var(--site--margin); }
 
 .pg-proyecto_description_content { max-width: 40rem; margin-left: auto; margin-right: auto; }
 
@@ -2174,7 +2193,10 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyecto_gallery { padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); }
 
-.pg-proyecto_gallery_inner { padding-left: var(--site--margin); padding-right: var(--site--margin); }
+/* Was the only gallery on the site with no max-width, so on a wide display it
+   ran edge to edge and each half-image rendered ~1800px wide (4/3 => ~1350px
+   tall). Same cap + centring as .pg-mob_gallery_grid / .pg-sistema_apps_grid. */
+.pg-proyecto_gallery_inner { max-width: var(--max-width--main); margin-left: auto; margin-right: auto; padding-left: var(--site--margin); padding-right: var(--site--margin); }
 
 .pg-proyecto_gallery_grid { display: flex; flex-direction: column; row-gap: var(--_spacing---space--3); margin-top: var(--_spacing---space--5); }
 
@@ -2184,9 +2206,10 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-proyecto_gallery_img-half { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
 
+
 .pg-proyecto_systems { padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); }
 
-.pg-proyecto_systems_inner { padding-left: var(--site--margin); padding-right: var(--site--margin); }
+.pg-proyecto_systems_inner { max-width: var(--max-width--main); margin-left: auto; margin-right: auto; padding-left: var(--site--margin); padding-right: var(--site--margin); }
 
 .pg-proyecto_systems_row { display: flex; column-gap: var(--_spacing---space--3); row-gap: var(--_spacing---space--3); flex-wrap: wrap; margin-top: var(--_spacing---space--5); }
 
@@ -2238,7 +2261,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .pg-recursos_general_item-title { font-family: var(--_typography---font--primary-family); font-size: var(--_typography---font-size--label-lg); font-weight: 400; margin: 0px; }
 
-.pg-nosotros_hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+.pg-nosotros_hero { display: grid; grid-template-columns: 1fr 1fr; min-height: min(70vh, 650px); }
 
 .pg-nosotros_hero_visual { display: flex; align-items: center; justify-content: center; padding-top: var(--_spacing---space--7); padding-bottom: var(--_spacing---space--7); padding-left: var(--site--margin); padding-right: var(--_spacing---space--5); border-right-width: 1px; border-right-style: solid; border-right-color: color-mix(in srgb, var(--_theme---text) 8%, transparent); }
 
@@ -2388,6 +2411,10 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
   .pg-sistema_related_grid { grid-template-columns: 1fr; }
   .pg-sistema_cta_inner { flex-direction: column; row-gap: var(--_spacing---space--3); text-align: center; }
   .pg-proyectos_grid { grid-template-columns: 1fr; }
+  /* One column: every card is its own row, so there is no taller neighbour to
+     ride alongside and nothing to fill. Sticky here would just pin cards over
+     each other as you scroll the stack. */
+  .pg-proyectos_card_inner { position: static; }
   .pg-proyecto_hero { min-height: 55vh; }
   .pg-proyecto_hero_media { min-height: 55vh; }
   .pg-proyecto_hero_overlay { flex-direction: column; align-items: flex-start; row-gap: var(--_spacing---space--2); }
@@ -3014,7 +3041,7 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .gl-lente-editor_cat-header { display: flex; align-items: center; column-gap: 0.5rem; padding: 0.5rem 0.5rem 0.3rem; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: color-mix(in srgb, var(--swatch--light-100) 10%, transparent); margin-top: 0.2rem; }
 
-.gl-lente-editor_cat-label { font-family: var(--_typography---font--secondary-family); font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--swatch--brand-300); font-weight: 600; }
+.gl-lente-editor_cat-label { font-family: var(--_typography---font--secondary-family); font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--swatch--brand-500); font-weight: 600; }
 
 .gl-lente-editor_cat-sub { font-family: var(--_typography---font--secondary-family); font-size: 0.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--swatch--light-100) 30%, transparent); margin-left: auto; }
 
@@ -3192,7 +3219,12 @@ a.gl-catalogo_hero-caption { text-decoration-line: none; }
 
 .gl-catalogo_empty { display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; font-size: var(--_typography---font-size--label); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.5; grid-column: 1 / -1; }
 
-.gl-statement { padding-top: var(--_spacing---section-space--large); padding-bottom: var(--_spacing---section-space--large); padding-left: var(--site--margin); padding-right: var(--site--margin); }
+/* Full-bleed statement moment. Had no min-height, so it collapsed to content —
+   70% of the viewport on pg-laboratorio, 91% on gl-laboratorio — and the next
+   section bled into frame. Column flex keeps the existing child stacking and
+   full-width behaviour (align-items defaults to stretch) while centring the
+   group vertically once the section is taller than its content. */
+.gl-statement { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: var(--_spacing---section-space--large); padding-bottom: var(--_spacing---section-space--large); padding-left: var(--site--margin); padding-right: var(--site--margin); }
 
 .gl-statement_header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--_spacing---space--8); }
 
@@ -3516,7 +3548,7 @@ a.pg-index_systems_card:hover .pg-index_systems_card-link { color: var(--_theme-
 
 .pg-mob_feature { padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); }
 
-.pg-mob_feature_inner { max-width: var(--max-width--main); margin: 0px auto; padding-left: var(--site--margin); padding-right: var(--site--margin); display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--_spacing---space--8); row-gap: var(--_spacing---space--6); align-items: center; min-height: 80vh; }
+.pg-mob_feature_inner { max-width: var(--max-width--main); margin: 0px auto; padding-left: var(--site--margin); padding-right: var(--site--margin); display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--_spacing---space--8); row-gap: var(--_spacing---space--6); align-items: center; min-height: min(80vh, 740px); }
 
 .pg-mob_feature.is-reverse .pg-mob_feature_media { order: 2; }
 
@@ -3660,6 +3692,12 @@ a.pg-index_systems_card:hover .pg-index_systems_card-link { color: var(--_theme-
 
 .gl-lightbox-lock { overflow: hidden; }
 
+/* Every image the shared viewer (gl-lightbox.js) can open — it marks them
+   with this attribute at bind time, so one rule covers both sites. */
+[data-gl-lightbox-item] { cursor: zoom-in; }
+
+[data-gl-lightbox-item]:focus-visible { outline-width: 2px; outline-style: solid; outline-color: var(--swatch--brand-500); outline-offset: 3px; }
+
 .gl-lightbox_backdrop { position: absolute; inset: 0px; background-color: color-mix(in srgb, var(--swatch--dark-900) 92%, transparent); cursor: pointer; }
 
 .gl-lightbox_frame { position: relative; display: flex; align-items: center; justify-content: center; max-width: 92vw; max-height: 88vh; padding: 0px; }
@@ -3667,6 +3705,9 @@ a.pg-index_systems_card:hover .pg-index_systems_card-link { color: var(--_theme-
 .gl-lightbox_figure { position: relative; display: flex; flex-direction: column; align-items: center; margin: 0px; transition-property: opacity; transition-duration: 0.18s; transition-timing-function: ease; }
 
 .gl-lightbox_figure-loading { opacity: 0.35; }
+
+/* SVG technical drawings (pg-mueble planos): light board + a real width, since an SVG in an <img> has no intrinsic size. Toggled by gl-lightbox.js. */
+.gl-lightbox_figure-plate .gl-lightbox_image { width: min(92vw, 1100px); padding-top: 2rem; padding-right: 2rem; padding-bottom: 2rem; padding-left: 2rem; background-color: var(--swatch--light-100); }
 
 .gl-lightbox_image { display: block; max-width: 92vw; max-height: 80vh; width: auto; height: auto; object-fit: contain; border-top-left-radius: var(--radius--subtle); border-top-right-radius: var(--radius--subtle); border-bottom-left-radius: var(--radius--subtle); border-bottom-right-radius: var(--radius--subtle); }
 
@@ -3685,6 +3726,9 @@ a.pg-index_systems_card:hover .pg-index_systems_card-link { color: var(--_theme-
 .gl-lightbox_nav-prev { left: var(--site--margin); }
 
 .gl-lightbox_nav-next { right: var(--site--margin); }
+
+/* Single-image sets: gl-lightbox.js sets the hidden attribute on the arrows, and the display rule above would otherwise override it. */
+.gl-lightbox_nav[hidden] { display: none; }
 
 .gl-lightbox_close:hover { color: var(--swatch--brand-500); }
 
@@ -3786,7 +3830,7 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
 
 .gl-home_spectrum_title { margin-bottom: 0px; }
 
-.gl-home_spectrum_panels { display: flex; flex-grow: 1; min-height: 68svh; }
+.gl-home_spectrum_panels { display: flex; flex-grow: 1; min-height: min(68svh, 640px); }
 
 .gl-home_spectrum_panel { position: relative; flex: 1 1 0%; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding-top: var(--_spacing---space--4); padding-right: var(--_spacing---space--4); padding-bottom: var(--_spacing---space--5); padding-left: var(--_spacing---space--4); color: inherit; text-decoration-line: none; border-left-width: var(--border-width--main); border-left-style: solid; border-left-color: var(--swatch--dark-900); transition-property: flex-grow; transition-duration: 0.5s; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
 
@@ -3823,11 +3867,11 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
   .gl-home_spectrum_panel:hover .gl-home_spectrum_panel-accent { transform: scaleY(1); }
 }
 
-.gl-home_ficha { position: relative; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; min-height: 80svh; }
+.gl-home_ficha { position: relative; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; min-height: min(80svh, 740px); }
 
 .gl-home_ficha_panel { display: flex; flex-direction: column; justify-content: center; padding-top: var(--_spacing---section-space--small); padding-bottom: var(--_spacing---section-space--small); padding-left: var(--site--margin); padding-right: var(--_spacing---space--8); }
 
-.gl-home_ficha_kicker { display: block; margin-bottom: var(--_spacing---space--4); color: var(--swatch--brand-400); }
+.gl-home_ficha_kicker { display: block; margin-bottom: var(--_spacing---space--4); color: var(--swatch--brand-500); }
 
 .gl-home_ficha_title { font-size: var(--_typography---font-size--h1); margin-bottom: var(--_spacing---space--6); max-width: 34rem; }
 
@@ -3849,7 +3893,7 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
 
 .gl-home_ficha_reticle { position: absolute; top: var(--_spacing---space--6); right: var(--_spacing---space--6); bottom: var(--_spacing---space--6); left: var(--_spacing---space--6); pointer-events: none; }
 
-.gl-home_ficha_reticle-corner { position: absolute; width: var(--_spacing---space--6); height: var(--_spacing---space--6); border-top-color: var(--swatch--brand-400); border-right-color: var(--swatch--brand-400); border-bottom-color: var(--swatch--brand-400); border-left-color: var(--swatch--brand-400); }
+.gl-home_ficha_reticle-corner { position: absolute; width: var(--_spacing---space--6); height: var(--_spacing---space--6); border-top-color: var(--swatch--brand-500); border-right-color: var(--swatch--brand-500); border-bottom-color: var(--swatch--brand-500); border-left-color: var(--swatch--brand-500); }
 
 .gl-home_ficha_reticle-corner.is-tl { top: 0px; left: 0px; border-top-width: var(--border-width--main); border-left-width: var(--border-width--main); border-top-style: solid; border-left-style: solid; }
 
@@ -3859,7 +3903,7 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
 
 .gl-home_ficha_reticle-corner.is-br { bottom: 0px; right: 0px; border-bottom-width: var(--border-width--main); border-right-width: var(--border-width--main); border-bottom-style: solid; border-right-style: solid; }
 
-.gl-home_ficha_reticle-cross { position: absolute; top: 50%; left: 50%; width: var(--_spacing---space--6); height: var(--_spacing---space--6); transform: translate(-50%, -50%); color: var(--swatch--brand-400); }
+.gl-home_ficha_reticle-cross { position: absolute; top: 50%; left: 50%; width: var(--_spacing---space--6); height: var(--_spacing---space--6); transform: translate(-50%, -50%); color: var(--swatch--brand-500); }
 
 .gl-home_ficha_tag { position: absolute; left: var(--_spacing---space--6); bottom: var(--_spacing---space--6); display: inline-flex; align-items: center; column-gap: var(--_spacing---space--2); padding-top: var(--_spacing---space--1); padding-right: var(--_spacing---space--3); padding-bottom: var(--_spacing---space--1); padding-left: var(--_spacing---space--3); background-color: color-mix(in srgb, var(--swatch--dark-900) 80%, transparent); backdrop-filter: blur(6px); }
 
@@ -3875,7 +3919,7 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
   .gl-home_ficha_reticle { top: var(--_spacing---space--4); right: var(--_spacing---space--4); bottom: var(--_spacing---space--4); left: var(--_spacing---space--4); }
 }
 
-.gl-home_camara { position: relative; box-sizing: border-box; min-height: 82svh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding-top: var(--_spacing---section-space--small); padding-bottom: var(--_spacing---section-space--small); }
+.gl-home_camara { position: relative; box-sizing: border-box; min-height: min(82svh, 760px); display: flex; align-items: center; justify-content: center; overflow: hidden; padding-top: var(--_spacing---section-space--small); padding-bottom: var(--_spacing---section-space--small); }
 
 .gl-home_camara_bg { position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -3907,15 +3951,13 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
   .gl-home_camara_frame { right: var(--_spacing---space--3); bottom: var(--_spacing---space--3); left: var(--_spacing---space--3); }
 }
 
-.gl-home_editorial { position: relative; box-sizing: border-box; min-height: 80svh; display: flex; flex-direction: column; justify-content: space-between; row-gap: var(--_spacing---space--7); padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); padding-left: var(--site--margin); padding-right: var(--site--margin); overflow: hidden; }
-
-.gl-home_editorial_ghost { position: absolute; top: 50%; right: calc(var(--site--margin) * -0.5); transform: translateY(-50%); font-family: var(--_typography---font--secondary-family); font-size: clamp(12rem, 34vw, 30rem); font-weight: 400; line-height: 1; color: color-mix(in srgb, var(--_theme---text) 4%, transparent); pointer-events: none; user-select: none; }
+.gl-home_editorial { position: relative; box-sizing: border-box; min-height: min(80svh, 740px); display: flex; flex-direction: column; justify-content: space-between; row-gap: var(--_spacing---space--7); padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); padding-left: var(--site--margin); padding-right: var(--site--margin); overflow: hidden; }
 
 .gl-home_editorial_top { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--4); margin-bottom: var(--_spacing---space--4); }
 
 .gl-home_editorial_title { position: relative; z-index: 1; max-width: 60rem; margin-bottom: var(--_spacing---space--5); }
 
-.gl-home_editorial_title-accent { color: var(--swatch--brand-400); }
+.gl-home_editorial_title-accent { color: var(--swatch--brand-500); }
 
 .gl-home_editorial_bottom { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--_gap---size); row-gap: var(--_spacing---space--6); align-items: end; }
 
@@ -3932,14 +3974,13 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
 @media (max-width: 991px) {
   .gl-home_editorial_bottom { grid-template-columns: 1fr; }
   .gl-home_editorial_figure { justify-self: start; }
-  .gl-home_editorial_ghost { top: 30%; }
 }
 
 @media (max-width: 478px) {
   .gl-home_editorial_top { flex-direction: column; row-gap: var(--_spacing---space--1); }
 }
 
-.gl-home_cinetico { position: relative; box-sizing: border-box; min-height: 80svh; display: flex; flex-direction: column; justify-content: center; row-gap: var(--_spacing---space--4); padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); overflow: hidden; }
+.gl-home_cinetico { position: relative; box-sizing: border-box; min-height: min(80svh, 740px); display: flex; flex-direction: column; justify-content: center; row-gap: var(--_spacing---space--4); padding-top: var(--_spacing---section-space--main); padding-bottom: var(--_spacing---section-space--main); overflow: hidden; }
 
 .gl-home_cinetico_row { display: flex; white-space: nowrap; }
 
@@ -4115,7 +4156,12 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
   .pg-index_perfiles_col:hover { flex-grow: 1; }
 }
 
-.pg-index_reel { position: relative; box-sizing: border-box; min-height: 82svh; display: flex; flex-direction: column; justify-content: space-between; padding-top: var(--_spacing---section-space--small); padding-bottom: var(--_spacing---section-space--small); padding-left: var(--site--margin); padding-right: var(--site--margin); }
+/* min-height is capped: `space-between` distributes any slack between the
+   media card and the foot row, so on a tall display (≥1000px viewport) a bare
+   `82svh` opened an ~800px void down the middle of the section. The cap is
+   above the section's own content height, so on normal viewports this is a
+   no-op and the section still grows past it whenever content needs more. */
+.pg-index_reel { position: relative; box-sizing: border-box; min-height: min(82svh, 780px); display: flex; flex-direction: column; justify-content: space-between; padding-top: var(--_spacing---section-space--small); padding-bottom: var(--_spacing---section-space--small); padding-left: var(--site--margin); padding-right: var(--site--margin); }
 
 .pg-index_reel_masthead { display: flex; justify-content: space-between; align-items: baseline; column-gap: var(--_spacing---space--4); margin-bottom: var(--_spacing---space--4); }
 
@@ -4183,8 +4229,11 @@ iframe[src*="vanny.chat"] { color-scheme: light !important; }
   .gl-contacto_form_row { min-width: 0px; }
   .gl-contacto_form_input { min-width: 0px; }
   .gl-contacto_form_textarea { min-width: 0px; }
-  .gl-theme-transition { min-height: 68svh; }
-  .gl-home_statement { min-height: 68svh; }
+  /* Statement + theme-transition read as full-bleed moments — they must fill
+     the viewport on mobile, not sit at ~68% with the next section peeking in.
+     svh (not vh) so the collapsing mobile URL bar can't overflow them. */
+  .gl-theme-transition { min-height: 100svh; }
+  .gl-home_statement { min-height: 100svh; }
   .gl-tt_bg { width: auto; height: 78svh; max-width: none; }
   .gl-home_statement_bg { width: auto; height: 78svh; max-width: none; }
   .gl-tt_center { width: 100%; }
@@ -4424,4 +4473,62 @@ label.pg-contacto_form-tag {
    touch and small-screen devices so empty video frames are not shown. */
 .pg-reel.is-empty {
   display: none;
+}
+
+/* ── Mobile scroll-driven panel stack (gl-scroll-stack.js) ─────────────
+   Opt-in via data-gl-scroll-stack. The JS adds .gl-scroll-stack_host to
+   the section and .gl-scroll-stack to the container, then flags the
+   active child with .is-active — all geometry is here so the expansion
+   is a plain CSS transition (smooth, interruptible, GPU-friendly enough
+   at this item count) rather than a per-frame JS tween. */
+@media (max-width: 767px) {
+  .gl-scroll-stack_host { height: var(--gl-stack-runway); }
+
+  .gl-scroll-stack {
+    position: sticky;
+    top: 0px;
+    height: 100svh;
+    min-height: 0px;
+    /* The stack is itself a flex ITEM of the section (.gl-home_spectrum_panels
+       ships flex-grow: 1), and along a column axis flex sizing beats `height`
+       — without these three the pin resolved to ~3x the viewport. */
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100svh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  /* Explicit bases, not grow ratios. With flex-grow the panels' own content
+     minimums ate the distribution and the active panel landed at ~41svh —
+     under the 50svh floor this section is supposed to hold. Sizing the active
+     panel directly makes the floor guaranteed regardless of content, and the
+     JS hands us --gl-stack-rest (the leftover split across the others) since
+     only it knows the panel count. */
+  .gl-scroll-stack > * {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: var(--gl-stack-rest, 11svh);
+    min-height: 0px;
+    transition-property: flex-basis;
+    transition-duration: 0.55s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gl-scroll-stack > .is-active { flex-basis: var(--gl-stack-active, 56svh); }
+
+  /* The panel art is cropped by the panel box, so it must fill whatever
+     height the panel currently has instead of keeping its natural size. */
+  .gl-scroll-stack > * > img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Labels fade up only on the panel being read. */
+  .gl-scroll-stack > * .gl-home_spectrum_panel-meta {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+  }
+  .gl-scroll-stack > .is-active .gl-home_spectrum_panel-meta { opacity: 1; }
 }

@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lantana | Pernia Glass</title>
-  <meta name="description" content="Residencia unifamiliar en Costa del Este, Panamá: cuatro puertas corredizas pglass-3a con perfil negro anodizado de 22mm y riel oculto en techo.">
+  <!-- This page serves every project via ?slug=; page-proyecto.js sets the
+       per-project title, og:title and canonical at runtime. The static values
+       here are deliberately generic — the previous ones described a 450m2
+       house in Costa del Este with a 22mm profile, which was placeholder
+       scaffolding rather than client-supplied fact. -->
+  <title>Proyecto | Pernia Glass</title>
+  <meta name="description" content="Proyectos de Pernia Glass en Panamá: sistemas de puertas corredizas y particiones de vidrio instalados en obra.">
   <link rel="canonical" href="https://perniaglass.com/pg-proyecto.html">
-  <meta property="og:title" content="Lantana | Pernia Glass">
-  <meta property="og:description" content="Residencia unifamiliar en Costa del Este, Panamá: cuatro puertas corredizas pglass-3a con perfil negro anodizado de 22mm y riel oculto en techo.">
+  <meta property="og:title" content="Proyecto | Pernia Glass">
+  <meta property="og:description" content="Proyectos de Pernia Glass en Panamá: sistemas de puertas corredizas y particiones de vidrio instalados en obra.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://perniaglass.com/pg-proyecto.html">
   <meta property="og:site_name" content="Pernia Glass">
@@ -15,10 +20,10 @@
   <meta property="og:image" content="https://perniaglass.com/assets/favicons/pernia/og-default.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Proyecto Lantana — puertas corredizas Pernia Glass">
+  <meta property="og:image:alt" content="Proyecto de Pernia Glass — sistemas de vidrio en obra">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Lantana | Pernia Glass">
-  <meta name="twitter:description" content="Residencia unifamiliar en Costa del Este, Panamá: cuatro puertas corredizas pglass-3a con perfil negro anodizado de 22mm y riel oculto en techo.">
+  <meta name="twitter:title" content="Proyecto | Pernia Glass">
+  <meta name="twitter:description" content="Proyectos de Pernia Glass en Panamá: sistemas de puertas corredizas y particiones de vidrio instalados en obra.">
   <meta name="twitter:image" content="https://perniaglass.com/assets/favicons/pernia/og-default.png">
   <link rel="icon" type="image/svg+xml" href="assets/favicons/pernia/favicon.svg">
   <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/pernia/favicon-96x96.png">
@@ -33,8 +38,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="css/project.css?v=ae75221f">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,9 +47,9 @@
       {
         "@type": "CreativeWork",
         "@id": "https://perniaglass.com/pg-proyecto.html",
-        "name": "Lantana",
-        "headline": "Lantana",
-        "description": "Residencia unifamiliar en Costa del Este, Panamá: cuatro puertas corredizas pglass-3a con perfil negro anodizado de 22mm y riel oculto en techo.",
+        "name": "Proyectos Pernia Glass",
+        "headline": "Proyectos Pernia Glass",
+        "description": "Proyectos de Pernia Glass en Panamá: sistemas de puertas corredizas y particiones de vidrio instalados en obra.",
         "url": "https://perniaglass.com/pg-proyecto.html",
         "inLanguage": "es",
         "creator": {
@@ -71,7 +76,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Lantana",
+            "name": "Proyecto",
             "item": "https://perniaglass.com/pg-proyecto.html"
           }
         ]
@@ -128,38 +133,36 @@
     <!-- 01 // HERO — editorial stack, matching pieza/sistema. The old
          full-bleed overlay put light text on a dark gradient, unreadable
          over any bright project photo. Do not reintroduce the overlay.
-         NOTE: the copy below is still placeholder scaffolding — this page
-         is waiting on real per-project facts from the client. -->
+         Everything below is a shell: page-proyecto.js fills it from
+         data/pernia-proyectos.json for the ?slug= in the URL. Do not
+         hardcode one project's facts here again. -->
     <section class="pg-proyecto_hero">
       <div class="pg-proyecto_hero_head">
-        <span class="gl-mono gl-mono_muted pg-proyecto_hero_breadcrumb"><a href="pg-proyectos.html" class="pg-proyecto_hero_breadcrumb-link">Proyectos</a> &gt; Lantana</span>
+        <span class="gl-mono gl-mono_muted pg-proyecto_hero_breadcrumb"><a href="pg-proyectos.html" class="pg-proyecto_hero_breadcrumb-link">Proyectos</a></span>
         <div class="pg-proyecto_hero_titlerow">
-          <h1 class="pg-proyecto_hero_title gl-no-wavy">Lantana</h1>
-          <div class="pg-proyecto_hero_tags">
-            <span class="gl-tag">pglass-3a</span>
-          </div>
+          <h1 class="pg-proyecto_hero_title gl-no-wavy"></h1>
+          <div class="pg-proyecto_hero_tags" hidden></div>
         </div>
-        <div class="pg-proyecto_hero_metarow">
-          <p class="gl-mono gl-mono_muted pg-proyecto_hero_location">Panamá</p>
+        <div class="pg-proyecto_hero_metarow" hidden>
+          <p class="gl-mono gl-mono_muted pg-proyecto_hero_location"></p>
         </div>
       </div>
       <div class="pg-proyecto_hero_media-wrap">
-        <img src="assets/media/pernia/sesiones/Lantana-4.jpg" alt="Proyecto Lantana — puertas corredizas Pernia" class="pg-proyecto_hero_media" loading="eager">
+        <img src="" alt="" class="pg-proyecto_hero_media" loading="eager">
       </div>
     </section>
 
-    <!-- 02 // DESCRIPTION -->
-    <section class="pg-proyecto_description gl-section-border">
+    <!-- 02 // DESCRIPTION
+         Hidden until the client supplies per-project narrative. The copy that
+         used to live here was placeholder scaffolding stating specific facts
+         (450m2, Costa del Este, 22mm profile) about a real client project, so
+         it has been removed rather than carried into the data file.
+         To switch this section on, fill `description` (array of paragraphs)
+         for a project in data/pernia-proyectos.json. -->
+    <section class="pg-proyecto_description gl-section-border" hidden>
       <div class="pg-proyecto_description_inner">
         <span class="gl-section-number">02 // Descripcion</span>
-        <div class="pg-proyecto_description_content">
-          <p class="pg-proyecto_description_text u-text-style-main">
-            Residencia unifamiliar de 450m2 en Costa del Este, Panama. El proyecto integra cuatro puertas corredizas Pernia de cuatro hojas como elementos centrales de la arquitectura interior, conectando la sala principal con la terraza y el jardin interior.
-          </p>
-          <p class="pg-proyecto_description_text pg-proyecto_description_text_spaced u-text-style-main">
-            El perfil negro anodizado de 22mm fue seleccionado para complementar la paleta de materiales del interiorismo -- concreto expuesto, madera de teca y piedra natural. El riel oculto en techo permite una transicion continua entre interior y exterior, eliminando barreras visuales y maximizando la entrada de luz natural.
-          </p>
-        </div>
+        <div class="pg-proyecto_description_content"></div>
       </div>
     </section>
 
@@ -167,49 +170,42 @@
     <section class="pg-proyecto_gallery gl-section-border">
       <div class="pg-proyecto_gallery_inner">
         <span class="gl-section-number">03 // Galeria</span>
-        <div class="pg-proyecto_gallery_grid">
-          <img src="assets/media/pernia/sesiones/Lantana-5.jpg" alt="Panoramica — sala y terraza — puertas abiertas" class="pg-proyecto_gallery_img-pano" loading="lazy">
-          <div class="pg-proyecto_gallery_row">
-            <img src="assets/media/pernia/sesiones/Lantana-6.jpg" alt="Detalle — perfil negro y riel oculto" class="pg-proyecto_gallery_img-half" loading="lazy">
-            <img src="assets/media/pernia/sesiones/Lantana-7.jpg" alt="Vista interior — puertas cerradas" class="pg-proyecto_gallery_img-half" loading="lazy">
-          </div>
-          <img src="assets/media/pernia/sesiones/Lantana-8.jpg" alt="Exterior — fachada posterior" class="pg-proyecto_gallery_img-pano" loading="lazy">
-          <div class="pg-proyecto_gallery_row">
-            <img src="assets/media/pernia/sesiones/Lantana-9.jpg" alt="Jardin interior — conexion visual" class="pg-proyecto_gallery_img-half" loading="lazy">
-            <img src="assets/media/pernia/sesiones/Lantana-10.jpg" alt="Detalle — manija integrada" class="pg-proyecto_gallery_img-half" loading="lazy">
-          </div>
-        </div>
+        <!-- Built by page-proyecto.js: full-width for landscape shots,
+             two-up rows for portraits, derived from each image's real
+             dimensions in pernia-proyectos.json.
+             data-gl-lightbox: every shot opens in the shared viewer
+             (gl-lightbox.js) with prev/next — the grid crops to 21/9 and 4/3,
+             so this is where the portrait shots are seen whole. -->
+        <div class="pg-proyecto_gallery_grid" data-gl-lightbox data-gl-lightbox-label=".pg-proyecto_hero_title"></div>
       </div>
     </section>
 
-    <!-- 04 // SYSTEMS USED -->
-    <section class="pg-proyecto_systems gl-section-border">
+    <!-- 04 // SYSTEMS USED
+         Only shown for projects whose systems Guillermo confirmed in his
+         project->system map (Seacat, Seacho, Torre600). The single pglass-4a
+         card that used to be hardcoded here — with "4 unidades instaladas" —
+         was never verified against any project. -->
+    <section class="pg-proyecto_systems gl-section-border" hidden>
       <div class="pg-proyecto_systems_inner">
         <span class="gl-section-number">04 // Sistemas utilizados</span>
-        <div class="pg-proyecto_systems_row">
-          <a href="pg-sistema.html?code=pglass-4a" class="pg-proyecto_system-ref">
-            <img src="assets/media/pernia/systems/pglass-4a/1.webp" alt="pglass-4a — render" class="pg-proyecto_system-ref_img" loading="lazy">
-            <div class="pg-proyecto_system-ref_info">
-              <span class="gl-tag">pglass-4a</span>
-              <p class="pg-proyecto_system-ref_title">Corrediza Biplanar</p>
-              <span class="gl-mono gl-mono_muted">4 unidades instaladas</span>
-            </div>
-          </a>
-        </div>
+        <div class="pg-proyecto_systems_row"></div>
       </div>
     </section>
 
-    <!-- 05 // PREV / NEXT -->
+    <!-- 05 // PREV / NEXT — hrefs + titles set by page-proyecto.js, wrapping
+         around the grid order. Both links previously pointed at bare
+         pg-proyecto.html and named two projects ("Penthouse Punta Pacifica",
+         "Torre Oceania Business") that exist nowhere in the data. -->
     <section class="pg-proyecto_prevnext gl-section-border">
-      <a href="pg-proyecto.html" class="pg-proyecto_prevnext_item pg-proyecto_prevnext_item-prev">
+      <a href="pg-proyectos.html" class="pg-proyecto_prevnext_item pg-proyecto_prevnext_item-prev" hidden>
         <span class="gl-mono gl-mono_muted">&larr; Proyecto anterior</span>
-        <span class="pg-proyecto_prevnext_title u-text-style-large">Penthouse Punta Pacifica</span>
-        <span class="gl-mono gl-mono_label">Panama City, 2024</span>
+        <span class="pg-proyecto_prevnext_title u-text-style-large"></span>
+        <span class="gl-mono gl-mono_label"></span>
       </a>
-      <a href="pg-proyecto.html" class="pg-proyecto_prevnext_item pg-proyecto_prevnext_item-next">
+      <a href="pg-proyectos.html" class="pg-proyecto_prevnext_item pg-proyecto_prevnext_item-next" hidden>
         <span class="gl-mono gl-mono_muted">Proyecto siguiente &rarr;</span>
-        <span class="pg-proyecto_prevnext_title u-text-style-large">Torre Oceania Business</span>
-        <span class="gl-mono gl-mono_label">Panama City, 2024</span>
+        <span class="pg-proyecto_prevnext_title u-text-style-large"></span>
+        <span class="gl-mono gl-mono_label"></span>
       </a>
     </section>
 
@@ -276,9 +272,9 @@
   <!-- GSAP -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
-  <script src='js/gl-nav-scroll.js'></script>
-  <script src='js/pg-proyecto-animations.js'></script>
-  <script src='js/gl-wavy-bend.js'></script>
+  <script src='js/gl-nav-scroll.js?v=652db92a'></script>
+  <script src='js/pg-proyecto-animations.js?v=66caa5a8'></script>
+  <script src='js/gl-wavy-bend.js?v=9cfc9d3b'></script>
 
   <!-- FULLSCREEN MENU -->
   <aside class="gl-dock pg-dock" aria-label="Navegación flotante">
@@ -329,11 +325,17 @@
       <span class="gl-menu_footer-lang">ES / EN</span>
     </div>
   </div>
-  <script src='js/gl-menu.js'></script>
-  <script src="js/gl-interactions.js"></script>
-  <script src="js/gl-page-transition.js"></script>
-  <script src="js/newsletter.js"></script>
-  <script src="js/pg-dock.js"></script>
+  <script src='js/gl-menu.js?v=6026605e'></script>
+  <!-- Fills this page from data/pernia-proyectos.json using ?slug=.
+       Without it the page renders as whatever static markup is below, which
+       is why every grid card used to open Lantana. -->
+  <!-- Shared photo viewer for the gallery grid (see data-gl-lightbox above). -->
+  <script src="js/gl-lightbox.js?v=54dd6498"></script>
+  <script src="js/page-proyecto.js?v=2f77f5c5"></script>
+  <script src="js/gl-interactions.js?v=5e94091b"></script>
+  <script src="js/gl-page-transition.js?v=6f4350e2"></script>
+  <script src="js/newsletter.js?v=6d3257eb"></script>
+  <script src="js/pg-dock.js?v=e4852a4b"></script>
   <!-- vanny-widget -->
   <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"

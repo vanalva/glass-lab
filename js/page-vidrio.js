@@ -13,6 +13,17 @@
 // script and leaves the visor stuck on "Cargando…".
 (function () {
 
+/* ── TEMPORARY: single-image mode ─────────────────────────────────────
+   Extra sample imagery is switched off for now. Each glass type shows
+   only its main image (media.hero, which is also heroSlides[0] for all
+   53 products): the hero carousel collapses to that one slide and the
+   "Galería" section at the bottom is hidden.
+
+   This is a switch, not a removal — the markup, the slider code and the
+   gallery derivation are all still here and still correct. Set this back
+   to `true` to restore both, and nothing else needs changing. */
+const SHOW_EXTRA_MEDIA = false;
+
 const RELATION_LABELS = {
   'es-version-espejo-de':     'Versión vidrio',
   'tiene-version-espejo':     'Versión espejo',
@@ -113,8 +124,8 @@ function renderProduct(product, glass, helpers) {
   // Hero spec rows (5)
   setSpec('categoria',    cat?.name?.es + (subcat ? ' · ' + subcat.name.es : '') || '—');
   setSpec('subcategoria', subcat?.name?.es || cap(a.acabado?.[0]) || '—');
-  setSpec('espesor',      '8mm laminado (estándar)');
-  setSpec('dimensiones',  '3300 × 2100 mm');
+  setSpec('espesor',      formatEspesor(a) || '—');
+  setSpec('dimensiones',  formatDimension(a) || '—');
   setSpec('transparencia', cap(a.transparencia) || '—');
 
   // Properties grid (6 cards)
@@ -122,19 +133,35 @@ function renderProduct(product, glass, helpers) {
               describeColor(a.colorBase));
   setPropCard('textura',        (a.acabado || []).map(cap).join(' · ') || 'Lisa',
               describeAcabado(a.acabado));
-  setPropCard('espesor',        '8 mm (estándar laminado)',
-              'Vidrio laminado en autoclave — el espesor universal de la línea.');
+  setPropCard('espesor',        formatEspesor(a) || 'Consultar',
+              describeEspesor(a));
   setPropCard('transparencia',  cap(a.transparencia) || 'Translúcido',
               describeTransparencia(a.transparencia));
-  setPropCard('dimensiones',    '2100 × 3300 mm',
-              'Tamaño de lámina estándar. Formatos jumbo bajo pedido.');
+  setPropCard('dimensiones',    formatDimension(a) || 'Consultar',
+              describeDimension(a));
   setPropCard('aplicaciones',   'Divisorias · Mobiliario · Decorativo',
               'Compatible con todos los sistemas de puerta Pernia.');
 
   // Gallery — use explicit media.gallery, else derive 4 views from heroSlides
   // (every shipped catalog type has 11 editorial slides — pick detail/app/env/surface)
   const galleryContainer = document.querySelector('[data-bind="gallery"]');
-  if (galleryContainer) {
+  if (galleryContainer && !SHOW_EXTRA_MEDIA) {
+    // Single-image mode: drop the whole "03 // Galería" section, then pull the
+    // sections after it back up one number so the editorial run stays 02, 03, 04.
+    const gallerySection = galleryContainer.closest('.gl-vidrio_gallery');
+    if (gallerySection) {
+      gallerySection.hidden = true;
+      let el = gallerySection;
+      while ((el = el.nextElementSibling)) {
+        el.querySelectorAll('.gl-section-number').forEach(label => {
+          label.textContent = label.textContent.replace(
+            /^\s*(\d{2})(\s*\/\/)/,
+            (_, n, sep) => String(Number(n) - 1).padStart(2, '0') + sep
+          );
+        });
+      }
+    }
+  } else if (galleryContainer) {
     let gallerySrcs = Array.isArray(product.media?.gallery) && product.media.gallery.length > 0
       ? product.media.gallery.slice(0, 4)
       : null;
@@ -313,9 +340,14 @@ function buildHeroSlider(product) {
   if (!track) return;
 
   // Source: explicit heroSlides[] takes priority; else fall back to [hero] (legacy single-image data)
-  const slides = (Array.isArray(product.media?.heroSlides) && product.media.heroSlides.length > 0)
+  const allSlides = (Array.isArray(product.media?.heroSlides) && product.media.heroSlides.length > 0)
     ? product.media.heroSlides
     : [product.media?.hero].filter(Boolean);
+
+  // Single-image mode keeps only the main view. Everything below already
+  // handles a 1-slide product (it hides the controls row and returns early),
+  // so no other branch needs to know about the switch.
+  const slides = SHOW_EXTRA_MEDIA ? allSlides : allSlides.slice(0, 1);
 
   const productName = product.name?.es || product.code;
 
@@ -397,6 +429,44 @@ function setText(selector, value) {
   if (el) el.textContent = value;
 }
 
+/* ── Espesor / dimensiones ───────────────────────────────────
+   These are per-glass and come from Guillermo's "PRESENTACION TIPOS DE
+   VIDRIO_V2" deck, stored on each product as attributes.espesorMm[] and
+   attributes.dimensionMaxMm[w,h].
+
+   They used to be four hardcoded strings here — every one of the 53 glass
+   pages claimed "8 mm" and "2100 × 3300 mm" (the hero row even said
+   "3300 × 2100", contradicting the card below it). Only 33 of 52 glasses
+   actually offer 8 mm and only 3 are 2100 × 3300, so most pages were
+   publishing specs the glass does not have.
+
+   Al has no spec slide in the deck. Rather than inventing a value these
+   return null and the field shows "Consultar" / "—". */
+function formatEspesor(a) {
+  const e = a && a.espesorMm;
+  if (!Array.isArray(e) || !e.length) return null;
+  return e.length === 1 ? `${e[0]} mm` : `${e.join(' · ')} mm`;
+}
+
+function describeEspesor(a) {
+  const e = a && a.espesorMm;
+  if (!Array.isArray(e) || !e.length) return 'Espesor bajo consulta según formato y acabado.';
+  if (e.length === 1) return 'Espesor único disponible para este vidrio.';
+  return `Disponible en ${e.length} espesores, de ${Math.min(...e)} a ${Math.max(...e)} mm.`;
+}
+
+function formatDimension(a) {
+  const d = a && a.dimensionMaxMm;
+  if (!Array.isArray(d) || d.length !== 2) return null;
+  return `${d[0]} × ${d[1]} mm`;
+}
+
+function describeDimension(a) {
+  const d = a && a.dimensionMaxMm;
+  if (!Array.isArray(d) || d.length !== 2) return 'Dimensión máxima bajo consulta.';
+  return 'Dimensión máxima de lámina para este vidrio.';
+}
+
 function setSpec(key, value) {
   const row = document.querySelector(`[data-spec="${key}"]`);
   if (row) {
@@ -448,10 +518,15 @@ function describeAcabado(acabados) {
   return acabados.map(cap).join(', ');
 }
 
+/* Wording follows Guillermo's definitions: transparente pasa luz y vista,
+   translucido pasa luz pero no vista. Semitransparente is the middle ground —
+   the mallas and interlayers, which used to be labelled translucido and so
+   claimed to block a view they do not block. */
 function describeTransparencia(t) {
   const map = {
-    transparente: 'Visión clara a través del vidrio.',
-    translucido: 'Deja pasar luz pero difumina la imagen.',
+    transparente: 'Pasa luz y vista — visión clara a través del vidrio.',
+    translucido: 'Pasa luz pero no vista — ilumina sin dejar ver.',
+    semitransparente: 'Pasa luz y deja ver parcialmente, filtrando la vista.',
     opaco: 'No deja pasar luz — bloqueo total visual.',
     espejo: 'Refleja en lugar de transmitir luz.'
   };

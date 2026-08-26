@@ -33,8 +33,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="css/project.css?v=ae75221f">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -589,7 +589,7 @@
     <section class="pg-mob_feature gl-section-border">
       <div class="pg-mob_feature_inner">
         <div class="pg-mob_feature_media">
-          <img src="assets/media/pernia/sesiones/Glasslab-Aqua-2.jpg" alt="pglass-4c — 4 hojas, 2 fijas + 2 corredizas" class="pg-mob_feature_img" loading="lazy">
+          <img src="assets/media/pernia/sesiones/Glasslab-Aqua-2.jpg" alt="pglass-4c — 4 hojas, 2 fijas + 2 corredizas" class="pg-mob_feature_img" data-gl-lightbox="Sistemas" loading="lazy">
         </div>
         <div class="pg-mob_feature_text">
           <span class="gl-section-number">Sistema destacado · pglass-4c</span>
@@ -611,7 +611,7 @@
     <section class="pg-mob_feature is-reverse gl-section-border">
       <div class="pg-mob_feature_inner">
         <div class="pg-mob_feature_media">
-          <img src="assets/media/pernia/sistemas-obra/pglass-3b-seacat.webp" alt="pglass-3b — 3 hojas corredizas" class="pg-mob_feature_img" loading="lazy">
+          <img src="assets/media/pernia/sistemas-obra/pglass-3b-seacat.webp" alt="pglass-3b — 3 hojas corredizas" class="pg-mob_feature_img" data-gl-lightbox="Sistemas" loading="lazy">
         </div>
         <div class="pg-mob_feature_text">
           <span class="gl-section-number">Sistema destacado · pglass-3b</span>
@@ -663,7 +663,7 @@
         <span class="gl-section-number">05 // En contexto</span>
         <h2 class="pg-mob_gallery_title">El vidrio divide sin cerrar</h2>
       </div>
-      <div class="pg-mob_gallery_grid">
+      <div class="pg-mob_gallery_grid" data-gl-lightbox="Instalaciones">
         <div class="pg-mob_gallery_item is-wide">
           <img src="assets/media/pernia/sesiones/Glasslab-Aqua-2.jpg" alt="Sistema Pernia instalado en contexto residencial" class="pg-mob_gallery_img" loading="lazy">
           <span class="gl-mono gl-mono_muted pg-mob_gallery_cap">4 hojas</span>
@@ -776,14 +776,14 @@
     </div>
   </footer>
 
-  <script src="js/flwr-runtime.js"></script>
+  <script src="js/flwr-runtime.js?v=3894ca2a"></script>
   <!-- GSAP -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
-  <script src='js/gl-nav-scroll.js'></script>
-  <script src='js/pg-sistemas-animations.js'></script>
-  <script src='js/pg-index-find.js'></script>
-  <script src='js/gl-wavy-bend.js'></script>
+  <script src='js/gl-nav-scroll.js?v=652db92a'></script>
+  <script src='js/pg-sistemas-animations.js?v=8475b8e0'></script>
+  <script src='js/pg-index-find.js?v=77e47a3c'></script>
+  <script src='js/gl-wavy-bend.js?v=9cfc9d3b'></script>
 
   <!-- FULLSCREEN MENU -->
   <aside class="gl-dock pg-dock" aria-label="Navegación flotante">
@@ -834,12 +834,14 @@
       <span class="gl-menu_footer-lang">ES / EN</span>
     </div>
   </div>
-  <script src='js/gl-menu.js'></script>
-  <script src="js/gl-interactions.js"></script>
-  <script src="js/gl-page-transition.js"></script>
-  <script src="js/gl-theme-transition.js"></script>
-  <script src="js/newsletter.js"></script>
-  <script src="js/pg-dock.js"></script>
+  <script src='js/gl-menu.js?v=6026605e'></script>
+  <!-- Shared photo viewer — opt-in via data-gl-lightbox (see gl-lightbox.js) -->
+  <script src="js/gl-lightbox.js?v=54dd6498"></script>
+  <script src="js/gl-interactions.js?v=5e94091b"></script>
+  <script src="js/gl-page-transition.js?v=6f4350e2"></script>
+  <script src="js/gl-theme-transition.js?v=00a7fb22"></script>
+  <script src="js/newsletter.js?v=6d3257eb"></script>
+  <script src="js/pg-dock.js?v=e4852a4b"></script>
   <!-- vanny-widget -->
   <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"

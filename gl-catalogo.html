@@ -53,8 +53,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="css/project.css?v=ae75221f">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -222,6 +222,33 @@
                      data-flwr-list-list="#gl-catalogo-grid">
               <span class="gl-catalogo_legend_swatch gl-catalogo_legend_swatch_filled gl-cell_cat-reflectivos"></span>
               Reflectivos
+            </label>
+
+            <!-- Guillermo's own definitions: "transparente es que pasa luz y
+                 vista", "translucido es que pasa luz pero no vista". So the
+                 answer to his clients' question is just the word translucido —
+                 an earlier label spelled the definition out instead of using
+                 it, so it reads off `transparencia` directly and the catalogue
+                 can never disagree with a glass page.
+
+                 "Malla" replaced an earlier "Semitransparente" chip: he pointed
+                 out that group was really just the mesh series wearing a
+                 transparency label, and that a material filter is the more
+                 useful question. It reads off the mallas-serie-* subcategories
+                 (16 glasses) rather than a transparency value. -->
+            <label class="gl-filter-input gl-filter-radio-pill">
+              <input type="checkbox" class="gl-sr-only"
+                     data-flwr-list-field="transparencia"
+                     data-flwr-list-value="translucido"
+                     data-flwr-list-list="#gl-catalogo-grid">
+              Translúcido
+            </label>
+            <label class="gl-filter-input gl-filter-radio-pill">
+              <input type="checkbox" class="gl-sr-only"
+                     data-flwr-list-field="familia"
+                     data-flwr-list-value="malla"
+                     data-flwr-list-list="#gl-catalogo-grid">
+              Malla
             </label>
 
             <label class="gl-filter-input gl-filter-radio-pill">
@@ -1258,10 +1285,10 @@
     </div>
   </footer>
 
-  <script src="js/data-loader.js"></script>
+  <script src="js/data-loader.js?v=af676964"></script>
   <!-- flwr runtime — provides data-flwr="list" filter engine -->
-  <script src="js/flwr-runtime.js"></script>
-  <script src="js/page-catalogo.js"></script>
+  <script src="js/flwr-runtime.js?v=3894ca2a"></script>
+  <script src="js/page-catalogo.js?v=916ba321"></script>
 
   <script>
   /* ── Grid corner radius — neighbor detection ──────────────────────
@@ -1366,9 +1393,9 @@
   <!-- GSAP -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
-  <script src='js/gl-nav-scroll.js'></script>
-  <script src='js/gl-catalogo-animations.js'></script>
-  <script src='js/gl-wavy-bend.js'></script>
+  <script src='js/gl-nav-scroll.js?v=652db92a'></script>
+  <script src='js/gl-catalogo-animations.js?v=7bf54d23'></script>
+  <script src='js/gl-wavy-bend.js?v=9cfc9d3b'></script>
 
   <!-- FULLSCREEN MENU -->
   <aside class="gl-dock" aria-label="Navegacion flotante">
@@ -1425,15 +1452,15 @@
       <span class="gl-menu_footer-lang">ES / EN</span>
     </div>
   </div>
-  <script src='js/gl-menu.js'></script>
-  <script src="js/gl-interactions.js"></script>
-  <script src="js/gl-spline-poster.js"></script>
-  <script src="js/gl-preloader.js"></script>
-  <script src="js/gl-page-transition.js"></script>
-  <script src="js/gl-theme-transition.js"></script>
-  <script src="js/newsletter.js"></script>
-  <script src="js/gl-dock-vitrina.js"></script>
-  <script src="js/gl-dock.js"></script>
+  <script src='js/gl-menu.js?v=6026605e'></script>
+  <script src="js/gl-interactions.js?v=5e94091b"></script>
+  <script src="js/gl-spline-poster.js?v=5959e4f6"></script>
+  <script src="js/gl-preloader.js?v=d33052c5"></script>
+  <script src="js/gl-page-transition.js?v=6f4350e2"></script>
+  <script src="js/gl-theme-transition.js?v=00a7fb22"></script>
+  <script src="js/newsletter.js?v=6d3257eb"></script>
+  <script src="js/gl-dock-vitrina.js?v=ade98636"></script>
+  <script src="js/gl-dock.js?v=b71aab41"></script>
   <!-- vanny-widget -->
   <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"

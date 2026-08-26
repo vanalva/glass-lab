@@ -33,8 +33,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="css/project.css?v=ae75221f">
 
   <script type="application/ld+json">
   {
@@ -156,7 +156,7 @@
         <div class="pg-sistema_features" data-bind="features"></div>
       </div>
       <div class="pg-sistema_overview_visual">
-        <img data-bind-src="overview" alt="" class="pg-sistema_overview_img" loading="lazy">
+        <img data-bind-src="overview" alt="" class="pg-sistema_overview_img" data-gl-lightbox loading="lazy">
       </div>
     </section>
 
@@ -213,7 +213,7 @@
         <h2 class="pg-sistema_apps_heading">Aplicaciones reales</h2>
         <p class="u-text-style-main gl-mono_muted pg-sistema_apps_sub">Instalaciones Pernia del mismo tipo de sistema, fotografiadas en obra.</p>
       </div>
-      <div class="pg-sistema_apps_grid" data-bind="applications"></div>
+      <div class="pg-sistema_apps_grid" data-gl-lightbox data-bind="applications"></div>
     </section>
 
     <!-- 04 // PROFILE COLORS -->
@@ -370,15 +370,15 @@
     </div>
   </footer>
 
-  <script src="js/data-loader.js"></script>
-  <script src="js/page-sistema.js"></script>
+  <script src="js/data-loader.js?v=af676964"></script>
+  <script src="js/page-sistema.js?v=4f8565de"></script>
 
   <!-- GSAP -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
-  <script src='js/pg-sistema-animations.js'></script>
-  <script src='js/gl-wavy-bend.js'></script>
-  <script src='js/gl-nav-scroll.js'></script>
+  <script src='js/pg-sistema-animations.js?v=b4bf74c0'></script>
+  <script src='js/gl-wavy-bend.js?v=9cfc9d3b'></script>
+  <script src='js/gl-nav-scroll.js?v=652db92a'></script>
 
   <!-- FULLSCREEN MENU -->
   <aside class="gl-dock pg-dock" aria-label="Navegación flotante">
@@ -429,11 +429,13 @@
       <span class="gl-menu_footer-lang">ES / EN</span>
     </div>
   </div>
-  <script src='js/gl-menu.js'></script>
-  <script src="js/gl-interactions.js"></script>
-  <script src="js/gl-page-transition.js"></script>
-  <script src="js/newsletter.js"></script>
-  <script src="js/pg-dock.js"></script>
+  <script src='js/gl-menu.js?v=6026605e'></script>
+  <!-- Shared photo viewer — opt-in via data-gl-lightbox (see gl-lightbox.js) -->
+  <script src="js/gl-lightbox.js?v=54dd6498"></script>
+  <script src="js/gl-interactions.js?v=5e94091b"></script>
+  <script src="js/gl-page-transition.js?v=6f4350e2"></script>
+  <script src="js/newsletter.js?v=6d3257eb"></script>
+  <script src="js/pg-dock.js?v=e4852a4b"></script>
   <!-- vanny-widget -->
   <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"

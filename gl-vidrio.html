@@ -33,8 +33,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="css/project.css?v=ae75221f">
 
   <script type="application/ld+json">
   {
@@ -133,7 +133,7 @@
     <!-- ============================================================ -->
     <section class="gl-hero-cap gl-vidrio_hero gl-section-border">
       <div class="gl-vidrio_hero_visual">
-        <div class="gl-vidrio_hero_slider" data-bind="heroSlider" tabindex="0" aria-roledescription="carousel" aria-label="Vistas del vidrio">
+        <div class="gl-vidrio_hero_slider" data-gl-lightbox="[data-bind=name]" data-bind="heroSlider" tabindex="0" aria-roledescription="carousel" aria-label="Vistas del vidrio">
           <!-- slides injected by page-vidrio.js -->
         </div>
         <div class="gl-vidrio_hero_controls" data-hero-controls hidden>
@@ -251,7 +251,7 @@
     <!-- ============================================================ -->
     <section class="gl-vidrio_gallery gl-section-border">
       <span class="gl-section-number">03 // Galería</span>
-      <div class="gl-vidrio_gallery_row" data-bind="gallery">
+      <div class="gl-vidrio_gallery_row" data-gl-lightbox="[data-bind=name]" data-bind="gallery">
         <div class="gl-img-placeholder gl-vidrio_gallery_img">
           <span class="gl-mono">DETALLE MACRO</span>
         </div>
@@ -395,15 +395,15 @@
     </div>
   </footer>
 
-  <script src="js/data-loader.js"></script>
-  <script src="js/page-vidrio.js"></script>
+  <script src="js/data-loader.js?v=af676964"></script>
+  <script src="js/page-vidrio.js?v=0fd8037e"></script>
 
   <!-- GSAP -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'></script>
-  <script src='js/gl-nav-scroll.js'></script>
-  <script src='js/gl-vidrio-animations.js'></script>
-  <script src='js/gl-wavy-bend.js'></script>
+  <script src='js/gl-nav-scroll.js?v=652db92a'></script>
+  <script src='js/gl-vidrio-animations.js?v=b57d319a'></script>
+  <script src='js/gl-wavy-bend.js?v=9cfc9d3b'></script>
 
   <!-- FULLSCREEN MENU -->
   <aside class="gl-dock" aria-label="Navegacion flotante">
@@ -460,12 +460,14 @@
       <span class="gl-menu_footer-lang">ES / EN</span>
     </div>
   </div>
-  <script src='js/gl-menu.js'></script>
-  <script src="js/gl-interactions.js"></script>
-  <script src="js/gl-page-transition.js"></script>
-  <script src="js/newsletter.js"></script>
-  <script src="js/gl-dock-vitrina.js"></script>
-  <script src="js/gl-dock.js"></script>
+  <script src='js/gl-menu.js?v=6026605e'></script>
+  <!-- Shared photo viewer — opt-in via data-gl-lightbox (see gl-lightbox.js) -->
+  <script src="js/gl-lightbox.js?v=54dd6498"></script>
+  <script src="js/gl-interactions.js?v=5e94091b"></script>
+  <script src="js/gl-page-transition.js?v=6f4350e2"></script>
+  <script src="js/newsletter.js?v=6d3257eb"></script>
+  <script src="js/gl-dock-vitrina.js?v=ade98636"></script>
+  <script src="js/gl-dock.js?v=b71aab41"></script>
   <!-- vanny-widget -->
   <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"
