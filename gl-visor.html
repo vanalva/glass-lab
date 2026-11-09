@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+<script>window.__FLWR_BASE__="";</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visor | Glass Lab</title>
   <meta name="description" content="Visor 3D de Glass Lab: rota una muestra de vidrio y compara acabados como acanalado, esmerilado, diamante, gradient o malla tejida en tiempo real.">
-  <link rel="canonical" href="https://glasslb.com/gl-visor.html">
   <meta property="og:title" content="Visor | Glass Lab">
   <meta property="og:description" content="Visor 3D de Glass Lab: rota una muestra de vidrio y compara acabados como acanalado, esmerilado, diamante, gradient o malla tejida en tiempo real.">
   <meta property="og:type" content="website">
@@ -20,11 +20,11 @@
   <meta name="twitter:title" content="Visor | Glass Lab">
   <meta name="twitter:description" content="Visor 3D de Glass Lab: rota una muestra de vidrio y compara acabados como acanalado, esmerilado, diamante, gradient o malla tejida en tiempo real.">
   <meta name="twitter:image" content="https://glasslb.com/assets/favicons/glass-lab/og-default.png">
-  <link rel="icon" type="image/svg+xml" href="assets/favicons/glass-lab/favicon.svg">
-  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/glass-lab/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/glass-lab/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/glass-lab/favicon-16x16.png">
-  <link rel="shortcut icon" href="assets/favicons/glass-lab/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="assets/favicons/glass-lab/favicon.svg?v=2">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/glass-lab/favicon-96x96.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/glass-lab/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/glass-lab/favicon-16x16.png?v=2">
+  <link rel="shortcut icon" href="assets/favicons/glass-lab/favicon.ico?v=2">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/glass-lab/apple-touch-icon.png">
   <link rel="manifest" href="assets/favicons/glass-lab/site.webmanifest">
   <meta name="theme-color" content="#0B0B0B">
@@ -34,7 +34,43 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
-  <link rel="stylesheet" href="css/project.css?v=ae75221f">
+  <link rel="stylesheet" href="css/project.css?v=f91c10b3">
+  <style>
+    /* Visor viewer — the 3D stage owns the height, and the layer control
+       docks into the scene's bottom-left corner. */
+    .gl-visor_viewer { height: calc(100svh - 78px); min-height: 600px; }
+    .gl-visor_scene { min-width: 0; min-height: 0; overflow: hidden; }
+    .gl-visor_scene_img { min-height: 0; }
+    .gl-visor_panel { min-height: 0; }
+    .gl-visor_layers { position: absolute; left: 2rem; bottom: 5.5rem; display: flex; flex-direction: column; align-items: flex-start; row-gap: 0.8rem; column-gap: 0.8rem; }
+    .gl-visor_layers.is-hidden { display: none; }
+    .gl-visor_layers_caption { font-size: var(--_typography---font-size--label); letter-spacing: 0.08em; }
+    .gl-visor_layers_button { border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: transparent; color: var(--_theme---text); font-family: inherit; font-size: inherit; }
+    .gl-visor_layers_button:focus-visible { outline-width: 2px; outline-style: solid; outline-color: var(--_theme---text); outline-offset: 4px; }
+    /* Reuse the existing slider appearance, including keyboard interaction. */
+    .gl-visor_control_row[hidden] { display: none; }
+    .gl-visor_slider { touch-action: pan-y; }
+    .gl-visor_slider::before { content: ''; position: absolute; inset: -12px 0; }
+    .gl-visor_slider:focus-visible { outline: 2px solid currentColor; outline-offset: 7px; }
+    .gl-visor_slider[aria-disabled="true"] { opacity: 0.35; cursor: default; }
+    .gl-visor_background_controls { display: flex; flex-direction: column; gap: 1rem; }
+    .gl-visor_background_options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .gl-visor_background_options .gl-tag { justify-content: center; padding: 0.65rem 0.3rem; background: transparent; color: var(--_theme---text); cursor: pointer; }
+    .gl-visor_background_options .gl-tag[aria-pressed="true"] { background: var(--_theme---text); color: var(--_theme---background); }
+    .gl-visor_background_options .gl-tag:disabled { opacity: 0.35; cursor: default; }
+    .gl-visor_background_options button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+    .gl-visor_background_upload { align-self: flex-start; }
+    .gl-visor_scene[data-background] .gl-btn_skew_wrap { color: var(--_theme---text); }
+    .gl-visor_background_status { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--_typography---font-size--label-sm); }
+    .gl-visor_scene[data-background] .gl-visor_layers_caption,
+    .gl-visor_scene[data-background] .gl-visor_scene_label .gl-mono { color: color-mix(in srgb, var(--_theme---text) 75%, transparent); }
+    @media (max-width: 767px) {
+      .gl-visor_viewer { height: auto; min-height: 0; }
+      .gl-visor_scene { height: 65svh; min-height: 420px; }
+      .gl-visor_scene_controls { top: 1rem; left: 1rem; right: 1rem; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 0.5rem; column-gap: 0.5rem; }
+      .gl-visor_layers { left: 1rem; bottom: 4.5rem; }
+    }
+  </style>
 
   <script type="application/ld+json">
   {
@@ -85,34 +121,34 @@
   <nav class="gl-home_nav-edge">
     <div class="gl-home_nav">
       <a href="gl-index.html" class="gl-home_nav_logo">
-        <img src="assets/logos/gl-logotipo-h-white.svg" alt="Glass Lab" class="gl-home_nav_logo-img">
+        <img src="assets/logos/gl-logotipo-h-white.svg" alt="Glass Lab" class="gl-home_nav_logo-img" data-flwr-id="l10n-gl-visor-31">
       </a>
       <div class="gl-home_nav_links">
         <div class="gl-home_nav_group">
-          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false">Laboratorio</button>
+          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false" data-flwr-id="l10n-gl-visor-30">Laboratorio</button>
           <div class="gl-home_nav_popover" role="menu">
-            <a href="gl-catalogo.html" class="gl-home_nav_popover_link" role="menuitem">Catálogo</a>
-            <a href="gl-visor.html" class="gl-home_nav_popover_link" role="menuitem">Visor</a>
-            <a href="pg-index.html" class="gl-home_nav_popover_link" role="menuitem">Pernia Glass</a>
+            <a href="gl-catalogo.html" class="gl-home_nav_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-2z">Catálogo</a>
+            <a href="gl-visor.html" class="gl-home_nav_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-2y">Visor</a>
+            <a href="pg-index.html" class="gl-home_nav_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-2x">Pernia Glass</a>
           </div>
         </div>
-        <a href="gl-laboratorio.html" class="gl-home_nav_link">Estudio</a>
+        <a href="gl-laboratorio.html" class="gl-home_nav_link" data-flwr-id="l10n-gl-visor-2w">Estudio</a>
         <div class="gl-home_nav_group">
-          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false">Bitácora</button>
+          <button type="button" class="gl-home_nav_link gl-home_nav_trigger" aria-haspopup="true" aria-expanded="false" data-flwr-id="l10n-gl-visor-2v">Bitácora</button>
           <div class="gl-home_nav_popover" role="menu">
-            <a href="gl-instalaciones.html" class="gl-home_nav_popover_link" role="menuitem">Instalaciones</a>
-            <a href="gl-blog.html" class="gl-home_nav_popover_link" role="menuitem">Diario</a>
+            <a href="gl-instalaciones.html" class="gl-home_nav_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-2u">Instalaciones</a>
+            <a href="gl-blog.html" class="gl-home_nav_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-2t">Diario</a>
           </div>
         </div>
       </div>
       <div class="gl-home_nav_right">
-        <span class="gl-mono gl-mono_muted">ES / EN</span>
+        <span class="gl-mono gl-mono_muted flwr-locale-switcher_mount" data-flwr-id="l10n-gl-visor-2s" data-flwr-locale-switcher><nav class="flwr-locale-switcher" aria-label="Language"><a href="gl-visor.html" hreflang="es" lang="es" title="Español" data-flwr-locale="es" class="flwr-locale-switcher_link is-current" aria-current="true">ES</a><span class="flwr-locale-switcher_sep" aria-hidden="true">/</span><a href="en/gl-visor.html" hreflang="en" lang="en" title="English" data-flwr-locale="en" class="flwr-locale-switcher_link">EN</a></nav></span>
         <div class="gl-btn_skew_wrap">
           <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
             <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
           </svg>
           <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
-            <span class="gl-btn_skew_text gl-btn_skew_text_sm">Contacto</span>
+            <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2r">Contacto</span>
           </a>
         </div>
         <div class="gl-home_nav_burger"></div>
@@ -130,55 +166,55 @@
       <div class="gl-visor_scene">
         <div id="glass3d" class="gl-visor_scene_img"></div>
         <div class="gl-visor_scene_label">
-          <span class="gl-mono gl-mono_muted">Arrastra para rotar — Selecciona un vidrio para cambiar la muestra</span>
+          <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-2q">Arrastra para rotar — Selecciona un vidrio para cambiar la muestra</span>
         </div>
         <div class="gl-visor_scene_controls">
-          <div class="gl-btn_skew_wrap" aria-label="Rotar arriba">
+          <div class="gl-btn_skew_wrap" aria-label="Rotar arriba" data-flwr-id="l10n-gl-visor-2p">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-up">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">↑ Arriba</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2o">↑ Arriba</span>
             </a>
           </div>
-          <div class="gl-btn_skew_wrap" aria-label="Rotar abajo">
+          <div class="gl-btn_skew_wrap" aria-label="Rotar abajo" data-flwr-id="l10n-gl-visor-2n">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-down">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">↓ Abajo</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2m">↓ Abajo</span>
             </a>
           </div>
-          <div class="gl-btn_skew_wrap" aria-label="Rotar izquierda">
+          <div class="gl-btn_skew_wrap" aria-label="Rotar izquierda" data-flwr-id="l10n-gl-visor-2l">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-left">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">← Izq</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2k">← Izq</span>
             </a>
           </div>
-          <div class="gl-btn_skew_wrap" aria-label="Rotar derecha">
+          <div class="gl-btn_skew_wrap" aria-label="Rotar derecha" data-flwr-id="l10n-gl-visor-2j">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="rotate-right">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Der →</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2i">Der →</span>
             </a>
           </div>
-          <div class="gl-btn_skew_wrap" aria-label="Zoom">
+          <div class="gl-btn_skew_wrap" aria-label="Zoom" data-flwr-id="l10n-gl-visor-2h">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="zoom">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Zoom</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2g">Zoom</span>
             </a>
           </div>
-          <div class="gl-btn_skew_wrap" aria-label="Reset">
+          <div class="gl-btn_skew_wrap" aria-label="Reset" data-flwr-id="l10n-gl-visor-2f">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
             <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm" data-action="reset">
-              <span class="gl-btn_skew_text gl-btn_skew_text_sm">Reset</span>
+              <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-2e">Reset</span>
             </a>
           </div>
         </div>
@@ -187,97 +223,97 @@
       <!-- RIGHT: GLASS SELECTOR PANEL -->
       <div class="gl-visor_panel">
         <div class="gl-visor_panel_header">
-          <span class="gl-mono">Selector de vidrio</span>
+          <span class="gl-mono" data-flwr-id="l10n-gl-visor-2d">Selector de vidrio</span>
         </div>
 
         <!-- SELECTED GLASS INFO -->
         <div class="gl-visor_panel_info">
           <div class="gl-visor_panel_info_top">
-            <span class="gl-visor_panel_info_symbol">At</span>
+            <span class="gl-visor_panel_info_symbol" data-flwr-id="l10n-gl-visor-2c">At</span>
             <div>
-              <span class="gl-mono">SA-Tejida</span>
-              <span class="gl-mono gl-mono_muted">Inserciones · Malla Serie A · 039</span>
+              <span class="gl-mono" data-flwr-id="l10n-gl-visor-2b">SA-Tejida</span>
+              <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-2a">Inserciones · Malla Serie A · 039</span>
             </div>
           </div>
           <div class="gl-visor_panel_info_tags">
-            <span class="gl-tag">Translúcido</span>
-            <span class="gl-tag">Patrón tejido</span>
-            <span class="gl-tag">Tier premium</span>
+            <span class="gl-tag" data-flwr-id="l10n-gl-visor-29">Translúcido</span>
+            <span class="gl-tag" data-flwr-id="l10n-gl-visor-28">Patrón tejido</span>
+            <span class="gl-tag" data-flwr-id="l10n-gl-visor-27">Tier premium</span>
           </div>
         </div>
 
         <!-- GLASS GRID THUMBNAILS -->
         <div class="gl-visor_panel_grid u-gap-collapse u-radius-inner-4">
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Vc</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-26">Vc</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Claro</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-25">Claro</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Va</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-24">Va</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Acanalado</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-23">Acanalado</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Ve</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-22">Ve</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Esmerilado</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-21">Esmerilado</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Vd</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-20">Vd</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Diamante</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1z">Diamante</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-colores" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Vab</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1y">Vab</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Aca-Bronce</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1x">Aca-Bronce</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Gr</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1w">Gr</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Gradient</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1v">Gradient</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Ds</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1u">Ds</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Sunset</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1t">Sunset</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
-            <span class="gl-cell_symbol">In</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1s">In</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Interlayer</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1r">Interlayer</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-inserciones" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Aq</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1q">Aq</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">SA-Qubo</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1p">SA-Qubo</span>
             </div>
           </a>
           <div class="gl-cell gl-visor_cell_active gl-cell_cat-inserciones">
-            <span class="gl-cell_symbol">At</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1o">At</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">SA-Tejida</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1n">SA-Tejida</span>
             </div>
           </div>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-reflectivos" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Ec</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1m">Ec</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Es-Claro</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1l">Es-Claro</span>
             </div>
           </a>
           <a class="gl-link-reset gl-cell gl-cell_filled gl-cell_cat-reflectivos" role="button" tabindex="0">
-            <span class="gl-cell_symbol">Ed</span>
+            <span class="gl-cell_symbol" data-flwr-id="l10n-gl-visor-1k">Ed</span>
             <div class="gl-home_catalog_cell-meta">
-              <span class="gl-cell_name">Es-Diamante</span>
+              <span class="gl-cell_name" data-flwr-id="l10n-gl-visor-1j">Es-Diamante</span>
             </div>
           </a>
         </div>
@@ -286,7 +322,7 @@
         <div class="gl-visor_panel_controls">
           <div class="gl-visor_control_row" data-control="transparency">
             <div class="gl-visor_control_header">
-              <span class="gl-mono gl-mono_label">Transparencia</span>
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-gl-visor-1i">Transparencia</span>
               <span class="gl-mono gl-mono_label">60%</span>
             </div>
             <div class="gl-visor_slider">
@@ -294,14 +330,52 @@
               <div class="gl-visor_slider_thumb"></div>
             </div>
           </div>
+          <div class="gl-visor_control_row" data-control="distortion" hidden>
+            <div class="gl-visor_control_header">
+              <span class="gl-mono gl-mono_label" id="gl-visor-distortion-label">Distorsión</span>
+              <span class="gl-mono gl-mono_label">30%</span>
+            </div>
+            <div class="gl-visor_slider" aria-labelledby="gl-visor-distortion-label">
+              <div class="gl-visor_slider_fill"></div>
+              <div class="gl-visor_slider_thumb"></div>
+            </div>
+          </div>
           <div class="gl-visor_control_row" data-control="light">
             <div class="gl-visor_control_header">
-              <span class="gl-mono gl-mono_label">Intensidad de luz</span>
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-gl-visor-1h">Intensidad de luz</span>
               <span class="gl-mono gl-mono_label">75%</span>
             </div>
             <div class="gl-visor_slider">
               <div class="gl-visor_slider_fill"></div>
               <div class="gl-visor_slider_thumb"></div>
+            </div>
+          </div>
+          <div class="gl-visor_background_controls">
+            <div class="gl-visor_control_header">
+              <span class="gl-mono gl-mono_label">Fondo de escena</span>
+            </div>
+            <div class="gl-visor_background_options" role="group" aria-label="Fondo de escena">
+              <button type="button" class="gl-tag" data-background-mode="dark" aria-pressed="false">Oscuro</button>
+              <button type="button" class="gl-tag" data-background-mode="beige" aria-pressed="true">Beige</button>
+              <button type="button" class="gl-tag" data-background-mode="image" aria-pressed="false" disabled>Imagen</button>
+            </div>
+            <button type="button" class="gl-btn_skew_wrap gl-visor_layers_button gl-visor_background_upload" data-background-upload>
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <span class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Cargar imagen</span></span>
+            </button>
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" data-background-file aria-label="Elegir imagen de entorno" hidden>
+            <span class="gl-mono gl-mono_muted gl-visor_background_status" data-background-status role="status" aria-live="polite">La imagen se queda en tu dispositivo.</span>
+            <div class="gl-visor_control_row" data-control="background-blur" hidden>
+              <div class="gl-visor_control_header">
+                <span class="gl-mono gl-mono_label">Desenfoque del fondo</span>
+                <span class="gl-mono gl-mono_label">30%</span>
+              </div>
+              <div class="gl-visor_slider">
+                <div class="gl-visor_slider_fill"></div>
+                <div class="gl-visor_slider_thumb"></div>
+              </div>
             </div>
           </div>
           <div class="gl-visor_control_buttons">
@@ -310,7 +384,7 @@
                 <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
               </svg>
               <a href="gl-vidrio.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
-                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Ver ficha &gt;&gt;&gt;</span>
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-1g">Ver ficha &gt;&gt;&gt;</span>
               </a>
             </div>
             <div class="gl-btn_skew_wrap">
@@ -318,7 +392,7 @@
                 <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
               </svg>
               <a href="gl-contacto.html" class="gl-btn_skew_element gl-btn_skew_element_sm">
-                <span class="gl-btn_skew_text gl-btn_skew_text_sm">Solicitar muestra</span>
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-1f">Solicitar muestra</span>
               </a>
             </div>
           </div>
@@ -356,50 +430,50 @@
               <path d="M111.53,22.86h91.29c1.18-1.95,1.51-2.5,2.7-4.45L191.64,0h-91.68c-1.18,1.95-1.51,2.5-2.7,4.45l13.87,18.41h.4Z"/>
             </svg>
           </div>
-          <p class="gl-mono gl-mono_muted gl-home_footer_brand-desc">Laboratorio experimental de vidrio</p>
-          <p class="gl-mono gl-mono_muted">Panama City, Panama</p>
+          <p class="gl-mono gl-mono_muted gl-home_footer_brand-desc" data-flwr-id="l10n-gl-visor-1e">Laboratorio experimental de vidrio</p>
+          <p class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-1d">Panama City, Panama</p>
         </div>
         <div class="gl-home_footer_col">
-          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Navegacion</span>
-          <a href="gl-catalogo.html" class="gl-home_footer_link">Catalogo</a>
-          <a href="gl-instalaciones.html" class="gl-home_footer_link">Instalaciones</a>
-          <a href="gl-laboratorio.html" class="gl-home_footer_link">Estudio</a>
-          <a href="gl-contacto.html" class="gl-home_footer_link">Contacto</a>
-          <a href="pg-index.html" class="gl-home_footer_link">Pernia Glass</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title" data-flwr-id="l10n-gl-visor-1c">Navegacion</span>
+          <a href="gl-catalogo.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-1b">Catalogo</a>
+          <a href="gl-instalaciones.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-1a">Instalaciones</a>
+          <a href="gl-laboratorio.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-19">Estudio</a>
+          <a href="gl-contacto.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-18">Contacto</a>
+          <a href="pg-index.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-17">Pernia Glass</a>
         </div>
         <div class="gl-home_footer_col">
-          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Contacto</span>
-          <a href="mailto:proyectos@glasslb.com" class="gl-home_footer_link">proyectos@glasslb.com</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title" data-flwr-id="l10n-gl-visor-16">Contacto</span>
+          <a href="mailto:proyectos@glasslb.com" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-15">proyectos@glasslb.com</a>
           <a href="tel:+50761272034" class="gl-home_footer_link">+507 6127-2034</a>
-          <a href="https://wa.me/50761272034" class="gl-home_footer_link" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://wa.me/50761272034" class="gl-home_footer_link" target="_blank" rel="noopener" data-flwr-id="l10n-gl-visor-14">WhatsApp</a>
         </div>
         <div class="gl-home_footer_col">
-          <span class="gl-mono gl-mono_label gl-home_footer_col-title">Social</span>
-          <a href="https://www.instagram.com/glasslb_/" class="gl-home_footer_link" target="_blank" rel="noopener">Instagram</a>
-          <span class="gl-mono gl-mono_label gl-home_footer_col-title gl-home_footer_col-title_spaced">Legal</span>
-          <a href="legal-privacidad.html" class="gl-home_footer_link">Privacidad</a>
-          <a href="legal-terminos.html" class="gl-home_footer_link">Terminos</a>
-          <a href="legal-cookies.html" class="gl-home_footer_link">Cookies</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title" data-flwr-id="l10n-gl-visor-13">Social</span>
+          <a href="https://www.instagram.com/glasslb_/" class="gl-home_footer_link" target="_blank" rel="noopener" data-flwr-id="l10n-gl-visor-12">Instagram</a>
+          <span class="gl-mono gl-mono_label gl-home_footer_col-title gl-home_footer_col-title_spaced" data-flwr-id="l10n-gl-visor-11">Legal</span>
+          <a href="legal-privacidad.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-10">Privacidad</a>
+          <a href="legal-terminos.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-z">Terminos</a>
+          <a href="legal-cookies.html" class="gl-home_footer_link" data-flwr-id="l10n-gl-visor-y">Cookies</a>
         </div>
       </div>
       <div class="gl-home_footer_newsletter">
         <div>
-          <span class="gl-mono gl-mono_muted">NEWSLETTER</span>
-          <p class="u-text-style-main gl-mono_muted gl-home_footer_newsletter-desc">Vidrio, luz y material. Sin spam.</p>
+          <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-x">NEWSLETTER</span>
+          <p class="u-text-style-main gl-mono_muted gl-home_footer_newsletter-desc" data-flwr-id="l10n-gl-visor-w">Vidrio, luz y material. Sin spam.</p>
         </div>
         <div class="gl-home_footer_newsletter-form">
-          <input type="email" class="gl-filter-input gl-home_footer_newsletter-input" data-nl-input placeholder="tu@email.com" aria-label="Tu correo electrónico" autocomplete="email" required>
+          <input type="email" class="gl-filter-input gl-home_footer_newsletter-input" data-nl-input placeholder="tu@email.com" aria-label="Tu correo electrónico" autocomplete="email" required data-flwr-id="l10n-gl-visor-v">
           <div class="gl-btn_skew_wrap">
             <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
               <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
             </svg>
-            <button type="button" data-nl-submit class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">Suscribir &gt;&gt;&gt;</span></button>
+            <button type="button" data-nl-submit class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-u">Suscribir &gt;&gt;&gt;</span></button>
           </div>
         </div>
       </div>
       <div class="gl-home_footer_bottom">
-        <span class="gl-mono gl-mono_muted">2026 Glass Lab. Todos los derechos reservados.</span>
-        <span class="gl-mono gl-mono_muted">Designed by Van Alva</span>
+        <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-t">2026 Glass Lab. Todos los derechos reservados.</span>
+        <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-s">Designed by Van Alva</span>
       </div>
     </div>
   </footer>
@@ -412,61 +486,61 @@
     }
   }
   </script>
-  <script type="module" src="js/gl-visor-glass3d.js?v=3"></script>
+  <script type="module" src="js/gl-visor-glass3d.js?v=7"></script>
 
   <!-- FULLSCREEN MENU -->
-  <aside class="gl-dock" aria-label="Navegacion flotante">
+  <aside class="gl-dock" aria-label="Navegacion flotante" data-flwr-id="l10n-gl-visor-r">
     <div class="gl-dock_inner">
-      <a href="gl-index.html" class="gl-dock_logo" aria-label="Glass Lab — inicio">
+      <a href="gl-index.html" class="gl-dock_logo" aria-label="Glass Lab — inicio" data-flwr-id="l10n-gl-visor-q">
         <img src="assets/logos/gl-isologo-white.svg" alt="">
       </a>
       <span class="gl-dock_divider" aria-hidden="true"></span>
-      <a href="gl-catalogo.html" class="gl-dock_link">Catalogo</a>
-      <a href="gl-visor.html" class="gl-dock_link">Visor</a>
-      <a href="gl-contacto.html" class="gl-dock_link">Contacto</a>
+      <a href="gl-catalogo.html" class="gl-dock_link" data-flwr-id="l10n-gl-visor-p">Catalogo</a>
+      <a href="gl-visor.html" class="gl-dock_link" data-flwr-id="l10n-gl-visor-o">Visor</a>
+      <a href="gl-contacto.html" class="gl-dock_link" data-flwr-id="l10n-gl-visor-n">Contacto</a>
       <span class="gl-dock_divider" aria-hidden="true"></span>
       <div class="gl-dock_toggle_wrap">
-        <button type="button" class="gl-dock_toggle" aria-label="Mas opciones" aria-haspopup="menu">
+        <button type="button" class="gl-dock_toggle" aria-label="Mas opciones" aria-haspopup="menu" data-flwr-id="l10n-gl-visor-m">
           <span class="gl-dock_toggle_icon" aria-hidden="true"></span>
         </button>
         <div class="gl-dock_popover" role="menu">
-          <a href="gl-laboratorio.html" class="gl-dock_popover_link" role="menuitem">Estudio</a>
-          <a href="gl-instalaciones.html" class="gl-dock_popover_link" role="menuitem">Instalaciones</a>
-          <a href="gl-blog.html" class="gl-dock_popover_link" role="menuitem">Diario</a>
+          <a href="gl-laboratorio.html" class="gl-dock_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-l">Estudio</a>
+          <a href="gl-instalaciones.html" class="gl-dock_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-k">Instalaciones</a>
+          <a href="gl-blog.html" class="gl-dock_popover_link" role="menuitem" data-flwr-id="l10n-gl-visor-j">Diario</a>
         </div>
       </div>
     </div>
   </aside>
 
-  <div class="gl-menu u-theme-dark" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menu de navegacion">
+  <div class="gl-menu u-theme-dark" id="gl-menu" role="dialog" aria-modal="true" aria-label="Menu de navegacion" data-flwr-id="l10n-gl-visor-i">
     <div class="gl-menu_header">
-      <img src="assets/logos/gl-logotipo-h-white.svg" alt="Glass Lab" class="gl-menu_header-logo" style="height:1.5rem">
-      <button class="gl-menu_close" aria-label="Cerrar menu">
-        <span>Cerrar</span>
+      <img src="assets/logos/gl-logotipo-h-white.svg" alt="Glass Lab" class="gl-menu_header-logo" style="height:1.5rem" data-flwr-id="l10n-gl-visor-h">
+      <button class="gl-menu_close" aria-label="Cerrar menu" data-flwr-id="l10n-gl-visor-g">
+        <span data-flwr-id="l10n-gl-visor-f">Cerrar</span>
         <span class="gl-menu_close-icon"></span>
       </button>
     </div>
     <nav class="gl-menu_nav">
       <ul class="gl-menu_items">
-        <li class="gl-menu_item"><a href="gl-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-catalogo.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text">Catalogo</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-visor.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text">Visor</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-instalaciones.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text">Instalaciones</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text">Estudio</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-blog.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text">Diario</span><span class="gl-menu_link-arrow">→</span></a></li>
-        <li class="gl-menu_item"><a href="gl-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-index.html" class="gl-menu_link"><span class="gl-menu_link-num">01</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-e">Inicio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-catalogo.html" class="gl-menu_link"><span class="gl-menu_link-num">02</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-d">Catalogo</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-visor.html" class="gl-menu_link"><span class="gl-menu_link-num">03</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-c">Visor</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-instalaciones.html" class="gl-menu_link"><span class="gl-menu_link-num">04</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-b">Instalaciones</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-laboratorio.html" class="gl-menu_link"><span class="gl-menu_link-num">05</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-a">Estudio</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-blog.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-9">Diario</span><span class="gl-menu_link-arrow">→</span></a></li>
+        <li class="gl-menu_item"><a href="gl-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-8">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
         <!-- Chat lives in the menu instead of a floating launcher — the old
              button sat on top of the dock on mobile. gl-menu.js closes the
              menu and then clicks the off-screen [data-vanny-toggle]. -->
-        <li class="gl-menu_item"><button type="button" class="gl-menu_link" data-gl-chat><span class="gl-menu_link-num">08</span><span class="gl-menu_link-text">Chat</span><span class="gl-menu_link-arrow">&rarr;</span></button></li>
+        <li class="gl-menu_item"><button type="button" class="gl-menu_link" data-gl-chat><span class="gl-menu_link-num">08</span><span class="gl-menu_link-text" data-flwr-id="l10n-gl-visor-7">Chat</span><span class="gl-menu_link-arrow" data-flwr-id="l10n-gl-visor-6">&rarr;</span></button></li>
       </ul>
     </nav>
     <div class="gl-menu_footer">
       <div class="gl-menu_footer-brand">
-        <a href="pg-index.html" class="gl-menu_footer-link">Pernia Glass →</a>
-        <span class="gl-mono gl-mono_muted">Panama City, Panama</span>
+        <a href="pg-index.html" class="gl-menu_footer-link" data-flwr-id="l10n-gl-visor-5">Pernia Glass →</a>
+        <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-gl-visor-4">Panama City, Panama</span>
       </div>
-      <span class="gl-menu_footer-lang">ES / EN</span>
+      <span class="gl-menu_footer-lang flwr-locale-switcher_mount" data-flwr-id="l10n-gl-visor-3" data-flwr-locale-switcher><nav class="flwr-locale-switcher" aria-label="Language"><a href="gl-visor.html" hreflang="es" lang="es" title="Español" data-flwr-locale="es" class="flwr-locale-switcher_link is-current" aria-current="true">ES</a><span class="flwr-locale-switcher_sep" aria-hidden="true">/</span><a href="en/gl-visor.html" hreflang="en" lang="en" title="English" data-flwr-locale="en" class="flwr-locale-switcher_link">EN</a></nav></span>
     </div>
   </div>
   <!-- GSAP -->
@@ -482,9 +556,9 @@
        <=991px via .vanny-widget-launch, where chat is reached from the "Chat"
        entry in the fullscreen menu instead. That menu item clicks this same
        [data-vanny-toggle]; the widget shows/hides this element itself. -->
-  <button type="button" class="gl-btn_skew_wrap gl-btn_skew_wrap_brand vanny-widget-launch" data-vanny-toggle aria-label="Hablar con GL">
+  <button type="button" class="gl-btn_skew_wrap gl-btn_skew_wrap_brand vanny-widget-launch" data-vanny-toggle aria-label="Hablar con GL" data-flwr-id="l10n-gl-visor-2">
     <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
-    <span class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm">GL &mdash; CHAT</span></span>
+    <span class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-gl-visor-1">GL &mdash; CHAT</span></span>
   </button>
   <script src="https://vanny.chat/vanny-widget.js" data-tenant="glass-lab" async></script>
 </body>

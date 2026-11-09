@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<script>window.__FLWR_BASE__="../";</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modals and Pop-ups | Glass Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css?v=3703e9fe">
+  <link rel="stylesheet" href="../css/project.css?v=f91c10b3">
+</head>
+<body class="u-theme-dark">
+
+  <!-- ============================================================ -->
+  <!-- PAGE HEADER                                                   -->
+  <!-- ============================================================ -->
+  <header class="gl-modal_page-header">
+    <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-modals-1a">Component reference</span>
+    <h1 class="gl-modal_page-title" data-flwr-id="l10n-modals-19">Modals and Pop-ups</h1>
+    <p class="gl-modal_page-desc" data-flwr-id="l10n-modals-18">Reference for every modal and pop-up on the site. Dark mode (GL style). Each modal is shown inside a placeholder backdrop simulating the overlay.</p>
+  </header>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 1: COOKIE CONSENT BANNER                               -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label" data-flwr-id="l10n-modals-17">01 // Modal</span>
+        <h2 class="gl-modal_ref_heading" data-flwr-id="l10n-modals-16">Cookie Consent Banner</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc" data-flwr-id="l10n-modals-15">Fixed bottom bar — appears on first visit — GDPR + CCPA compliance</span>
+      </div>
+
+      <div class="gl-modal_backdrop gl-modal_backdrop-bottom">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label" data-flwr-id="l10n-modals-14">PAGE CONTENT (DIMMED BACKGROUND)</span>
+
+        <!-- Cookie banner -->
+        <div class="gl-modal_banner">
+          <div class="gl-modal_banner_text">
+            <span class="gl-mono" data-flwr-id="l10n-modals-13">This site uses cookies to improve your experience. By continuing to browse, you accept our cookie policy.</span>
+            <a href="legal-cookies.html" class="gl-mono gl-mono_muted" data-flwr-id="l10n-modals-12">See cookie policy</a>
+          </div>
+          <div class="gl-modal_banner_actions">
+            <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-modals-11">Accept</span>
+              </a>
+            </div>
+            <div class="gl-btn_skew_wrap">
+              <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <a href="#" class="gl-btn_skew_element gl-btn_skew_element_sm">
+                <span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-modals-10">Configure</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 2: CATALOG DOWNLOAD                                    -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label" data-flwr-id="l10n-modals-z">02 // Modal</span>
+        <h2 class="gl-modal_ref_heading" data-flwr-id="l10n-modals-y">Catalogue Download</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc" data-flwr-id="l10n-modals-x">Overlay centrado — triggered from CTA buttons — delivers PDF via email — adds to newsletter list</span>
+      </div>
+
+      <div class="gl-modal_backdrop">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label" data-flwr-id="l10n-modals-w">PAGE CONTENT (DIMMED BACKGROUND)</span>
+
+        <!-- Catalog download modal -->
+        <div class="gl-modal_card">
+          <div class="gl-modal_close" data-flwr-id="l10n-modals-v">X</div>
+
+          <h3 class="gl-modal_card_title" data-flwr-id="l10n-modals-u">Download the full catalogue</h3>
+          <p class="gl-mono gl-mono_muted gl-modal_card_desc" data-flwr-id="l10n-modals-t">Enter your details to receive the catalogue as a PDF.</p>
+
+          <div class="gl-modal_form">
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-s">Name *</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-r">Juan Perez</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-q">Email *</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-p">juan@email.com</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-o">Company (optional)</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-n">Studio Arquitectura</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-m">Role</span>
+              <div class="gl-modal_form-select">
+                <span data-flwr-id="l10n-modals-l">Architect / Designer / Developer / Other</span>
+                <span class="gl-mono gl-mono_muted" data-flwr-id="l10n-modals-k">v</span>
+              </div>
+            </div>
+            <div class="gl-modal_form-submit">
+              <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                  <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <a href="#" class="gl-btn_skew_element">
+                  <span class="gl-btn_skew_text" data-flwr-id="l10n-modals-j">Download PDF &gt;&gt;&gt;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MODAL 3: QUICK CONTACT / SAMPLE REQUEST                      -->
+    <!-- ============================================================ -->
+    <section class="gl-modal_ref">
+      <div class="gl-modal_ref_header">
+        <span class="gl-mono gl-mono_muted gl-modal_ref_header-label" data-flwr-id="l10n-modals-i">03 // Modal</span>
+        <h2 class="gl-modal_ref_heading" data-flwr-id="l10n-modals-h">Request a Sample / Quick Enquiry</h2>
+        <span class="gl-mono gl-mono_label gl-modal_ref_desc" data-flwr-id="l10n-modals-g">Centred overlay — opens from the glass sheets and the viewer — routes to proyectos@glasslb.com</span>
+      </div>
+
+      <div class="gl-modal_backdrop">
+        <!-- Simulated page content behind -->
+        <span class="gl-mono gl-mono_label gl-modal_backdrop_label" data-flwr-id="l10n-modals-f">PAGE CONTENT (DIMMED BACKGROUND)</span>
+
+        <!-- Quick contact / sample request modal -->
+        <div class="gl-modal_card gl-modal_card-wide">
+          <div class="gl-modal_close" data-flwr-id="l10n-modals-e">X</div>
+
+          <h3 class="gl-modal_card_title" data-flwr-id="l10n-modals-d">Request a sample</h3>
+          <p class="gl-mono gl-mono_muted gl-modal_card_desc" data-flwr-id="l10n-modals-c">Fill in the form and we will get in touch.</p>
+
+          <div class="gl-modal_form">
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-b">Name *</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-a">Full name</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-9">Email *</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-8">email@example.com</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-7">Phone</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-6">+507 XXX XXXX</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-5">Glass type</span>
+              <div class="gl-modal_form-input" data-flwr-id="l10n-modals-4">Af — Afrodita</div>
+            </div>
+            <div class="gl-modal_form-field">
+              <span class="gl-mono gl-mono_label" data-flwr-id="l10n-modals-3">Message</span>
+              <div class="gl-modal_form-textarea" data-flwr-id="l10n-modals-2">Describe your project or enquiry...</div>
+            </div>
+            <div class="gl-modal_form-submit">
+              <div class="gl-btn_skew_wrap gl-btn_skew_wrap_filled">
+                <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none">
+                  <path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <a href="#" class="gl-btn_skew_element">
+                  <span class="gl-btn_skew_text" data-flwr-id="l10n-modals-1">Send request &gt;&gt;&gt;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
