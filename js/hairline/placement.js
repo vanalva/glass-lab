@@ -3,7 +3,7 @@
 (function () {
   "use strict";
   // Works with file names (pg-sistemas.html) and with the clean URLs the live sites use (/sistemas).
-  var page = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "");
+  var page = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
   if (page === "index") page = "pg-index";
   if (!/^pg-/.test(page)) page = "pg-" + page;
   var qs = new URLSearchParams(location.search);
@@ -81,7 +81,7 @@
       if (sw2) addSlot(sw2.parentNode, "before", "perfiles", "Figura // Nueve acabados", { ref: sw2, flush: true });
     } else if (page === "pg-mobiliario") {
       $$(".pg-mob_feature").forEach(function (sec) {
-        var a = $("a[href*='pg-mueble.html']", sec);
+        var a = $("a[href*='mueble']", sec);
         var m = a && a.getAttribute("href").match(/slug=([^&]+)/);
         var f = m && pieceFig(m[1]);
         var inner = $(".pg-mob_feature_inner", sec);
