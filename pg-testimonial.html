@@ -37,7 +37,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css?v=3703e9fe">
-  <link rel="stylesheet" href="css/project.css?v=65a911af">
+  <link rel="stylesheet" href="css/project.css?v=ef09bebe">
 <style id="gl-pt-styles">::view-transition-image-pair(root) { isolation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { z-index: 1; }
@@ -619,10 +619,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <li class="gl-menu_item"><a href="pg-recursos.html" class="gl-menu_link"><span class="gl-menu_link-num">06</span><span class="gl-menu_link-text" data-flwr-id="l10n-pg-index-9">Recursos</span><span class="gl-menu_link-arrow">→</span></a></li>
           <li class="gl-menu_item"><a href="pg-nosotros.html" class="gl-menu_link"><span class="gl-menu_link-num">07</span><span class="gl-menu_link-text" data-flwr-id="l10n-pg-index-8">Nosotros</span><span class="gl-menu_link-arrow">→</span></a></li>
           <li class="gl-menu_item"><a href="pg-contacto.html" class="gl-menu_link"><span class="gl-menu_link-num">08</span><span class="gl-menu_link-text" data-flwr-id="l10n-pg-index-7">Contacto</span><span class="gl-menu_link-arrow">→</span></a></li>
-          <!-- Chat lives in the menu instead of a floating launcher — the old
-               button sat on top of the dock on mobile. gl-menu.js closes the
-               menu and then clicks the off-screen [data-vanny-toggle]. -->
-          <li class="gl-menu_item"><button type="button" class="gl-menu_link" data-gl-chat=""><span class="gl-menu_link-num">09</span><span class="gl-menu_link-text" data-flwr-id="l10n-pg-index-6">Chat</span><span class="gl-menu_link-arrow">→</span></button></li>
         </ul>
       </nav>
       <div class="gl-menu_thumbs gl-menu_thumbs--right" aria-hidden="true">
@@ -638,7 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <span class="gl-menu_footer-lang flwr-locale-switcher_mount" data-flwr-id="l10n-pg-index-3" data-flwr-locale-switcher><nav class="flwr-locale-switcher" aria-label="Language"><a href="pg-testimonial.html" hreflang="es" lang="es" title="Español" data-flwr-locale="es" class="flwr-locale-switcher_link is-current" aria-current="true">ES</a><span class="flwr-locale-switcher_sep" aria-hidden="true">/</span><a href="en/pg-testimonial.html" hreflang="en" lang="en" title="English" data-flwr-locale="en" class="flwr-locale-switcher_link">EN</a></nav></span>
     </div>
   </div>
-  <script src="js/gl-menu.js?v=6026605e"></script>
+  <script src="js/gl-menu.js?v=7bcdfa99"></script>
   <!-- Shared photo viewer — opt-in via data-gl-lightbox (see gl-lightbox.js) -->
   <script src="js/gl-lightbox.js?v=54dd6498"></script>
   <script src="js/gl-interactions.js?v=5e94091b"></script>
@@ -646,15 +642,5 @@ document.addEventListener("DOMContentLoaded", function () {
   <script src="js/gl-preloader.js?v=d33052c5"></script>
 <script src="js/gl-theme-transition.js?v=00a7fb22"></script>
   <script src="js/newsletter.js?v=6d3257eb"></script>
-  <!-- vanny-widget -->
-  <!-- vanny chat launcher: floating GL-CHAT button, DESKTOP ONLY. Hidden at
-       <=991px via .vanny-widget-launch, where chat is reached from the "Chat"
-       entry in the fullscreen menu instead. That menu item clicks this same
-       [data-vanny-toggle]; the widget shows/hides this element itself. -->
-  <button type="button" class="gl-btn_skew_wrap gl-btn_skew_wrap_brand vanny-widget-launch" data-vanny-toggle="" aria-label="Hablar con nosotros" aria-hidden="false" style="transition: opacity 0.25s, transform 0.25s;" data-flwr-id="l10n-pg-index-2">
-    <svg class="gl-btn_skew_shape" viewBox="0 0 240 56" preserveAspectRatio="none" fill="none"><path d="M16,1 L239,1 L239,42 L224,55 L1,55 L1,14 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"></path></svg>
-    <span class="gl-btn_skew_element gl-btn_skew_element_sm"><span class="gl-btn_skew_text gl-btn_skew_text_sm" data-flwr-id="l10n-pg-index-1">CHAT</span></span>
-  </button>
-  <script src="https://vanny.chat/vanny-widget.js" data-tenant="glass-lab" async=""></script>
 <script src="js/pg-reel.js?v=9936fb7f"></script>
 </body></html>
